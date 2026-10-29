@@ -4,7 +4,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Unicase:wght@500;600;700&family=Philosopher:ital,wght@0,400;0,700;1,400&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Unicase:wght@500;600;700&family=Philosopher:ital,wght@0,400;0,700;1,400&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Sans+Symbols:wght@400;600&family=Noto+Sans+Symbols+2&display=swap">
 <style>
 /* Layout: một cột trung tâm như cuốn sổ lá số sơn mài; lá số 4×4 là trái tim của trang */
 :root{
@@ -280,7 +280,7 @@ body[data-page="chiem-tinh"] .seal{border-color:var(--gold);color:var(--gold)}
 .ct-head{text-align:center;display:flex;flex-direction:column;gap:6px;margin:12px 0 26px}
 .ct-head h2{font-size:2.2rem;letter-spacing:.04em;color:var(--gold);text-shadow:0 0 20px rgba(226,196,126,.3)}
 .ct-head .eyebrow{color:var(--accent2);letter-spacing:.32em}
-.ct-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;max-width:820px;margin:0 auto}
+.ct-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;max-width:1040px;margin:0 auto}
 .ct-card{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:28px 22px;border-radius:12px;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:transform .25s,border-color .25s,box-shadow .25s}
 .ct-card:hover,.ct-card:focus-visible{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 0 30px rgba(226,196,126,.18);outline:none}
 .ct-card svg{width:96px;height:96px}
@@ -296,6 +296,60 @@ body[data-page="chiem-tinh"] .seal{border-color:var(--gold);color:var(--gold)}
 .ct-sub span{color:var(--muted)}
 body[data-page="tarot"] .ct-sub a[aria-current="page"]{color:#0a1028}
 body[data-page="than-so"] .ct-sub a[aria-current="page"]{color:#1a1033}
+
+/* ===== 12 Cung Hoàng Đạo: đêm xanh thẳm, vòng hoàng đạo bạc ===== */
+:root{--zf:#c2452f;--ze:#6f8a3a;--za:#3f86b8;--zw:#5b4fb0}
+body[data-page="hoang-dao"]{
+ --bg:#061220;--surface:rgba(10,28,46,.74);--sunk:rgba(40,80,120,.35);--ink:#e9f1f6;--muted:#96acbd;--line:rgba(140,200,230,.22);
+ --seal:#e9c97d;--gold:#e9c97d;--good:#8fd6b8;--bad:#f2948a;--warn:#f0c374;--accent2:#7fd3e6;--zf:#ff8a6a;--ze:#b5d27a;--za:#8fd0ff;--zw:#b9a8ff;
+ --f-display:"Cormorant Garamond",Georgia,serif;color-scheme:dark;
+ background:radial-gradient(900px 600px at 50% -10%,#123a5c 0%,transparent 60%),radial-gradient(700px 600px at 100% 80%,#1a2160 0%,transparent 60%),linear-gradient(180deg,#071628,#050c18);background-attachment:fixed}
+body[data-page="hoang-dao"] .fx-sky,body[data-page="hoang-dao"] .fx-zd{display:block}
+.fx-zd{display:none;position:fixed;inset:0;z-index:0;pointer-events:none}
+.fx-zd svg{position:absolute;width:min(140vw,1200px);height:auto;left:50%;top:55%;transform:translate(-50%,-50%);opacity:.16}
+.fx-zd .zring{transform-origin:0 0;animation:spin 400s linear infinite}
+.fx-zd circle,.fx-zd line{fill:none;stroke:#cfe6f5;stroke-width:1.2}.fx-zd text{fill:#e9c97d;font-size:46px;text-anchor:middle;font-family:"Noto Sans Symbols","Noto Sans Symbols 2","Segoe UI Symbol",sans-serif}
+body[data-page="hoang-dao"] nav.tabs a{color:var(--muted)}
+body[data-page="hoang-dao"] nav.tabs a[aria-current="page"]{color:var(--ink);background:var(--surface);border-color:var(--line);box-shadow:inset 0 2px 0 var(--gold)}
+body[data-page="hoang-dao"] .seal{border-color:var(--gold);color:var(--gold)}
+body[data-page="hoang-dao"] .panel,body[data-page="hoang-dao"] .card{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+body[data-page="hoang-dao"] .eyebrow{color:var(--accent2);letter-spacing:.2em}
+body[data-page="hoang-dao"] h2,body[data-page="hoang-dao"] h3{font-weight:700;letter-spacing:.01em}
+body[data-page="hoang-dao"] .btn{background:linear-gradient(135deg,#e9c97d,#c99b4a);color:#081624}
+body[data-page="hoang-dao"] input,body[data-page="hoang-dao"] select{background:rgba(5,12,24,.6)}
+body[data-page="hoang-dao"] .ct-sub a[aria-current="page"]{color:#081624}
+body[data-page="hoang-dao"] .subtabs button[aria-selected="true"]{background:var(--gold);color:#081624;border-color:var(--gold)}
+body[data-page="hoang-dao"] .hero-num .big{color:var(--gold);text-shadow:0 0 24px rgba(233,201,125,.35)}
+body[data-page="hoang-dao"] .strip .bar{background:rgba(5,12,24,.5)}
+.zg{font-family:"Noto Sans Symbols","Noto Sans Symbols 2","Segoe UI Symbol","Apple Symbols",sans-serif;font-variant-emoji:text}
+label .opt{font-weight:500;letter-spacing:0;color:var(--muted);opacity:.75;font-size:.72rem}
+label .req{color:var(--bad)}
+label.chk{flex-direction:row;align-items:center;gap:8px;font-weight:500;letter-spacing:0}
+label.chk input{width:auto}
+.tbl.zct{min-width:600px}
+.zerr{grid-column:1/-1;color:var(--bad);font-weight:600;margin:0}
+.zhero{flex-direction:row;flex-wrap:wrap;align-items:center;gap:22px}
+.zbig{font-family:"Noto Sans Symbols","Noto Sans Symbols 2","Segoe UI Symbol",sans-serif;font-size:6.5rem;line-height:1;width:150px;height:150px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--line);background:radial-gradient(circle,color-mix(in srgb,currentColor 18%,transparent),transparent 70%);text-shadow:0 0 24px currentColor}
+.zkw{font-family:var(--f-display);font-size:1.25rem;font-style:italic;color:var(--gold)}
+.zel0{color:var(--zf)}.zel1{color:var(--ze)}.zel2{color:var(--za)}.zel3{color:var(--zw)}
+.zthree{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.zthree h3 .zg{font-size:1.4rem;color:var(--gold)}
+.zlock{font-style:italic}
+.zchart{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start}
+.zwheel{width:min(340px,100%);height:auto;flex:0 0 auto;max-width:100%}
+.zw-o{fill:none;stroke:var(--line);stroke-width:1}.zw-i{fill:color-mix(in srgb,var(--bg) 60%,transparent);stroke:var(--line)}
+.zw-h{stroke:var(--line);stroke-dasharray:2 3}.zw-hn{fill:var(--muted);font-size:9px;text-anchor:middle;font-family:var(--f-body)}
+.zw-g{font-size:17px;text-anchor:middle;font-family:"Noto Sans Symbols","Noto Sans Symbols 2","Segoe UI Symbol",sans-serif}
+.zw-g.zel0{fill:var(--zf)}.zw-g.zel1{fill:var(--ze)}.zw-g.zel2{fill:var(--za)}.zw-g.zel3{fill:var(--zw)}
+.zw-p{fill:var(--gold);font-size:16px;text-anchor:middle;font-family:"Noto Sans Symbols","Noto Sans Symbols 2","Segoe UI Symbol",sans-serif}
+.zw-tick{stroke:var(--gold);stroke-width:1.2}
+.zw-ax{stroke:var(--accent2,var(--gold));stroke-width:1.4}.zw-axt{fill:var(--accent2,var(--gold));font-size:9px;font-weight:700;text-anchor:middle;font-family:var(--f-body)}
+.zbars{display:flex;flex-direction:column;gap:6px}
+.zbars div{display:grid;grid-template-columns:52px 1fr 44px;align-items:center;gap:10px;font-size:.88rem;font-variant-numeric:tabular-nums}
+.zbars i{display:block;height:10px;border-radius:99px;min-width:4px}
+.zel-bg0{background:var(--zf)}.zel-bg1{background:var(--ze)}.zel-bg2{background:var(--za)}.zel-bg3{background:var(--zw)}
+@media (max-width:560px){.zbig{width:110px;height:110px;font-size:4.6rem}}
+@media (prefers-reduced-motion:reduce){.fx-zd .zring{animation:none}}
 </style></head><body>
 <div class="gate" id="gate" role="dialog" aria-modal="true" aria-label="Mở đầu">
  <div id="gIntro"><div class="brandmark" aria-label="PHITANG"><span style="animation-delay:0.00s">P</span><span style="animation-delay:0.12s">H</span><span style="animation-delay:0.24s">I</span><span style="animation-delay:0.36s">T</span><span style="animation-delay:0.48s">A</span><span style="animation-delay:0.60s">N</span><span style="animation-delay:0.72s">G</span></div><div class="brandline"></div><div class="brandsub">Huyền Cơ · Tử vi · Thần số · Tarot</div></div>
@@ -336,17 +390,19 @@ body[data-page="than-so"] .ct-sub a[aria-current="page"]{color:#1a1033}
 <!-- THẦN SỐ -->
 <!-- CHIÊM TINH -->
 <section class="page" id="p-chiem-tinh" hidden>
- <div class="ct-head"><div class="eyebrow">Chiêm Tinh</div><h2>Bạn muốn xem gì hôm nay?</h2><p class="muted">Chọn một môn để bắt đầu.</p></div>
+ <div class="ct-head"><div class="eyebrow">Chiêm Tinh</div><h2>Bạn muốn xem gì hôm nay?</h2><p class="muted">Chọn một trong ba môn để bắt đầu.</p></div>
  <div class="ct-grid">
   <a class="ct-card" href="#than-so"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" class="ct-l"/><circle cx="60" cy="60" r="34" class="ct-l"/><polygon points="60,10 89.4,95.5 13.4,42.7 106.6,42.7 30.6,95.5" class="ct-l"/><text x="60" y="72" text-anchor="middle" class="ct-n">9</text></svg>
    <h3>Thần Số Học</h3><p>Giải mã con số trong họ tên và ngày sinh: số chủ đạo, sứ mệnh, linh hồn, chu kỳ năm và tháng cá nhân.</p><span class="ct-go">Xem thần số →</span></a>
   <a class="ct-card" href="#tarot"><svg viewBox="0 0 120 120" aria-hidden="true"><rect x="34" y="16" width="52" height="88" rx="6" class="ct-l"/><path d="M66,42A18,18 0 1,0 66,78A22,22 0 0,1 66,42z" class="ct-f"/><circle cx="48" cy="34" r="2" class="ct-f"/><circle cx="74" cy="88" r="2" class="ct-f"/><circle cx="46" cy="84" r="1.5" class="ct-f"/></svg>
    <h3>Tarot</h3><p>Rút ngẫu nhiên từ bộ 78 lá theo trải 1, 3 hoặc 5 lá và giải mã vận mệnh tương lai gần.</p><span class="ct-go">Rút bài →</span></a>
+  <a class="ct-card" href="#hoang-dao"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" class="ct-l"/><circle cx="60" cy="60" r="38" class="ct-l"/><line x1="98.0" y1="60.0" x2="112.0" y2="60.0" class="ct-l"/><line x1="92.9" y1="79.0" x2="105.0" y2="86.0" class="ct-l"/><line x1="79.0" y1="92.9" x2="86.0" y2="105.0" class="ct-l"/><line x1="60.0" y1="98.0" x2="60.0" y2="112.0" class="ct-l"/><line x1="41.0" y1="92.9" x2="34.0" y2="105.0" class="ct-l"/><line x1="27.1" y1="79.0" x2="15.0" y2="86.0" class="ct-l"/><line x1="22.0" y1="60.0" x2="8.0" y2="60.0" class="ct-l"/><line x1="27.1" y1="41.0" x2="15.0" y2="34.0" class="ct-l"/><line x1="41.0" y1="27.1" x2="34.0" y2="15.0" class="ct-l"/><line x1="60.0" y1="22.0" x2="60.0" y2="8.0" class="ct-l"/><line x1="79.0" y1="27.1" x2="86.0" y2="15.0" class="ct-l"/><line x1="92.9" y1="41.0" x2="105.0" y2="34.0" class="ct-l"/><circle cx="60" cy="60" r="9" class="ct-f"/><path d="M60,26v8M60,86v8M26,60h8M86,60h8" class="ct-l"/></svg>
+   <h3>12 Cung Hoàng Đạo</h3><p>Bản đồ sao theo ngày sinh: tính cách, công việc, sở trường, vận hạn từng tháng và độ hợp nhau trong tình yêu.</p><span class="ct-go">Xem cung hoàng đạo →</span></a>
  </div>
 </section>
 
 <section class="page" id="p-than-so" hidden>
- <nav class="ct-sub" aria-label="Chiêm Tinh"><a href="#chiem-tinh" class="ct-back">Chiêm Tinh</a><span aria-hidden="true">›</span><a href="#than-so" aria-current="page">Thần Số Học</a><a href="#tarot">Tarot</a></nav>
+ <nav class="ct-sub" aria-label="Chiêm Tinh"><a href="#chiem-tinh" class="ct-back">Chiêm Tinh</a><span aria-hidden="true">›</span><a href="#than-so" aria-current="page">Thần Số Học</a><a href="#tarot">Tarot</a><a href="#hoang-dao">12 Cung Hoàng Đạo</a></nav>
  <form class="panel form" id="nsForm" autocomplete="off">
   <label class="wide">Họ và tên khai sinh (đầy đủ)<input id="nsName" required></label>
   <label>Ngày sinh (dương lịch)<input type="date" id="nsDate" required min="1900-01-01" max="2100-12-31"></label>
@@ -355,9 +411,17 @@ body[data-page="than-so"] .ct-sub a[aria-current="page"]{color:#1a1033}
  <div id="nsOut"></div>
 </section>
 
+<!-- 12 CUNG HOÀNG ĐẠO -->
+<section class="page" id="p-hoang-dao" hidden>
+ <nav class="ct-sub" aria-label="Chiêm Tinh"><a href="#chiem-tinh" class="ct-back">Chiêm Tinh</a><span aria-hidden="true">›</span><a href="#than-so">Thần Số Học</a><a href="#tarot">Tarot</a><a href="#hoang-dao" aria-current="page">12 Cung Hoàng Đạo</a></nav>
+ <form class="panel form" id="zdForm" autocomplete="off"></form>
+ <p class="note">Chỉ cần ngày và tháng sinh là xem được. Thêm năm sinh để tính Mặt Trăng và các hành tinh; thêm giờ và nơi sinh để tính cung Mọc, Thiên Đỉnh và 12 nhà, giúp luận giải chính xác hơn.</p>
+ <div id="zdOut"></div>
+</section>
+
 <!-- TAROT -->
 <section class="page" id="p-tarot" hidden>
- <nav class="ct-sub" aria-label="Chiêm Tinh"><a href="#chiem-tinh" class="ct-back">Chiêm Tinh</a><span aria-hidden="true">›</span><a href="#than-so">Thần Số Học</a><a href="#tarot" aria-current="page">Tarot</a></nav>
+ <nav class="ct-sub" aria-label="Chiêm Tinh"><a href="#chiem-tinh" class="ct-back">Chiêm Tinh</a><span aria-hidden="true">›</span><a href="#than-so">Thần Số Học</a><a href="#tarot" aria-current="page">Tarot</a><a href="#hoang-dao">12 Cung Hoàng Đạo</a></nav>
  <form class="panel form" id="trForm" autocomplete="off">
   <label class="wide">Câu hỏi của bạn (không bắt buộc)<input id="trQ" placeholder="Ví dụ: Công việc của tôi trong 3 tháng tới?"></label>
   <label>Chủ đề<select id="trTopic"><option value="chung">Tổng quát</option><option value="tinhyeu">Tình yêu</option><option value="congviec">Công việc</option><option value="taichinh">Tài chính</option></select></label>
@@ -716,8 +780,8 @@ const HOA_SHORT={'Hóa Lộc':'Lộc','Hóa Quyền':'Quyền','Hóa Khoa':'Khoa
 const hoaBadge=s=>s.hoa.map(h=>`<span class="hoa ${HOA_CLS[h]}">${HOA_SHORT[h]}</span>`).join('');
 
 // ---------- routing ----------
-const PAGES=['tu-vi','chiem-tinh','than-so','tarot'];
-function route(){const h=location.hash.slice(1);const p=PAGES.includes(h)?h:'tu-vi';document.body.dataset.page=p;setTimeout(()=>{try{if(window.skyStart)skyStart(p==='tarot'||p==='chiem-tinh');}catch(e){}},0);PAGES.forEach(x=>{$('#p-'+x).hidden=x!==p;});const top=p==='tu-vi'?'tu-vi':'chiem-tinh';document.querySelectorAll('nav.tabs a').forEach(a=>{if(a.dataset.page===top)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});}
+const PAGES=['tu-vi','chiem-tinh','than-so','tarot','hoang-dao'];
+function route(){const h=location.hash.slice(1);const p=PAGES.includes(h)?h:'tu-vi';document.body.dataset.page=p;setTimeout(()=>{try{if(window.skyStart)skyStart(p==='tarot'||p==='chiem-tinh'||p==='hoang-dao');}catch(e){}},0);PAGES.forEach(x=>{$('#p-'+x).hidden=x!==p;});const top=p==='tu-vi'?'tu-vi':'chiem-tinh';document.querySelectorAll('nav.tabs a').forEach(a=>{if(a.dataset.page===top)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});}
 window.addEventListener('hashchange',route);
 
 // ================= TỬ VI =================
@@ -1095,7 +1159,321 @@ addEventListener('resize',()=>{if(on){setup();if(reduce)draw(0);}});})();
  document.getElementById('gNo').onclick=()=>{try{localStorage.setItem('hc_age','no');}catch(e){}document.getElementById('gAge').hidden=true;document.getElementById('gBye').hidden=false;document.getElementById('gExit').focus();};
  document.getElementById('gExit').onclick=()=>{try{if(window.Android&&Android.exitApp){Android.exitApp();return;}}catch(e){}try{window.close();}catch(e){}document.getElementById('gExitNote').hidden=false;};
 })();
-route();initTV();initNS();initTarot();
+// ===== CHIÊM TINH PHƯƠNG TÂY: thiên văn (thuật toán Paul Schlyter) =====
+const ZR=Math.PI/180,zn=x=>((x%360)+360)%360,zm=(a,n=12)=>((a%n)+n)%n;
+function zJD(y,m,d,hUT){if(m<=2){y-=1;m+=12;}const A=Math.floor(y/100),B=2-A+Math.floor(A/4);return Math.floor(365.25*(y+4716))+Math.floor(30.6001*(m+1))+d+B-1524.5+hUT/24;}
+function zKep(M,e){const Mr=M*ZR;let E=Mr+e*Math.sin(Mr)*(1+e*Math.cos(Mr));for(let k=0;k<8;k++)E=E-(E-e*Math.sin(E)-Mr)/(1-e*Math.cos(E));return E;}
+function zSun(d){const w=282.9404+4.70935e-5*d,e=0.016709-1.151e-9*d,M=zn(356.0470+0.9856002585*d);const E=zKep(M,e);
+ const xv=Math.cos(E)-e,yv=Math.sqrt(1-e*e)*Math.sin(E),v=Math.atan2(yv,xv)/ZR,r=Math.hypot(xv,yv),lon=zn(v+w);
+ return{lon,r,x:r*Math.cos(lon*ZR),y:r*Math.sin(lon*ZR),M,L:zn(w+M)};}
+const ZEL={mercury:[48.3313,3.24587e-5,7.0047,5e-8,29.1241,1.01444e-5,0.387098,0.205635,5.59e-10,168.6562,4.0923344368],
+ venus:[76.6799,2.46590e-5,3.3946,2.75e-8,54.8910,1.38374e-5,0.723330,0.006773,-1.302e-9,48.0052,1.6021302244],
+ mars:[49.5574,2.11081e-5,1.8497,-1.78e-8,286.5016,2.92961e-5,1.523688,0.093405,2.516e-9,18.6021,0.5240207766],
+ jupiter:[100.4542,2.76854e-5,1.3030,-1.557e-7,273.8777,1.64505e-5,5.20256,0.048498,4.469e-9,19.8950,0.0830853001],
+ saturn:[113.6634,2.38980e-5,2.4886,-1.081e-7,339.3939,2.97661e-5,9.55475,0.055546,-9.499e-9,316.9670,0.0334442282]};
+function zOrbit(N,i,w,a,e,M){const E=zKep(M,e);const xv=a*(Math.cos(E)-e),yv=a*Math.sqrt(1-e*e)*Math.sin(E),v=Math.atan2(yv,xv)/ZR,r=Math.hypot(xv,yv);
+ const vw=(v+w)*ZR,Nr=N*ZR,ir=i*ZR;return{x:r*(Math.cos(Nr)*Math.cos(vw)-Math.sin(Nr)*Math.sin(vw)*Math.cos(ir)),y:r*(Math.sin(Nr)*Math.cos(vw)+Math.cos(Nr)*Math.sin(vw)*Math.cos(ir)),z:r*Math.sin(vw)*Math.sin(ir),r};}
+function zPlanet(k,d){const q=ZEL[k];const M=zn(q[9]+q[10]*d);let h=zOrbit(q[0]+q[1]*d,q[2]+q[3]*d,q[4]+q[5]*d,q[6],q[7]+q[8]*d,M);
+ if(k==='jupiter'||k==='saturn'){const Mj=zn(19.8950+0.0830853001*d)*ZR,Ms=zn(316.9670+0.0334442282*d)*ZR,s=x=>Math.sin(x*ZR),c=x=>Math.cos(x*ZR),J=Mj/ZR,S=Ms/ZR;
+  const dl=k==='jupiter'?-0.332*s(2*J-5*S-67.6)-0.056*s(2*J-2*S+21)+0.042*s(3*J-5*S+21)-0.036*s(J-2*S)+0.022*c(J-S)+0.023*s(2*J-3*S+52)-0.016*s(J-5*S-69)
+   :0.812*s(2*J-5*S-67.6)-0.229*c(2*J-4*S-2)+0.119*s(J-2*S-3)+0.046*s(2*J-6*S-69)+0.014*s(J-3*S+32);
+  const lon=Math.atan2(h.y,h.x)+dl*ZR,lat=Math.atan2(h.z,Math.hypot(h.x,h.y));h={x:h.r*Math.cos(lat)*Math.cos(lon),y:h.r*Math.cos(lat)*Math.sin(lon),z:h.r*Math.sin(lat),r:h.r};}
+ const S=zSun(d);return zn(Math.atan2(h.y+S.y,h.x+S.x)/ZR);}
+function zMoon(d){const N=125.1228-0.0529538083*d,w=318.0634+0.1643573223*d,M=zn(115.3654+13.0649929509*d);const g=zOrbit(N,5.1454,w,60.2666,0.0549,M);
+ let lon=Math.atan2(g.y,g.x)/ZR;const S=zSun(d),Ms=S.M,Lm=zn(N+w+M),D=Lm-S.L,F=Lm-N,s=x=>Math.sin(x*ZR);
+ lon+=-1.274*s(M-2*D)+0.658*s(2*D)-0.186*s(Ms)-0.059*s(2*M-2*D)-0.057*s(M-2*D+Ms)+0.053*s(M+2*D)+0.046*s(2*D-Ms)+0.041*s(M-Ms)-0.035*s(D)-0.031*s(M+Ms)-0.015*s(2*F-2*D)+0.011*s(M-4*D);
+ return zn(lon);}
+const ZPL=['sun','moon','mercury','venus','mars','jupiter','saturn'];
+function zLon(k,d){return k==='sun'?zSun(d).lon:k==='moon'?zMoon(d):zPlanet(k,d);}
+function zPositions(jd){const d=jd-2451543.5,o={};ZPL.forEach(k=>{const l=zLon(k,d);let rx=false;if(k!=='sun'&&k!=='moon'){const a=zLon(k,d-0.5),b=zLon(k,d+0.5);rx=zn(b-a+180)-180<0;}o[k]={lon:l,sign:Math.floor(l/30),deg:l%30,rx};});return o;}
+function zAngles(jd,lat,lonE){const d=jd-2451543.5,S=zSun(d),UT=((jd+0.5)%1+1)%1*24;const R=zn(S.L+180+UT*15+lonE)*ZR,eps=(23.4393-3.563e-7*d)*ZR,f=lat*ZR;
+ const asc=zn(Math.atan2(Math.cos(R),-(Math.sin(R)*Math.cos(eps)+Math.tan(f)*Math.sin(eps)))/ZR),mc=zn(Math.atan2(Math.sin(R),Math.cos(R)*Math.cos(eps))/ZR);return{asc,mc};}
+// cung theo ngày tháng (không có năm)
+const ZSTART=[[3,21],[4,20],[5,21],[6,21],[7,23],[8,23],[9,23],[10,23],[11,22],[12,22],[1,20],[2,19]];
+function zSignByDate(d,m){const v=m*100+d;let s=9;[[120,10],[219,11],[321,0],[420,1],[521,2],[621,3],[723,4],[823,5],[923,6],[1023,7],[1122,8],[1222,9]].forEach(([st,g])=>{if(v>=st)s=g;});
+ let cusp=null;for(let i=0;i<12;i++){const [mm,dd]=ZSTART[i];if(m===mm&&Math.abs(d-dd)<=1)cusp=[zm(i-1),i];}
+ return{sign:s,cusp};}
+// múi giờ: miền Nam Việt Nam dùng UTC+8 từ 1/1/1960 đến 13/6/1975
+function zTZ(place,y,m,d){if(!place)return 7;let tz=place.tz;if(place.vn&&place.lat<17.1&&y){const v=y*10000+m*100+d;if(v>=19600101&&v<19750613)tz=8;}return tz;}
+// tính toàn bộ bản đồ sao từ dữ liệu nhập
+function zChart(p){const out={p,level:1};const sd=zSignByDate(p.d,p.m);out.sun=sd.sign;out.cusp=sd.cusp;
+ if(p.y){const place=(p.place!==''&&p.place!=null)?ZCITY[p.place]:null,tz=zTZ(place,p.y,p.m,p.d)+(p.dst?1:0);const hasT=!!p.time;let hh=12,mi=0;if(hasT){[hh,mi]=p.time.split(':').map(Number);}
+  const jd=zJD(p.y,p.m,p.d,hh+mi/60-tz);out.jd=jd;out.pos=zPositions(jd);out.sun=out.pos.sun.sign;out.cusp=null;out.level=2;out.tz=tz;
+  if(!hasT){const a=zMoon(zJD(p.y,p.m,p.d,0-tz)-2451543.5),b=zMoon(zJD(p.y,p.m,p.d,23.98-tz)-2451543.5);if(Math.floor(a/30)!==Math.floor(b/30))out.moonAlt=[Math.floor(a/30),Math.floor(b/30)];}
+  if(hasT&&place){const ang=zAngles(jd,place.lat,place.lon);out.asc=ang.asc;out.mc=ang.mc;out.ascSign=Math.floor(ang.asc/30);out.mcSign=Math.floor(ang.mc/30);out.level=3;}
+ }
+ out.decan=out.pos?Math.floor(out.pos.sun.deg/10):null;return out;}
+function zHouse(ch,lon){const base=ch.ascSign!=null?ch.ascSign:ch.sun;return zm(Math.floor(lon/30)-base)+1;}
+// sao Thủy nghịch hành trong năm
+function zRetro(k,Y){const res=[];let prev=null,start=null;const j0=zJD(Y,1,1,0);for(let i=-1;i<=367;i++){const d=j0+i-2451543.5;const a=zLon(k,d),b=zLon(k,d+1),r=zn(b-a+180)-180<0;
+  if(r&&!prev)start=j0+i;if(!r&&prev&&start!=null){res.push([start,j0+i]);start=null;}prev=r;}if(start!=null)res.push([start,j0+367]);return res;}
+function zJD2Date(jd){const z=Math.floor(jd+0.5),f=jd+0.5-z;let A=z;if(z>=2299161){const al=Math.floor((z-1867216.25)/36524.25);A=z+1+al-Math.floor(al/4);}
+ const B=A+1524,C=Math.floor((B-122.1)/365.25),D=Math.floor(365.25*C),E=Math.floor((B-D)/30.6001);const day=B-D-Math.floor(30.6001*E)+f,m=E<14?E-1:E-13,y=m>2?C-4716:C-4715;return{d:Math.floor(day),m,y};}
+
+// ===== DỮ LIỆU 12 CUNG HOÀNG ĐẠO =====
+const ZCITY_RAW=[
+['vn','Hà Nội',21.03,105.85],['vn','TP. Hồ Chí Minh (Sài Gòn)',10.78,106.70],['vn','Hải Phòng',20.86,106.68],['vn','Đà Nẵng',16.05,108.22],['vn','Huế',16.46,107.59],['vn','Cần Thơ',10.03,105.78],
+['vn','Hạ Long (Quảng Ninh)',20.95,107.08],['vn','Thái Nguyên',21.59,105.85],['vn','Bắc Ninh',21.18,106.07],['vn','Bắc Giang',21.27,106.19],['vn','Hải Dương',20.94,106.33],['vn','Hưng Yên',20.65,106.05],['vn','Thái Bình',20.45,106.34],['vn','Nam Định',20.42,106.17],['vn','Ninh Bình',20.25,105.97],['vn','Phủ Lý (Hà Nam)',20.54,105.91],['vn','Vĩnh Yên (Vĩnh Phúc)',21.31,105.60],['vn','Việt Trì (Phú Thọ)',21.32,105.40],
+['vn','Hòa Bình',20.81,105.34],['vn','Sơn La',21.33,103.91],['vn','Điện Biên Phủ',21.39,103.02],['vn','Lai Châu',22.40,103.46],['vn','Lào Cai',22.48,103.97],['vn','Yên Bái',21.72,104.87],['vn','Tuyên Quang',21.82,105.21],['vn','Hà Giang',22.82,104.98],['vn','Cao Bằng',22.67,106.26],['vn','Bắc Kạn',22.15,105.83],['vn','Lạng Sơn',21.85,106.76],
+['vn','Thanh Hóa',19.81,105.78],['vn','Vinh (Nghệ An)',18.67,105.68],['vn','Hà Tĩnh',18.34,105.91],['vn','Đồng Hới (Quảng Bình)',17.47,106.62],['vn','Đông Hà (Quảng Trị)',16.82,107.10],['vn','Tam Kỳ (Quảng Nam)',15.57,108.47],['vn','Hội An',15.88,108.33],['vn','Quảng Ngãi',15.12,108.80],['vn','Quy Nhơn (Bình Định)',13.78,109.22],['vn','Tuy Hòa (Phú Yên)',13.10,109.30],['vn','Nha Trang (Khánh Hòa)',12.24,109.19],['vn','Phan Rang (Ninh Thuận)',11.56,108.99],['vn','Phan Thiết (Bình Thuận)',10.93,108.10],
+['vn','Kon Tum',14.35,108.00],['vn','Pleiku (Gia Lai)',13.98,108.00],['vn','Buôn Ma Thuột (Đắk Lắk)',12.67,108.04],['vn','Gia Nghĩa (Đắk Nông)',12.00,107.69],['vn','Đà Lạt (Lâm Đồng)',11.94,108.44],['vn','Bảo Lộc',11.55,107.81],
+['vn','Biên Hòa (Đồng Nai)',10.95,106.82],['vn','Thủ Dầu Một (Bình Dương)',10.98,106.65],['vn','Đồng Xoài (Bình Phước)',11.53,106.89],['vn','Tây Ninh',11.31,106.10],['vn','Vũng Tàu',10.35,107.08],['vn','Bà Rịa',10.50,107.17],
+['vn','Tân An (Long An)',10.54,106.41],['vn','Mỹ Tho (Tiền Giang)',10.36,106.36],['vn','Bến Tre',10.24,106.38],['vn','Vĩnh Long',10.25,105.97],['vn','Trà Vinh',9.93,106.34],['vn','Cao Lãnh (Đồng Tháp)',10.46,105.63],['vn','Sa Đéc',10.29,105.76],['vn','Long Xuyên (An Giang)',10.39,105.43],['vn','Châu Đốc',10.70,105.12],['vn','Rạch Giá (Kiên Giang)',10.01,105.08],['vn','Phú Quốc',10.22,103.96],['vn','Vị Thanh (Hậu Giang)',9.78,105.47],['vn','Sóc Trăng',9.60,105.97],['vn','Bạc Liêu',9.29,105.72],['vn','Cà Mau',9.18,105.15],
+['w','Viêng Chăn (Lào)',17.97,102.63,7],['w','Phnôm Pênh (Campuchia)',11.56,104.92,7],['w','Bangkok (Thái Lan)',13.75,100.50,7],['w','Jakarta (Indonesia)',-6.21,106.85,7],['w','Singapore',1.35,103.82,8],['w','Kuala Lumpur (Malaysia)',3.14,101.69,8],['w','Manila (Philippines)',14.60,120.98,8],
+['w','Bắc Kinh (Trung Quốc)',39.90,116.40,8],['w','Thượng Hải (Trung Quốc)',31.23,121.47,8],['w','Quảng Châu (Trung Quốc)',23.13,113.26,8],['w','Hồng Kông',22.32,114.17,8],['w','Đài Bắc (Đài Loan)',25.03,121.57,8],['w','Seoul (Hàn Quốc)',37.57,126.98,9],['w','Tokyo (Nhật Bản)',35.68,139.69,9],['w','Osaka (Nhật Bản)',34.69,135.50,9],
+['w','New Delhi (Ấn Độ)',28.61,77.21,5.5],['w','Dubai (UAE)',25.20,55.27,4],['w','Moskva (Nga)',55.76,37.62,3],['w','Praha (Séc)',50.08,14.44,1],['w','Warszawa (Ba Lan)',52.23,21.01,1],['w','Berlin (Đức)',52.52,13.40,1],['w','Paris (Pháp)',48.86,2.35,1],['w','London (Anh)',51.51,-0.13,0],
+['w','Sydney (Úc)',-33.87,151.21,10],['w','Melbourne (Úc)',-37.81,144.96,10],['w','Auckland (New Zealand)',-36.85,174.76,12],['w','Toronto (Canada)',43.65,-79.38,-5],['w','Vancouver (Canada)',49.28,-123.12,-8],
+['w','New York (Mỹ)',40.71,-74.01,-5],['w','Washington D.C. (Mỹ)',38.91,-77.04,-5],['w','Houston (Mỹ)',29.76,-95.37,-6],['w','Chicago (Mỹ)',41.88,-87.63,-6],['w','Los Angeles (Mỹ)',34.05,-118.24,-8],['w','San Jose (Mỹ)',37.34,-121.89,-8],['w','Seattle (Mỹ)',47.61,-122.33,-8]];
+const ZCITY=ZCITY_RAW.map(([g,n,lat,lon,tz])=>({vn:g==='vn',n,lat,lon,tz:g==='vn'?7:tz}));
+
+const ZG=['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'].map(x=>x+'︎');
+const ZPG={sun:'☉',moon:'☽',mercury:'☿',venus:'♀',mars:'♂',jupiter:'♃',saturn:'♄'};
+Object.keys(ZPG).forEach(k=>ZPG[k]+='︎');
+const ZPN={sun:'Mặt Trời',moon:'Mặt Trăng',mercury:'Sao Thủy',venus:'Sao Kim',mars:'Sao Hỏa',jupiter:'Sao Mộc',saturn:'Sao Thổ'};
+const ZPM={sun:'bản ngã, mục tiêu sống',moon:'cảm xúc, nhu cầu an toàn',mercury:'tư duy, giao tiếp',venus:'tình yêu, gu thẩm mỹ, tiền bạc',mars:'hành động, ý chí, ham muốn',jupiter:'may mắn, sự mở rộng',saturn:'kỷ luật, bài học, trách nhiệm'};
+const ZEL_N=['Lửa','Đất','Khí','Nước'],ZMOD=['Tiên phong','Kiên định','Linh hoạt'];
+const ZHOUSE=['bản thân, ngoại hình, cách bạn bắt đầu mọi việc','tiền bạc, tài sản, giá trị bản thân','giao tiếp, học tập, anh chị em, đi lại gần','gia đình, nhà cửa, cội nguồn','tình yêu, sáng tạo, con cái, niềm vui','công việc hằng ngày, sức khỏe, thói quen','hôn nhân, đối tác, hợp đồng','tài chính chung, đầu tư, sự chuyển hóa','học vấn cao, du lịch xa, niềm tin, triết lý','sự nghiệp, danh tiếng, địa vị xã hội','bạn bè, cộng đồng, ước mơ lớn','nội tâm, nghỉ ngơi, tâm linh, điều thầm kín'];
+const ZS=[
+{n:'Bạch Dương',en:'Aries',dt:'21/3 – 19/4',ru:'Sao Hỏa',kw:'Can đảm · Tiên phong · Nhiệt huyết',
+ ov:'Bạch Dương là cung đầu tiên của vòng hoàng đạo, mang năng lượng khởi đầu. Bạn thẳng thắn, dám nghĩ dám làm, thích cạnh tranh và luôn muốn là người đi trước. Sức sống mạnh mẽ giúp bạn vượt khó nhanh, nhưng sự nóng vội đôi khi khiến bạn bỏ dở giữa chừng.',
+ st:['Quyết đoán, hành động nhanh','Dũng cảm, không ngại thử thách','Truyền năng lượng cho người khác','Thẳng thắn, minh bạch'],wk:['Nóng nảy, thiếu kiên nhẫn','Dễ chán khi việc kéo dài','Đôi khi bốc đồng, ít lắng nghe'],
+ job:['Khởi nghiệp, kinh doanh','Thể thao, huấn luyện viên','Quân đội, công an, cứu hộ','Bán hàng, phát triển thị trường','Kỹ sư, phẫu thuật viên'],work:'Bạn làm tốt nhất khi được tự chủ, có mục tiêu rõ và thử thách mới. Môi trường chậm chạp, nhiều thủ tục sẽ làm bạn mất hứng.',
+ love:'Trong tình yêu, bạn chủ động, nồng nhiệt và thích chinh phục. Bạn cần một người đủ bản lĩnh để theo kịp nhịp sống của bạn.',
+ moon:'cảm xúc đến nhanh, đi nhanh; bạn cần được hành động để giải tỏa tâm trạng',asc:'người khác thấy bạn năng động, thẳng thắn, có phần bốc lửa',mer:'nói thẳng, nghĩ nhanh, thích tranh luận',ven:'yêu nồng nhiệt, thích theo đuổi và cảm giác mới mẻ',mar:'hành động mạnh mẽ, dám chiến đấu cho mục tiêu',mc:'hợp vai trò tiên phong, lãnh đạo dự án mới'},
+{n:'Kim Ngưu',en:'Taurus',dt:'20/4 – 20/5',ru:'Sao Kim',kw:'Kiên định · Thực tế · Tận hưởng',
+ ov:'Kim Ngưu điềm tĩnh, kiên nhẫn và rất đáng tin cậy. Bạn coi trọng sự ổn định, cái đẹp và những giá trị bền vững. Một khi đã quyết, bạn theo đuổi đến cùng; mặt trái là sự bướng bỉnh và ngại thay đổi.',
+ st:['Bền bỉ, chịu khó','Giỏi quản lý tiền bạc','Có gu thẩm mỹ tốt','Trung thành, đáng tin'],wk:['Bảo thủ, cứng đầu','Chậm thích nghi','Đôi khi quá coi trọng vật chất'],
+ job:['Tài chính, ngân hàng, kế toán','Bất động sản, xây dựng','Ẩm thực, nhà hàng','Thời trang, làm đẹp, nội thất','Nông nghiệp, cây cảnh'],work:'Bạn làm việc đều đặn, chắc chắn, hợp những công việc tích lũy dần và có thành quả hữu hình.',
+ love:'Bạn yêu chậm mà chắc, chung thủy và thể hiện tình cảm qua sự chăm sóc thực tế. Bạn cần cảm giác an toàn trong mối quan hệ.',
+ moon:'cảm xúc ổn định, cần sự êm ấm và thoải mái vật chất để thấy bình yên',asc:'người khác thấy bạn điềm đạm, dễ chịu, đáng tin',mer:'suy nghĩ thực tế, chậm mà chắc, khó bị lay chuyển',ven:'yêu chung thủy, thích sự lãng mạn qua những điều cụ thể',mar:'bền bỉ, kiên trì, ít khi bỏ cuộc',mc:'hợp sự nghiệp gắn với tài chính, nghệ thuật, giá trị bền vững'},
+{n:'Song Tử',en:'Gemini',dt:'21/5 – 20/6',ru:'Sao Thủy',kw:'Linh hoạt · Thông minh · Giao tiếp',
+ ov:'Song Tử nhanh nhạy, tò mò và có tài ăn nói. Bạn học hỏi nhanh, thích trao đổi ý tưởng và có thể làm nhiều việc cùng lúc. Sự đa dạng là nguồn sống của bạn, nhưng đôi khi khiến bạn thiếu tập trung.',
+ st:['Giao tiếp giỏi, hài hước','Học nhanh, đa năng','Linh hoạt, thích nghi tốt','Giàu ý tưởng'],wk:['Dễ phân tán','Thay đổi ý định thất thường','Đôi khi hời hợt'],
+ job:['Báo chí, truyền thông, MC','Marketing, quảng cáo','Giảng dạy, biên phiên dịch','Bán hàng, môi giới','Công nghệ thông tin, viết nội dung'],work:'Bạn cần môi trường nhiều trao đổi, công việc đa dạng. Lặp lại một việc quá lâu sẽ làm bạn kiệt hứng.',
+ love:'Bạn cần người hiểu mình về trí tuệ, có thể trò chuyện không dứt. Sự vui vẻ và tự do là chìa khóa giữ chân bạn.',
+ moon:'cảm xúc thay đổi nhanh; bạn giải tỏa bằng cách trò chuyện, chia sẻ',asc:'người khác thấy bạn lanh lợi, vui vẻ, hay nói',mer:'tư duy cực nhanh, giỏi ngôn ngữ, ham hiểu biết',ven:'yêu bằng trí óc, thích người thú vị, bất ngờ',mar:'làm nhiều việc cùng lúc, chiến đấu bằng lời nói',mc:'hợp nghề truyền thông, giáo dục, kết nối thông tin'},
+{n:'Cự Giải',en:'Cancer',dt:'21/6 – 22/7',ru:'Mặt Trăng',kw:'Giàu cảm xúc · Chở che · Gắn bó gia đình',
+ ov:'Cự Giải nhạy cảm, giàu tình thương và trực giác. Gia đình và những người thân yêu là trung tâm cuộc sống của bạn. Bạn có trí nhớ cảm xúc sâu sắc, nhưng dễ tổn thương và hay thu mình khi bất an.',
+ st:['Chu đáo, biết chăm sóc','Trực giác nhạy','Trung thành, gắn bó','Giỏi thấu hiểu người khác'],wk:['Dễ tủi thân, đa sầu','Hay lo xa','Khó buông quá khứ'],
+ job:['Y tá, bác sĩ, chăm sóc sức khỏe','Giáo viên mầm non, tâm lý','Ẩm thực, khách sạn','Bất động sản, nội thất','Nhân sự, công tác xã hội'],work:'Bạn làm việc tốt trong môi trường thân thiện như gia đình, nơi bạn được tin tưởng và chăm sóc người khác.',
+ love:'Bạn yêu sâu đậm, chở che và cần cảm giác an toàn. Một mái ấm bình yên là ước mơ của bạn.',
+ moon:'Mặt Trăng ở cung nhà: cảm xúc rất sâu, trực giác mạnh, cần gia đình để thấy an yên',asc:'người khác thấy bạn hiền hòa, dễ gần, có chút e dè',mer:'suy nghĩ theo cảm xúc, trí nhớ tốt',ven:'yêu dịu dàng, muốn chăm sóc và được chăm sóc',mar:'hành động để bảo vệ người thân, gián tiếp nhưng bền bỉ',mc:'hợp nghề chăm sóc, nuôi dưỡng, kinh doanh gia đình'},
+{n:'Sư Tử',en:'Leo',dt:'23/7 – 22/8',ru:'Mặt Trời',kw:'Tự tin · Hào phóng · Tỏa sáng',
+ ov:'Sư Tử ấm áp, tự tin và có sức hút tự nhiên. Bạn thích được công nhận, hào phóng với người mình yêu thương và có khả năng truyền cảm hứng. Bạn cần học cách khiêm tốn và lắng nghe để ánh sáng của mình không làm lu mờ người khác.',
+ st:['Lãnh đạo, truyền cảm hứng','Hào phóng, trung thành','Sáng tạo, có cá tính','Lạc quan, ấm áp'],wk:['Sĩ diện, thích được khen','Đôi khi độc đoán','Khó chấp nhận bị phớt lờ'],
+ job:['Quản lý, lãnh đạo','Nghệ thuật, biểu diễn, giải trí','Sự kiện, truyền thông','Giáo dục, diễn giả','Thời trang, thương hiệu cá nhân'],work:'Bạn làm việc tốt khi được ghi nhận và giữ vai trò trung tâm. Lời khen chân thành là động lực lớn với bạn.',
+ love:'Bạn yêu nồng nhiệt, hào phóng và lãng mạn. Bạn cần được ngưỡng mộ và đối phương tự hào về mình.',
+ moon:'cần được yêu thương và chú ý; cảm xúc ấm áp, kịch tính',asc:'người khác thấy bạn tự tin, nổi bật, có khí chất',mer:'nói năng tự tin, thuyết phục, thích kể chuyện',ven:'yêu lãng mạn, hào phóng, thích được chiều chuộng',mar:'hành động đầy nhiệt huyết, muốn dẫn đầu',mc:'hợp vai trò lãnh đạo, nghệ thuật, được công chúng biết đến'},
+{n:'Xử Nữ',en:'Virgo',dt:'23/8 – 22/9',ru:'Sao Thủy',kw:'Tỉ mỉ · Phân tích · Tận tụy',
+ ov:'Xử Nữ chu đáo, chỉn chu và có óc phân tích sắc bén. Bạn luôn muốn mọi việc hoàn thiện và sẵn lòng giúp đỡ một cách thiết thực. Cần cẩn thận với thói cầu toàn và tự phê bình quá mức.',
+ st:['Cẩn thận, chi tiết','Phân tích, tổ chức tốt','Chăm chỉ, có trách nhiệm','Khiêm tốn, hay giúp đỡ'],wk:['Cầu toàn, hay lo','Khắt khe với bản thân và người khác','Khó thư giãn'],
+ job:['Kế toán, kiểm toán, phân tích dữ liệu','Y dược, dinh dưỡng','Biên tập, nghiên cứu','Quản lý chất lượng, vận hành','Lập trình, kỹ thuật'],work:'Bạn là người làm việc tỉ mỉ đáng tin nhất. Bạn tỏa sáng ở những vị trí cần độ chính xác và quy trình rõ ràng.',
+ love:'Bạn yêu bằng hành động: chăm sóc từng chi tiết nhỏ. Bạn cần thời gian để tin tưởng và mở lòng.',
+ moon:'cảm thấy an toàn khi mọi thứ ngăn nắp; hay lo lắng về chi tiết',asc:'người khác thấy bạn gọn gàng, khiêm tốn, kín đáo',mer:'tư duy logic, phân tích sắc, diễn đạt chính xác',ven:'yêu chân thành, thể hiện qua sự quan tâm thiết thực',mar:'làm việc bền bỉ, có phương pháp',mc:'hợp nghề chuyên môn cao, y tế, phân tích, phục vụ'},
+{n:'Thiên Bình',en:'Libra',dt:'23/9 – 22/10',ru:'Sao Kim',kw:'Hài hòa · Công bằng · Duyên dáng',
+ ov:'Thiên Bình yêu cái đẹp, sự cân bằng và các mối quan hệ hài hòa. Bạn khéo léo, lịch thiệp và giỏi nhìn vấn đề từ nhiều phía. Điểm yếu là hay do dự và ngại đối đầu.',
+ st:['Ngoại giao, hòa giải','Công bằng, khách quan','Thẩm mỹ cao','Duyên dáng, dễ mến'],wk:['Do dự, khó quyết','Ngại xung đột','Đôi khi phụ thuộc ý kiến người khác'],
+ job:['Luật, tư pháp, hòa giải','Thiết kế, kiến trúc, thời trang','Ngoại giao, quan hệ công chúng','Tư vấn, nhân sự','Nghệ thuật, làm đẹp'],work:'Bạn làm việc tốt nhất khi có cộng sự và môi trường đẹp, hòa nhã. Bạn là người kết nối các bên tuyệt vời.',
+ love:'Tình yêu và hôn nhân rất quan trọng với bạn. Bạn lãng mạn, tinh tế và muốn một mối quan hệ cân bằng, tôn trọng.',
+ moon:'cần hòa khí; bất an khi có mâu thuẫn',asc:'người khác thấy bạn lịch sự, ưa nhìn, dễ chịu',mer:'suy nghĩ cân nhắc, giỏi thuyết phục nhẹ nhàng',ven:'Sao Kim ở cung nhà: yêu lãng mạn, tinh tế, coi trọng hôn nhân',mar:'hành động qua hợp tác, tránh đối đầu trực diện',mc:'hợp nghề luật, thiết kế, ngoại giao, tư vấn'},
+{n:'Bọ Cạp',en:'Scorpio',dt:'23/10 – 21/11',ru:'Sao Diêm Vương (cổ điển: Sao Hỏa)',kw:'Sâu sắc · Bản lĩnh · Bí ẩn',
+ ov:'Bọ Cạp mãnh liệt, sâu sắc và có ý chí phi thường. Bạn nhìn thấu bản chất sự việc, trung thành tuyệt đối với người mình tin. Bạn có khả năng tái sinh sau khó khăn, nhưng cần học buông bỏ sự nghi ngờ và ghen tuông.',
+ st:['Ý chí mạnh, kiên định','Nhạy bén, thấu suốt','Trung thành, giữ bí mật','Có khả năng chuyển hóa'],wk:['Đa nghi, khó tin người','Hay ghen, chiếm hữu','Thù dai'],
+ job:['Điều tra, an ninh, luật','Tâm lý, trị liệu','Tài chính, đầu tư, bảo hiểm','Y khoa, phẫu thuật, nghiên cứu','Quản trị khủng hoảng'],work:'Bạn tập trung cao độ, hợp công việc cần đào sâu, nghiên cứu, giữ bí mật hoặc xử lý vấn đề khó.',
+ love:'Bạn yêu sâu đậm, toàn tâm toàn ý và cần sự chân thành tuyệt đối. Phản bội là điều bạn không thể tha thứ.',
+ moon:'cảm xúc mãnh liệt, kín đáo; khó quên tổn thương',asc:'người khác thấy bạn bí ẩn, có sức hút, khó đoán',mer:'tư duy sắc bén, thích khám phá bí mật',ven:'yêu mãnh liệt, chung thủy, có phần chiếm hữu',mar:'ý chí sắt đá, không bao giờ bỏ cuộc',mc:'hợp nghề điều tra, tài chính, y khoa, tâm lý'},
+{n:'Nhân Mã',en:'Sagittarius',dt:'22/11 – 21/12',ru:'Sao Mộc',kw:'Tự do · Lạc quan · Khám phá',
+ ov:'Nhân Mã yêu tự do, phiêu lưu và tri thức. Bạn lạc quan, hài hước, luôn tìm kiếm ý nghĩa và những chân trời mới. Sự thẳng thắn của bạn đôi khi vô tình làm tổn thương người khác.',
+ st:['Lạc quan, vui vẻ','Ham học, tầm nhìn rộng','Thẳng thắn, trung thực','Thích nghi, dám trải nghiệm'],wk:['Thiếu kiên nhẫn với chi tiết','Ngại ràng buộc','Nói thẳng quá mức'],
+ job:['Du lịch, hướng dẫn viên','Giảng dạy, nghiên cứu, xuất bản','Xuất nhập khẩu, kinh doanh quốc tế','Luật, triết học, tôn giáo','Thể thao, ngoài trời'],work:'Bạn cần công việc có ý nghĩa, được đi lại và học hỏi. Môi trường gò bó, lặp lại khiến bạn bức bối.',
+ love:'Bạn cần một người bạn đồng hành cùng khám phá thế giới, tôn trọng tự do và cùng chung lý tưởng.',
+ moon:'cần không gian tự do; vui lên khi được đi xa, học điều mới',asc:'người khác thấy bạn cởi mở, vui tính, thân thiện',mer:'tư duy rộng, thích triết lý, nói thẳng',ven:'yêu tự do, vui vẻ, thích người có tầm nhìn',mar:'hành động hăng hái vì lý tưởng',mc:'hợp nghề giáo dục, du lịch, quốc tế, xuất bản'},
+{n:'Ma Kết',en:'Capricorn',dt:'22/12 – 19/1',ru:'Sao Thổ',kw:'Kỷ luật · Tham vọng · Trách nhiệm',
+ ov:'Ma Kết kiên trì, thực tế và có tham vọng lớn. Bạn đặt mục tiêu dài hạn và leo từng bước vững chắc lên đỉnh. Bạn trưởng thành sớm, đáng tin cậy nhưng cần học cách thư giãn và bộc lộ cảm xúc.',
+ st:['Kỷ luật, có trách nhiệm','Tham vọng, kiên nhẫn','Tổ chức, quản lý giỏi','Thực tế, đáng tin'],wk:['Khô khan, khó gần','Quá đặt nặng công việc','Bi quan khi gặp khó'],
+ job:['Quản lý, điều hành doanh nghiệp','Tài chính, ngân hàng','Hành chính công, chính trị','Kỹ sư, xây dựng','Luật, kiểm toán'],work:'Bạn là người xây dựng sự nghiệp bền bỉ, giỏi chịu áp lực. Càng về sau bạn càng thành công.',
+ love:'Bạn nghiêm túc trong tình cảm, coi trọng cam kết và trách nhiệm. Tình yêu của bạn lớn dần theo thời gian.',
+ moon:'kìm nén cảm xúc, cần thành tựu để thấy an toàn',asc:'người khác thấy bạn nghiêm túc, chững chạc, đáng tin',mer:'tư duy chiến lược, thực tế, có tổ chức',ven:'yêu nghiêm túc, chung thủy, coi trọng sự ổn định',mar:'làm việc bền bỉ, có kế hoạch dài hạn',mc:'hợp vị trí quản lý, điều hành, lĩnh vực có thứ bậc rõ'},
+{n:'Bảo Bình',en:'Aquarius',dt:'20/1 – 18/2',ru:'Sao Thiên Vương (cổ điển: Sao Thổ)',kw:'Độc lập · Sáng tạo · Nhân văn',
+ ov:'Bảo Bình độc lập, khác biệt và có tư duy đi trước thời đại. Bạn quan tâm đến cộng đồng, thích đổi mới và trân trọng tự do cá nhân. Đôi khi bạn có vẻ xa cách và khó đoán về cảm xúc.',
+ st:['Sáng tạo, đổi mới','Độc lập, có chính kiến','Nhân văn, vì cộng đồng','Thân thiện, cởi mở'],wk:['Xa cách cảm xúc','Bướng bỉnh theo cách riêng','Khó đoán'],
+ job:['Công nghệ, khoa học','Nghiên cứu, phát minh','Tổ chức phi lợi nhuận, xã hội','Thiết kế sáng tạo, truyền thông số','Hàng không, kỹ thuật'],work:'Bạn cần được tự do sáng tạo và làm điều có ích cho xã hội. Lối mòn và cấp bậc cứng nhắc khiến bạn khó chịu.',
+ love:'Bạn coi người yêu trước hết là bạn thân. Bạn cần sự tôn trọng không gian riêng và kết nối về tư tưởng.',
+ moon:'cảm xúc lý trí, cần không gian riêng',asc:'người khác thấy bạn độc đáo, thân thiện nhưng hơi xa cách',mer:'tư duy độc đáo, thích ý tưởng mới',ven:'yêu theo kiểu bạn bè tri kỷ, tôn trọng tự do',mar:'hành động vì lý tưởng, theo cách riêng',mc:'hợp nghề công nghệ, đổi mới, cộng đồng'},
+{n:'Song Ngư',en:'Pisces',dt:'19/2 – 20/3',ru:'Sao Hải Vương (cổ điển: Sao Mộc)',kw:'Mơ mộng · Trắc ẩn · Trực giác',
+ ov:'Song Ngư giàu lòng trắc ẩn, nhạy cảm và có trí tưởng tượng phong phú. Bạn dễ đồng cảm, có năng khiếu nghệ thuật và trực giác mạnh. Bạn cần học đặt ranh giới để không bị cảm xúc của người khác cuốn đi.',
+ st:['Đồng cảm, nhân hậu','Sáng tạo, nghệ sĩ','Trực giác mạnh','Linh hoạt, bao dung'],wk:['Mơ mộng, xa thực tế','Dễ bị lợi dụng','Hay trốn tránh vấn đề'],
+ job:['Nghệ thuật, âm nhạc, điện ảnh','Y tế, điều dưỡng, trị liệu','Tâm lý, tư vấn, tâm linh','Thiết kế, nhiếp ảnh','Công tác từ thiện'],work:'Bạn làm việc tốt khi được sáng tạo và giúp đỡ người khác. Áp lực cạnh tranh gay gắt dễ khiến bạn mệt mỏi.',
+ love:'Bạn yêu lãng mạn, hy sinh và hết lòng. Bạn cần một người vững vàng, dịu dàng để cùng giữ đôi chân trên mặt đất.',
+ moon:'cảm xúc như nước, rất nhạy cảm với không khí xung quanh',asc:'người khác thấy bạn dịu dàng, mơ màng, dễ cảm thông',mer:'tư duy bằng hình ảnh, trực giác, giàu tưởng tượng',ven:'yêu lãng mạn, hy sinh, mơ mộng',mar:'hành động theo cảm hứng, mềm dẻo',mc:'hợp nghề nghệ thuật, chữa lành, phục vụ cộng đồng'}];
+const ZASP=[[70,'cùng cung','rất giống nhau, dễ hiểu nhau nhưng dễ có chung điểm yếu'],[50,'liền kề','khác biệt nhẹ, cần thời gian thích nghi'],[78,'lục hợp','hỗ trợ, thân thiện, dễ làm bạn tri kỷ'],[45,'vuông góc','hấp dẫn nhưng nhiều va chạm, cần nỗ lực'],[92,'tam hợp','hòa hợp tự nhiên, cùng nguyên tố'],[50,'lệch pha','khó đoán, phải điều chỉnh liên tục'],[68,'đối đỉnh','bù trừ cho nhau, sức hút mạnh']];
+const zAsp=(a,b)=>{const k=zm(b-a),x=k>6?12-k:k;return ZASP[x];};
+const ZPAIR={'00':'Hai ngọn lửa: đam mê mãnh liệt, cùng thích phiêu lưu. Cẩn thận tranh giành vị trí dẫn dắt; hãy luân phiên nhường nhau.','01':'Lửa bốc đồng, Đất thận trọng. Lửa mang lại hứng khởi, Đất giữ sự ổn định. Cần tôn trọng nhịp độ của nhau.','02':'Khí làm Lửa bùng cháy: hợp nhau về ý tưởng và niềm vui. Cần cùng nhau xây nền tảng thực tế.','03':'Nhiều cảm xúc mạnh nhưng dễ "dập lửa" hoặc "làm sôi nước". Lửa cần dịu dàng hơn, Nước cần nói thẳng nhu cầu.','11':'Hai người thực tế, chung thủy, cùng xây dựng tài sản. Hãy thêm bất ngờ và lãng mạn để tình cảm không đơn điệu.','12':'Đất thích ổn định, Khí thích tự do và đổi mới. Cần thỏa thuận rõ về không gian riêng và kế hoạch chung.','13':'Nước nuôi Đất: một trong những cặp bền vững nhất. Nước cho cảm xúc, Đất cho sự an toàn. Tránh cùng nhau khép kín.','22':'Hai tâm hồn thích trò chuyện, khám phá ý tưởng. Hãy chăm sóc cảm xúc chứ không chỉ lý trí.','23':'Khí lý trí, Nước cảm xúc nên dễ hiểu lầm. Khí cần lắng nghe cảm xúc, Nước cần cho đối phương không gian.','33':'Đồng cảm sâu sắc, hiểu nhau không cần lời. Cẩn thận cùng chìm trong cảm xúc tiêu cực; giữ ranh giới lành mạnh.'};
+
+// ===== UI: 12 CUNG HOÀNG ĐẠO =====
+let ZD={me:null,partner:null,tab:'tong-quan',year:CUR_Y,sample:false};
+const zSign=i=>`<span class="zg">${ZG[i]}</span> ${ZS[i].n}`;
+const zEl=i=>i%4,zMo=i=>i%3;
+function zFields(px,v,isPartner){
+ const days=[...Array(31)].map((_,i)=>`<option value="${i+1}" ${v.d==i+1?'selected':''}>${i+1}</option>`).join('');
+ const months=[...Array(12)].map((_,i)=>`<option value="${i+1}" ${v.m==i+1?'selected':''}>Tháng ${i+1}</option>`).join('');
+ const opt=(c,i)=>`<option value="${i}" ${String(v.place)===String(i)?'selected':''}>${c.n}</option>`;
+ const places=`<option value="">— Không chọn —</option><optgroup label="Việt Nam">${ZCITY.map((c,i)=>c.vn?opt(c,i):'').join('')}</optgroup><optgroup label="Nước ngoài">${ZCITY.map((c,i)=>c.vn?'':opt(c,i)).join('')}</optgroup>`;
+ return `<label class="wide"><span>${isPartner?'Tên người ấy':'Tên của bạn'} <span class="opt">(không bắt buộc)</span></span><input id="${px}N" value="${esc(v.name||'')}"></label>
+ <label><span>Ngày sinh <span class="req">*</span></span><select id="${px}D" required>${days}</select></label>
+ <label><span>Tháng sinh <span class="req">*</span></span><select id="${px}M" required>${months}</select></label>
+ <label><span>Năm sinh <span class="opt">(không bắt buộc)</span></span><input id="${px}Y" type="number" inputmode="numeric" min="1900" max="2100" placeholder="VD: 1995" value="${v.y||''}"></label>
+ <label><span>Giờ sinh <span class="opt">(không bắt buộc)</span></span><input id="${px}T" type="time" value="${v.time||''}"></label>
+ <label class="wide"><span>Nơi sinh <span class="opt">(không bắt buộc)</span></span><select id="${px}P">${places}</select></label>
+ <label class="chk"><input type="checkbox" id="${px}S" ${v.dst?'checked':''}> Sinh vào giờ mùa hè (DST)</label>`;}
+function zRead(px){const g=id=>document.getElementById(px+id);const d=+g('D').value,m=+g('M').value,y=g('Y').value?+g('Y').value:null;
+ const dim=[31,(y&&!(y%4===0&&(y%100!==0||y%400===0)))?28:29,31,30,31,30,31,31,30,31,30,31][m-1];
+ if(d>dim)return{err:`Tháng ${m}${y?' năm '+y:''} chỉ có ${dim} ngày. Hãy chọn lại ngày sinh.`};
+ if(y&&(y<1900||y>2100))return{err:'Năm sinh cần nằm trong khoảng 1900–2100.'};
+ return{name:g('N').value.trim(),d,m,y,time:g('T').value||'',place:g('P').value===''?'':+g('P').value,dst:g('S').checked};}
+function zLevel(ch){const p=ch.p;if(ch.level===3)return['Đầy đủ','good','Đã tính Mặt Trời, Mặt Trăng, 5 hành tinh, cung Mọc, Thiên Đỉnh và 12 nhà.'];
+ if(ch.level===2){const miss=[!p.time&&'giờ sinh',p.place===''&&'nơi sinh'].filter(Boolean);return['Khá','mid',`Đã tính Mặt Trăng và các hành tinh. Thêm ${miss.join(' và ')} để biết cung Mọc và 12 nhà.`];}
+ return['Cơ bản','bad','Chỉ biết cung Mặt Trời. Thêm năm sinh để tính Mặt Trăng và các hành tinh; thêm giờ và nơi sinh để biết cung Mọc.'];}
+function zDeg(l){const s=Math.floor(l/30),d=l%30;return `${Math.floor(d)}°${String(Math.floor((d%1)*60)).padStart(2,'0')}′ ${ZS[s].n}`;}
+
+function zWheel(ch){const base=ch.asc!=null?ch.asc:0,R=160,pt=(lon,r)=>{const t=(180+(lon-base))*ZR;return[(r*Math.cos(t)).toFixed(1),(-r*Math.sin(t)).toFixed(1)];};
+ let s=`<svg viewBox="-175 -175 350 350" class="zwheel" role="img" aria-label="Bản đồ sao"><circle r="${R}" class="zw-o"/><circle r="128" class="zw-o"/><circle r="70" class="zw-i"/>`;
+ for(let i=0;i<12;i++){const a=pt(i*30,R),b=pt(i*30,128);s+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" class="zw-o"/>`;const g=pt(i*30+15,144);s+=`<text x="${g[0]}" y="${g[1]}" class="zw-g zel${zEl(i)}" dominant-baseline="central">${ZG[i]}</text>`;}
+ if(ch.asc!=null){for(let h=0;h<12;h++){const lon=(ch.ascSign+h)*30,a=pt(lon,128),b=pt(lon,70),m=pt(lon+15,80);s+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" class="zw-h"/><text x="${m[0]}" y="${m[1]}" class="zw-hn" dominant-baseline="central">${h+1}</text>`;}
+  [['ASC',ch.asc],['MC',ch.mc]].forEach(([t,l])=>{const a=pt(l,R+4),b=pt(l,0),c=pt(l,R+13);s+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" class="zw-ax"/><text x="${c[0]}" y="${c[1]}" class="zw-axt" dominant-baseline="central">${t}</text>`;});}
+ const list=ZPL.map(k=>({k,l:ch.pos[k].lon})).sort((a,b)=>a.l-b.l);let prev=-99,lvl=0;
+ list.forEach(o=>{lvl=(o.l-prev<8)?lvl+1:0;prev=o.l;const r=112-lvl*17,p=pt(o.l,r),q=pt(o.l,128);s+=`<line x1="${q[0]}" y1="${q[1]}" x2="${pt(o.l,122)[0]}" y2="${pt(o.l,122)[1]}" class="zw-tick"/><text x="${p[0]}" y="${p[1]}" class="zw-p" dominant-baseline="central">${ZPG[o.k]}</text>`;});
+ return s+'</svg>';}
+
+function zHero(ch,who){const i=ch.sun,S=ZS[i],[lv,cl,lt]=zLevel(ch);
+ return `<div class="card zhero"><div class="zbig zel${zEl(i)}">${ZG[i]}</div><div style="flex:1;min-width:220px;display:flex;flex-direction:column;gap:6px">
+ <div class="eyebrow">${who?esc(who)+' · ':''}Cung Mặt Trời</div><h2>${S.n} <span class="muted" style="font-size:1.1rem">${S.en} · ${S.dt}</span></h2>
+ <p class="zkw">${S.kw}</p><dl class="kv"><dt>Nguyên tố</dt><dd>${ZEL_N[zEl(i)]} · ${ZMOD[zMo(i)]}</dd><dt>Hành tinh chủ quản</dt><dd>${S.ru}</dd>
+ <dt>Độ chính xác</dt><dd><span class="pill ${cl}">${lv}</span> ${lt}</dd></dl>
+ ${ch.cusp?`<p class="note">Bạn sinh vào ngày giao giữa ${ZS[ch.cusp[0]].n} và ${ZS[ch.cusp[1]].n}. Hãy nhập năm sinh (và giờ sinh) để xác định chính xác cung Mặt Trời.</p>`:''}</div></div>`;}
+
+function zTongQuan(ch){const i=ch.sun,S=ZS[i];let h=zHero(ch,ch.p.name)+`<div class="card"><div class="eyebrow">Tính cách</div><h3>Bản chất ${S.n}</h3><p>${S.ov}</p>`;
+ if(ch.decan!=null){const sub=zm(i+ch.decan*4);h+=`<p class="muted">Mặt Trời ở ${zDeg(ch.pos.sun.lon)}, thuộc decan ${ch.decan+1}${ch.decan?`, mang thêm sắc thái của ${ZS[sub].n} (${ZS[sub].kw.split(' · ')[0].toLowerCase()})`:': nét '+S.n+' thuần khiết nhất'}.</p>`;}
+ h+=`<div class="grid2" style="gap:12px"><div><span class="pill good">Điểm mạnh</span><ul class="clean" style="margin-top:6px">${S.st.map(x=>`<li>${x}</li>`).join('')}</ul></div><div><span class="pill bad">Cần cải thiện</span><ul class="clean" style="margin-top:6px">${S.wk.map(x=>`<li>${x}</li>`).join('')}</ul></div></div></div>`;
+ // bộ ba
+ const lock=t=>`<p class="muted zlock">${t}</p>`;
+ h+=`<div class="zthree"><div class="card"><div class="eyebrow">${ZPG.sun} Mặt Trời · con người bạn</div><h3>${zSign(i)}</h3><p>${S.kw}.</p></div>
+ <div class="card"><div class="eyebrow">${ZPG.moon} Mặt Trăng · cảm xúc</div>${ch.pos?`<h3>${zSign(ch.pos.moon.sign)}</h3><p>${ZS[ch.pos.moon.sign].moon[0].toUpperCase()+ZS[ch.pos.moon.sign].moon.slice(1)}.</p>${ch.moonAlt?`<p class="note">Mặt Trăng đổi cung trong ngày sinh của bạn (${ZS[ch.moonAlt[0]].n} → ${ZS[ch.moonAlt[1]].n}). Nhập giờ sinh để biết chính xác.</p>`:''}`:lock('Nhập năm sinh để biết cung Mặt Trăng.')}</div>
+ <div class="card"><div class="eyebrow">↑ Cung Mọc · ấn tượng đầu tiên</div>${ch.asc!=null?`<h3>${zSign(ch.ascSign)}</h3><p>${ZS[ch.ascSign].asc[0].toUpperCase()+ZS[ch.ascSign].asc.slice(1)}.</p>`:lock('Nhập năm, giờ và nơi sinh để biết cung Mọc.')}</div></div>`;
+ if(ch.pos){h+=`<div class="card"><div class="eyebrow">Bản đồ sao lúc bạn chào đời</div><div class="zchart">${zWheel(ch)}<div class="tscroll" style="flex:1;min-width:0"><table class="tbl"><thead><tr><th>Hành tinh</th><th>Vị trí</th>${ch.asc!=null?'<th>Nhà</th>':''}<th>Ý nghĩa</th></tr></thead><tbody>`;
+  ZPL.forEach(k=>{const o=ch.pos[k];const key={sun:'kw',moon:'moon',mercury:'mer',venus:'ven',mars:'mar',jupiter:null,saturn:null}[k];
+   const mean=key==='kw'?ZS[o.sign].kw.toLowerCase():key?ZS[o.sign][key]:k==='jupiter'?`may mắn đến qua ${ZS[o.sign].kw.split(' · ')[0].toLowerCase()} và ${ZS[o.sign].kw.split(' · ')[2].toLowerCase()}`:`bài học về ${ZS[o.sign].kw.split(' · ')[1].toLowerCase()}`;
+   h+=`<tr><td><span class="zg">${ZPG[k]}</span> ${ZPN[k]}${o.rx?' <span class="pill mid" title="Nghịch hành">R</span>':''}</td><td>${zDeg(o.lon)}</td>${ch.asc!=null?`<td>${zHouse(ch,o.lon)}</td>`:''}<td>${ZPM[k]}: ${mean}</td></tr>`;});
+  if(ch.asc!=null)h+=`<tr><td>↑ Cung Mọc</td><td>${zDeg(ch.asc)}</td><td>1</td><td>hình ảnh bên ngoài</td></tr><tr><td>MC Thiên Đỉnh</td><td>${zDeg(ch.mc)}</td><td>—</td><td>định hướng sự nghiệp</td></tr>`;
+  h+=`</tbody></table></div></div>${ch.asc!=null?'<p class="note">Hệ nhà: Whole Sign (mỗi nhà là một cung trọn vẹn, bắt đầu từ cung Mọc).</p>':''}</div>`;
+  const els=[0,0,0,0];ZPL.forEach(k=>els[zEl(ch.pos[k].sign)]+=k==='sun'||k==='moon'?2:1);if(ch.asc!=null)els[zEl(ch.ascSign)]+=2;const tot=els.reduce((a,b)=>a+b,0),mx=els.indexOf(Math.max(...els)),mn=els.indexOf(Math.min(...els));
+  const ELT=['nhiệt huyết, hành động','thực tế, bền bỉ','trí tuệ, giao tiếp','cảm xúc, trực giác'];
+  h+=`<div class="card"><div class="eyebrow">Cân bằng nguyên tố</div><h3>Thiên về ${ZEL_N[mx]}</h3><div class="zbars">${els.map((v,k)=>`<div><span>${ZEL_N[k]}</span><i class="zel-bg${k}" style="width:${Math.round(v/tot*100)}%"></i><b>${Math.round(v/tot*100)}%</b></div>`).join('')}</div>
+  <p>Năng lượng ${ZEL_N[mx]} (${ELT[mx]}) chiếm ưu thế trong bản đồ của bạn. Nguyên tố ${ZEL_N[mn]} yếu nhất: hãy chủ động rèn sự ${ELT[mn]} để cân bằng.</p></div>`;}
+ return h;}
+
+function zSuNghiep(ch){const i=ch.sun,S=ZS[i];const jobs=[...S.job];const extra=[];
+ if(ch.mcSign!=null){ZS[ch.mcSign].job.slice(0,3).forEach(j=>jobs.includes(j)||jobs.push(j));}
+ if(ch.pos){ZS[ch.pos.mars.sign].job.slice(0,1).forEach(j=>jobs.includes(j)||jobs.push(j));ZS[ch.pos.mercury.sign].job.slice(0,1).forEach(j=>jobs.includes(j)||jobs.push(j));}
+ let h=`<div class="card"><div class="eyebrow">Công việc & sở trường</div><h3>${zSign(i)} trong công việc</h3><p>${S.work}</p>
+ <div class="grid2" style="gap:12px"><div><span class="pill good">Sở trường</span><ul class="clean" style="margin-top:6px">${S.st.map(x=>`<li>${x}</li>`).join('')}${ch.pos?`<li>Tư duy (Sao Thủy ở ${ZS[ch.pos.mercury.sign].n}): ${ZS[ch.pos.mercury.sign].mer}</li><li>Cách hành động (Sao Hỏa ở ${ZS[ch.pos.mars.sign].n}): ${ZS[ch.pos.mars.sign].mar}</li>`:''}</ul></div>
+ <div><span class="pill mid">Nghề nghiệp gợi ý</span><ul class="clean" style="margin-top:6px">${jobs.map(x=>`<li>${x}</li>`).join('')}</ul></div></div></div>`;
+ if(ch.mcSign!=null)h+=`<div class="card"><div class="eyebrow">Thiên Đỉnh (MC) · đích đến sự nghiệp</div><h3>MC tại ${zSign(ch.mcSign)}</h3><p>Thiên Đỉnh cho thấy hình ảnh bạn muốn xây dựng trước xã hội: ${ZS[ch.mcSign].mc}. Kết hợp với cung Mặt Trời ${S.n}, bạn sẽ thành công nhất khi công việc vừa đúng bản chất vừa hướng tới mục tiêu này.</p></div>`;
+ if(ch.pos){const sa=ch.pos.saturn.sign,ju=ch.pos.jupiter.sign;h+=`<div class="grid2"><div class="card"><div class="eyebrow">${ZPG.jupiter} Sao Mộc gốc</div><h3>May mắn nghề nghiệp</h3><p>Sao Mộc ở ${ZS[ju].n}${ch.asc!=null?` (nhà ${zHouse(ch,ch.pos.jupiter.lon)}: ${ZHOUSE[zHouse(ch,ch.pos.jupiter.lon)-1]})`:''}: cơ hội thường đến khi bạn phát huy sự ${ZS[ju].kw.toLowerCase()}.</p></div>
+ <div class="card"><div class="eyebrow">${ZPG.saturn} Sao Thổ gốc</div><h3>Bài học cần rèn</h3><p>Sao Thổ ở ${ZS[sa].n}${ch.asc!=null?` (nhà ${zHouse(ch,ch.pos.saturn.lon)}: ${ZHOUSE[zHouse(ch,ch.pos.saturn.lon)-1]})`:''}: thành công bền vững đến khi bạn kiên trì rèn luyện về ${ZS[sa].kw.split(' · ')[1].toLowerCase()} và vượt qua điểm yếu "${ZS[sa].wk[0].toLowerCase()}".</p></div></div>`;}
+ else h+=`<p class="note">Nhập năm sinh để xem thêm tư duy, cách hành động, Sao Mộc và Sao Thổ trong công việc; nhập thêm giờ và nơi sinh để biết Thiên Đỉnh (MC).</p>`;
+ return h;}
+
+// ----- vận hạn -----
+const ZW={jupiter:1.1,saturn:1,mars:.6,venus:.5,sun:.35};
+const ZAS={jupiter:[2,0,1,0,2,0,.5],saturn:[-1,0,.6,-1.8,.8,-.5,-1.6],mars:[.3,0,.6,-1.2,.8,-.4,-1],venus:[1,0,.8,-.3,1,0,.4],sun:[1,0,.5,-.4,.6,0,-.3]};
+function zTransitScore(ch,pos){let s=0;const refs=[[ch.sun,1]];if(ch.pos)refs.push([ch.pos.moon.sign,.5]);
+ Object.keys(ZW).forEach(k=>refs.forEach(([r,w])=>{const x=zm(pos[k].sign-r),a=x>6?12-x:x;s+=ZAS[k][a]*ZW[k]*w;}));return s;}
+function zMonths(ch,Y){const mr=zRetro('mercury',Y);const out=[];
+ for(let m=1;m<=12;m++){const jd=zJD(Y,m,15,5),pos=zPositions(jd);let sc=zTransitScore(ch,pos);const ev=[];
+  const j0=zJD(Y,m,1,0),j1=zJD(m===12?Y+1:Y,m===12?1:m+1,1,0);const rr=mr.filter(r=>r[0]<j1&&r[1]>j0);if(rr.length){sc-=.6;ev.push('Sao Thủy nghịch hành: dễ trục trặc giấy tờ, giao tiếp, xe cộ');}
+  const H=k=>zHouse(ch,pos[k].lon);
+  if(pos.sun.sign===ch.sun)ev.push('Mùa sinh nhật: Mặt Trời về cung bản mệnh, năng lượng dồi dào');
+  const vh=H('venus');if(vh===5||vh===7)ev.push(`Sao Kim vào nhà ${vh}: thuận cho tình yêu, hẹn hò`);if(vh===2)ev.push('Sao Kim vào nhà 2: thuận tài chính, mua sắm');if(vh===10)ev.push('Sao Kim vào nhà 10: được quý nhân, cấp trên quý mến');
+  const ah=H('mars');if(ah===1||ah===10)ev.push(`Sao Hỏa vào nhà ${ah}: năng lượng mạnh để bứt phá công việc`);if(ah===6||ah===8||ah===12)ev.push(`Sao Hỏa vào nhà ${ah}: chú ý sức khỏe, tránh làm việc quá sức`);if(ah===7)ev.push('Sao Hỏa vào nhà 7: dễ va chạm với đối tác, người yêu');
+  if(pos.venus.rx)ev.push('Sao Kim nghịch hành: chưa nên cưới hỏi, mua món đồ giá trị lớn');
+  if(pos.mars.rx)ev.push('Sao Hỏa nghịch hành: tiến độ chậm, nên rà soát lại kế hoạch');
+  out.push({m,sc,ev,pos});}
+ return{months:out,mr};}
+const zStars=sc=>sc>=2.2?5:sc>=.9?4:sc>=-.4?3:sc>=-1.8?2:1;
+const ZTIPS={5:'Tháng rất thuận: mạnh dạn khởi sự, đề xuất, ra quyết định quan trọng.',4:'Tháng tốt: mở rộng quan hệ, chủ động nắm bắt cơ hội.',3:'Tháng bình ổn: tập trung duy trì, hoàn thiện việc đang làm.',2:'Tháng cần chậm lại: rà soát kế hoạch, tránh rủi ro tài chính.',1:'Tháng nhiều áp lực: giữ sức khỏe, kiên nhẫn, tránh tranh cãi.'};
+function zYearSum(ch,Y){const ms=zMonths(ch,Y);const avg=ms.months.reduce((a,b)=>a+b.sc,0)/12;const pj=zPositions(zJD(Y,7,1,0));return{ms,avg,ju:zHouse(ch,pj.jupiter.lon),sa:zHouse(ch,pj.saturn.lon),pj};}
+function zVanHan(ch){const Y=ZD.year,ys=zYearSum(ch,Y),ms=ys.ms;
+ let h=`<div class="panel" style="display:flex;gap:12px;align-items:end;flex-wrap:wrap"><label style="max-width:180px">Năm xem<select id="zdYear">${[...Array(8)].map((_,k)=>{const y=CUR_Y-1+k;return `<option ${y===Y?'selected':''}>${y}</option>`;}).join('')}</select></label>
+ <p class="muted" style="font-size:.88rem">${ch.asc!=null?'Tính theo 12 nhà từ cung Mọc của bạn (chính xác hơn).':'Tính theo nhà Mặt Trời (Solar houses). Nhập giờ và nơi sinh để chính xác hơn.'}</p></div>`;
+ const st=zStars(ys.avg),j=ys.ju,s=ys.sa;
+ const jSign=[1,4,7,10].map(m=>zPositions(zJD(Y,m,1,0)).jupiter.sign);const jMove=new Set(jSign).size>1;
+ h+=`<div class="card"><div class="eyebrow">Tổng quan năm ${Y}</div><h3>${zSign(ch.sun)} năm ${Y} <span class="stars">${starsStr(st)}</span></h3>
+ <dl class="kv"><dt>${ZPG.jupiter} Sao Mộc</dt><dd>Đi qua nhà ${j} (${ZHOUSE[j-1]}): năm mở rộng và may mắn ở lĩnh vực này. Hãy chủ động đón cơ hội.${jMove?` Sao Mộc chuyển cung trong năm (sang ${ZS[jSign[3]].n}), năng lượng may mắn dịch chuyển dần.`:''}</dd>
+ <dt>${ZPG.saturn} Sao Thổ</dt><dd>Đi qua nhà ${s} (${ZHOUSE[s-1]}): giai đoạn cần kỷ luật, kiên nhẫn và xây nền vững chắc. Thử thách ở đây là bài học giúp bạn trưởng thành.</dd>
+ <dt>${ZPG.mercury} Sao Thủy nghịch hành</dt><dd>${ms.mr.map(r=>{const a=zJD2Date(r[0]),b=zJD2Date(r[1]);return `${a.d}/${a.m} – ${b.d}/${b.m}`;}).join('; ')}. Trong các giai đoạn này nên kiểm tra kỹ hợp đồng, sao lưu dữ liệu và tránh ký kết vội.</dd></dl></div>`;
+ h+=`<div class="card"><div class="eyebrow">Vận hạn từng tháng</div><h3>12 tháng năm ${Y}</h3><div class="strip" style="--n:12">`;
+ ms.months.forEach(o=>{const v=zStars(o.sc);h+=`<div class="s${Y===CUR_Y&&o.m===CUR_M?' on':''}"><div class="bar"><i style="height:${v*20}%;background:${v>=4?'var(--good)':v===3?'var(--warn)':'var(--bad)'}"></i></div><b>T${o.m}</b></div>`;});
+ h+=`</div><div class="tscroll"><table class="tbl"><thead><tr><th>Tháng</th><th>Đánh giá</th><th>Điểm nhấn</th><th>Lời khuyên</th></tr></thead><tbody>`;
+ ms.months.forEach(o=>{const v=zStars(o.sc);h+=`<tr class="${Y===CUR_Y&&o.m===CUR_M?'now':''}"><td>${o.m}/${Y}</td><td class="stars" style="font-size:.85rem;white-space:nowrap">${starsStr(v)}</td><td>${o.ev.length?o.ev.join('<br>'):'<span class="muted">Không có chuyển động lớn</span>'}</td><td>${ZTIPS[v]}</td></tr>`;});
+ h+=`</tbody></table></div></div><div class="card"><div class="eyebrow">Xu hướng nhiều năm</div><h3>${CUR_Y} – ${CUR_Y+5}</h3><div class="strip" style="--n:6">`;
+ const yrs=[...Array(6)].map((_,k)=>{const y=CUR_Y+k;return{y,...zYearSum(ch,y)};});
+ yrs.forEach(o=>{const v=zStars(o.avg);h+=`<button type="button" class="s${o.y===Y?' on':''}" data-zy="${o.y}"><div class="bar"><i style="height:${v*20}%;background:${v>=4?'var(--good)':v===3?'var(--warn)':'var(--bad)'}"></i></div><b>${o.y}</b><span class="muted">Mộc nhà ${o.ju}</span></button>`;});
+ h+=`</div><p class="note">Chạm vào một năm để xem chi tiết.</p></div>`;return h;}
+
+// ----- tình yêu -----
+function zCompat(A,B){const f=[];const add=(lbl,a,b,w,who)=>{const x=zAsp(a,b);f.push({lbl,a,b,w,v:x[0],t:x[1],d:x[2],who});};
+ add('Mặt Trời – Mặt Trời (tính cách)',A.sun,B.sun,3);
+ if(A.pos&&B.pos){add('Mặt Trăng – Mặt Trăng (cảm xúc)',A.pos.moon.sign,B.pos.moon.sign,2);add('Sao Kim A – Sao Hỏa B (sức hút)',A.pos.venus.sign,B.pos.mars.sign,1.5);add('Sao Kim B – Sao Hỏa A (sức hút)',B.pos.venus.sign,A.pos.mars.sign,1.5);
+  add('Mặt Trời A – Mặt Trăng B',A.sun,B.pos.moon.sign,1);add('Mặt Trăng A – Mặt Trời B',A.pos.moon.sign,B.sun,1);add('Sao Kim – Sao Kim (gu yêu)',A.pos.venus.sign,B.pos.venus.sign,1);}
+ else if(A.pos||B.pos){const P=A.pos?A:B,O=A.pos?B:A;add(`Mặt Trăng ${A.pos?'A':'B'} – Mặt Trời ${A.pos?'B':'A'}`,P.pos.moon.sign,O.sun,1);add(`Sao Kim ${A.pos?'A':'B'} – Mặt Trời ${A.pos?'B':'A'}`,P.pos.venus.sign,O.sun,1);}
+ if(A.ascSign!=null&&B.ascSign!=null)add('Cung Mọc – Cung Mọc (ấn tượng)',A.ascSign,B.ascSign,1);
+ let tot=0,w=0;f.forEach(x=>{tot+=x.v*x.w;w+=x.w;});let sc=tot/w;
+ const bonus=[];if(A.ascSign!=null&&zm(A.ascSign+6)===B.sun){sc+=4;bonus.push('Mặt Trời của người ấy nằm ở nhà 7 (hôn nhân) của bạn: dấu hiệu duyên phận vợ chồng rất rõ.');}
+ if(B.ascSign!=null&&zm(B.ascSign+6)===A.sun){sc+=4;bonus.push('Mặt Trời của bạn nằm ở nhà 7 (hôn nhân) của người ấy: người ấy dễ xem bạn là "một nửa" lý tưởng.');}
+ return{f,sc:Math.min(99,Math.round(sc)),bonus};}
+function zTinhYeu(ch){const i=ch.sun,S=ZS[i];
+ let h=`<div class="card"><div class="eyebrow">Phong cách yêu</div><h3>${zSign(i)} khi yêu</h3><p>${S.love}</p>${ch.pos?`<p><b>${ZPG.venus} Sao Kim ở ${ZS[ch.pos.venus.sign].n}:</b> ${ZS[ch.pos.venus.sign].ven}. <b>${ZPG.mars} Sao Hỏa ở ${ZS[ch.pos.mars.sign].n}:</b> ${ZS[ch.pos.mars.sign].mar}.</p>`:''}
+ <p class="muted">Các cung dễ hợp với ${S.n}: ${[4,8,2,10].map(k=>ZS[zm(i+k)].n).join(', ')}.</p></div>`;
+ const P=ZD.pv||{name:'',d:12,m:6,y:'',time:'',place:'',dst:false};
+ h+=`<form class="panel form" id="zpForm" autocomplete="off"><div class="eyebrow" style="grid-column:1/-1">Thông tin người ấy</div>${zFields('zp',P,true)}<button class="btn" type="submit">Xem độ hợp</button><p class="zerr" id="zpErr" role="alert" hidden></p></form>`;
+ if(ZD.partner){const B=ZD.partner,R=zCompat(ch,B),sc=R.sc;const lb=sc>=85?['Tri kỷ','good']:sc>=72?['Rất hợp','good']:sc>=60?['Khá hợp','good']:sc>=48?['Cần vun đắp','mid']:['Nhiều thử thách','bad'];
+  const nA=ch.p.name||'Bạn',nB=B.p.name||'Người ấy';const ea=zEl(ch.sun),eb=zEl(B.sun),key=[ea,eb].sort().join('');
+  const weak=[...R.f].sort((a,b)=>a.v-b.v)[0];
+  h+=`<div class="card"><div class="eyebrow">Độ hợp nhau trong tình yêu</div><div class="hero-num"><div class="big">${sc}<span style="font-size:1.6rem;color:var(--muted)">%</span></div><div style="flex:1;min-width:220px">
+  <h3>${lb[0]} <span class="pill ${lb[1]}">${ZS[ch.sun].n} × ${ZS[B.sun].n}</span></h3><p>${esc(nA)} (${ZEL_N[ea]}) và ${esc(nB)} (${ZEL_N[eb]}). ${ZPAIR[key]}</p>
+  <p class="muted" style="font-size:.85rem">Độ chính xác: ${esc(nA)} ${zLevel(ch)[0].toLowerCase()}, ${esc(nB)} ${zLevel(B)[0].toLowerCase()}. Nhập thêm năm, giờ, nơi sinh của cả hai để phân tích sâu hơn.</p></div></div>
+  <div class="tscroll"><table class="tbl zct"><thead><tr><th>Yếu tố</th><th>Hai người</th><th>Góc chiếu</th><th>Ý nghĩa</th></tr></thead><tbody>${R.f.map(x=>`<tr><td><b>${x.lbl}</b></td><td style="white-space:nowrap"><span class="zg">${ZG[x.a]}</span> ${ZS[x.a].n} – <span class="zg">${ZG[x.b]}</span> ${ZS[x.b].n}</td><td><span class="pill ${x.v>=75?'good':x.v>=60?'mid':'bad'}">${x.t}</span></td><td>${x.d}</td></tr>`).join('')}</tbody></table></div>
+  ${R.bonus.length?`<ul class="clean">${R.bonus.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}</div>`;
+  const tips=[ZPAIR[key]];
+  if(weak.v<60)tips.push(`Điểm cần chú ý nhất là ${weak.lbl.toLowerCase()} (${weak.t}): ${weak.d}. Hãy dành thời gian hiểu cách đối phương ${weak.lbl.includes('Trăng')?'cảm nhận và cần được an ủi':weak.lbl.includes('Kim')?'thể hiện tình yêu':'nhìn nhận cuộc sống'}.`);
+  tips.push(`${ZS[ch.sun].n} cần ${ZS[ch.sun].wk[0].toLowerCase()} ít hơn; ${ZS[B.sun].n} cần bớt ${ZS[B.sun].wk[0].toLowerCase()}. Nhận ra điểm yếu của mình là bước đầu để yêu thương bền lâu.`);
+  const vy=zPositions(zJD(CUR_Y,7,1,0));tips.push(`Năm ${CUR_Y}: hãy tận dụng các tháng Sao Kim đi qua nhà 5 hoặc nhà 7 của mỗi người (xem tab Vận hạn) để hẹn hò, gắn kết hoặc bàn chuyện tương lai.`);
+  h+=`<div class="card"><div class="eyebrow">Lời khuyên cho hai bạn</div><h3>Để tình yêu bền vững</h3><ul class="clean">${tips.map(x=>`<li>${x}</li>`).join('')}</ul></div>`;}
+ return h;}
+
+function renderZD(){const ch=ZD.me;if(!ch)return;const tabs=[['tong-quan','Tổng quan'],['su-nghiep','Công việc & sở trường'],['van-han','Vận hạn theo thời gian'],['tinh-yeu','Tình yêu']];
+ let h=(ZD.sample?'<p class="note"><span class="sample">Ví dụ mẫu</span> Nhập ngày tháng sinh của bạn để xem kết quả riêng.</p>':'')+`<div class="subtabs" role="tablist">${tabs.map(([k,v])=>`<button type="button" role="tab" data-zt="${k}" aria-selected="${ZD.tab===k}">${v}</button>`).join('')}</div><div class="stack">`;
+ h+=ZD.tab==='tong-quan'?zTongQuan(ch):ZD.tab==='su-nghiep'?zSuNghiep(ch):ZD.tab==='van-han'?zVanHan(ch):zTinhYeu(ch);
+ $('#zdOut').innerHTML=h+'</div>';}
+function initZD(){
+ // vòng hoàng đạo trang trí nền
+ const fx=document.createElement('div');fx.className='fx-zd';fx.setAttribute('aria-hidden','true');
+ let s='<svg viewBox="-500 -500 1000 1000"><g class="zring"><circle r="440"/><circle r="360"/><circle r="250"/>';
+ for(let i=0;i<12;i++){const a=i*30*ZR;s+=`<line x1="${(360*Math.cos(a)).toFixed(1)}" y1="${(360*Math.sin(a)).toFixed(1)}" x2="${(440*Math.cos(a)).toFixed(1)}" y2="${(440*Math.sin(a)).toFixed(1)}"/>`;const b=(i*30+15)*ZR;s+=`<text x="${(400*Math.cos(b)).toFixed(1)}" y="${(400*Math.sin(b)).toFixed(1)}" dominant-baseline="central">${ZG[i]}</text>`;}
+ for(let i=0;i<36;i++){const a=i*10*ZR;s+=`<line class="tk" x1="${(250*Math.cos(a)).toFixed(1)}" y1="${(250*Math.sin(a)).toFixed(1)}" x2="${(262*Math.cos(a)).toFixed(1)}" y2="${(262*Math.sin(a)).toFixed(1)}"/>`;}
+ fx.innerHTML=s+'</g></svg>';document.body.insertBefore(fx,document.body.firstChild);
+ const saved=store.get('zd');const v=saved||{name:'Minh An',d:15,m:8,y:1992,time:'08:00',place:0,dst:false};ZD.pv=store.get('zdp')||(saved?null:{name:'Thu Hà',d:12,m:6,y:1996,time:'',place:'',dst:false});
+ $('#zdForm').innerHTML=zFields('zd',v,false)+'<button class="btn" type="submit">Xem chiêm tinh</button><p class="zerr" id="zdErr" role="alert" hidden></p>';
+ const go=sample=>{const p=zRead('zd');const er=$('#zdErr');if(p.err){er.textContent=p.err;er.hidden=false;return;}er.hidden=true;ZD.me=zChart(p);ZD.sample=sample;if(!sample)store.set('zd',p);
+  if(ZD.pv&&!ZD.partner){ZD.partner=zChart(ZD.pv);}renderZD();};
+ $('#zdForm').addEventListener('submit',e=>{e.preventDefault();go(false);});
+ $('#zdOut').addEventListener('click',e=>{const t=e.target.closest('[data-zt]');if(t){ZD.tab=t.dataset.zt;renderZD();return;}const y=e.target.closest('[data-zy]');if(y){ZD.year=+y.dataset.zy;renderZD();}});
+ $('#zdOut').addEventListener('change',e=>{if(e.target.id==='zdYear'){ZD.year=+e.target.value;renderZD();}});
+ $('#zdOut').addEventListener('submit',e=>{if(e.target.id!=='zpForm')return;e.preventDefault();const p=zRead('zp');const er=$('#zpErr');if(p.err){er.textContent=p.err;er.hidden=false;return;}ZD.pv=p;store.set('zdp',p);ZD.partner=zChart(p);renderZD();});
+ go(!saved);}
+
+route();initTV();initNS();initTarot();initZD();
 
 </script>
 <script>if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));</script></body></html>
