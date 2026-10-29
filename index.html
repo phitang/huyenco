@@ -1,10 +1,6 @@
-<!doctype html><html lang="vi"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Huyền Cơ"><meta name="theme-color" content="#1a100e">
-<link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest">
-<style>[hidden]{display:none!important}img{max-width:100%}body{margin:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style><title>Huyền Cơ Tử Vi</title>
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Huyền Cơ"><meta name="theme-color" content="#1a100e">
+<link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><style>[hidden]{display:none!important}img{max-width:100%}body{margin:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style><title>Huyền Cơ Tử Vi</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -71,7 +67,7 @@ input,select{font:inherit;font-size:.95rem;color:var(--ink);background:var(--bg)
 .subtabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 /* chart */
 .chart-scroll{overflow-x:auto;padding-bottom:6px}
-.chart{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,minmax(150px,auto));min-width:700px;border:2px solid var(--gold);background:var(--surface)}
+.chart{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,minmax(176px,auto));min-width:760px;border:2px solid var(--gold);background:var(--surface)}
 .cell{border:1px solid var(--line);padding:6px 7px;display:flex;flex-direction:column;gap:3px;font-size:.74rem;line-height:1.35;cursor:pointer;position:relative;min-width:0}
 .cell:hover{background:var(--sunk)}
 .cell.sel{background:var(--sunk);box-shadow:inset 0 0 0 2px var(--seal)}
@@ -80,7 +76,9 @@ input,select{font:inherit;font-size:.95rem;color:var(--ink);background:var(--bg)
 .c-cung{font-family:var(--f-display);font-weight:700;font-size:1rem;color:var(--seal);letter-spacing:.06em;text-transform:uppercase;line-height:1.1}
 .c-cung .than{font-size:.66rem;font-family:var(--f-body);background:var(--seal);color:var(--surface);padding:0 5px;border-radius:3px;margin-left:4px;vertical-align:2px;letter-spacing:.04em}
 .c-major{display:flex;flex-direction:column;gap:1px;font-weight:700;font-size:.84rem}
-.c-minor{display:flex;flex-wrap:wrap;gap:0 6px;color:var(--muted)}
+.c-minor{display:flex;flex-wrap:wrap;gap:0 6px;color:var(--muted);font-size:.68rem;line-height:1.3}
+.c-bot .rb{color:var(--bad)}
+.c-marks{position:absolute;top:22px;right:6px;display:flex;gap:3px}
 .c-minor .g{color:var(--good)}.c-minor .b{color:var(--bad)}
 .c-bot{margin-top:auto;display:flex;justify-content:space-between;gap:4px;color:var(--muted);font-size:.68rem}
 .mk{color:var(--surface);background:var(--muted);padding:0 4px;border-radius:2px;font-weight:600}
@@ -269,6 +267,35 @@ body.locked{overflow:hidden}
 @media (prefers-reduced-motion:reduce){.brandmark span,.brandsub,.brandline,.agebox{animation:none;opacity:1;transform:none}.brandline{width:160px}}
 
 .ref-note{position:fixed;right:calc(8px + env(safe-area-inset-right,0px));bottom:calc(8px + env(safe-area-inset-bottom,0px));z-index:50;pointer-events:none;font-size:.68rem;font-style:italic;line-height:1.3;max-width:min(260px,70vw);text-align:right;color:var(--muted);background:color-mix(in srgb,var(--bg) 80%,transparent);padding:3px 8px;border-radius:4px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+
+/* ===== Chiêm Tinh: trang chọn & thanh điều hướng con ===== */
+body[data-page="chiem-tinh"]{
+ --bg:#080a1c;--surface:rgba(18,18,46,.72);--sunk:rgba(50,46,100,.4);--ink:#ece6f6;--muted:#a7a3c8;--line:rgba(170,160,230,.22);
+ --seal:#e2c47e;--gold:#e2c47e;--accent2:#b694ff;--f-display:"Cormorant Unicase","Cormorant Garamond",Georgia,serif;color-scheme:dark;
+ background:radial-gradient(900px 600px at 20% -10%,#2e1c5e 0%,transparent 60%),radial-gradient(1000px 600px at 85% 0%,#1c2a5c 0%,transparent 60%),linear-gradient(180deg,#0a1028,#080a1c);background-attachment:fixed}
+body[data-page="chiem-tinh"] .fx-sky{display:block}
+body[data-page="chiem-tinh"] nav.tabs a{color:var(--muted)}
+body[data-page="chiem-tinh"] nav.tabs a[aria-current="page"]{color:var(--ink);background:var(--surface);border-color:var(--line);box-shadow:inset 0 2px 0 var(--gold)}
+body[data-page="chiem-tinh"] .seal{border-color:var(--gold);color:var(--gold)}
+.ct-head{text-align:center;display:flex;flex-direction:column;gap:6px;margin:12px 0 26px}
+.ct-head h2{font-size:2.2rem;letter-spacing:.04em;color:var(--gold);text-shadow:0 0 20px rgba(226,196,126,.3)}
+.ct-head .eyebrow{color:var(--accent2);letter-spacing:.32em}
+.ct-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;max-width:820px;margin:0 auto}
+.ct-card{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:28px 22px;border-radius:12px;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:transform .25s,border-color .25s,box-shadow .25s}
+.ct-card:hover,.ct-card:focus-visible{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 0 30px rgba(226,196,126,.18);outline:none}
+.ct-card svg{width:96px;height:96px}
+.ct-card h3{font-family:"Cormorant Unicase","Cormorant Garamond",serif;font-size:1.7rem;color:var(--gold);letter-spacing:.06em}
+.ct-card p{color:var(--muted);font-size:.92rem;max-width:34ch}
+.ct-go{margin-top:4px;font-weight:600;font-size:.9rem;color:var(--accent2)}
+.ct-l{fill:none;stroke:var(--gold);stroke-width:1.4}.ct-f{fill:var(--gold)}
+.ct-n{fill:var(--accent2);font-family:"Philosopher",Georgia,serif;font-size:30px;font-weight:700}
+.ct-sub{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px;font-size:.92rem}
+.ct-sub a{color:var(--muted);text-decoration:none;padding:5px 12px;border-radius:99px;border:1px solid var(--line);font-weight:600}
+.ct-sub a[aria-current="page"]{color:var(--bg);background:var(--gold);border-color:var(--gold)}
+.ct-sub .ct-back{border:none;padding-left:0;color:var(--accent2,var(--muted));letter-spacing:.12em;text-transform:uppercase;font-size:.78rem}
+.ct-sub span{color:var(--muted)}
+body[data-page="tarot"] .ct-sub a[aria-current="page"]{color:#0a1028}
+body[data-page="than-so"] .ct-sub a[aria-current="page"]{color:#1a1033}
 </style></head><body>
 <div class="gate" id="gate" role="dialog" aria-modal="true" aria-label="Mở đầu">
  <div id="gIntro"><div class="brandmark" aria-label="PHITANG"><span style="animation-delay:0.00s">P</span><span style="animation-delay:0.12s">H</span><span style="animation-delay:0.24s">I</span><span style="animation-delay:0.36s">T</span><span style="animation-delay:0.48s">A</span><span style="animation-delay:0.60s">N</span><span style="animation-delay:0.72s">G</span></div><div class="brandline"></div><div class="brandsub">Huyền Cơ · Tử vi · Thần số · Tarot</div></div>
@@ -287,9 +314,9 @@ body.locked{overflow:hidden}
 <div class="fx-sky" aria-hidden="true"><canvas id="sky"></canvas></div>
 <div class="wrap">
 <header class="top">
- <div class="brand"><div class="seal" aria-hidden="true">玄</div><div><h1>Huyền Cơ</h1><p>Tử vi Đẩu Số · Thần số học · Tarot</p></div></div>
+ <div class="brand"><div class="seal" aria-hidden="true">玄</div><div><h1>Huyền Cơ</h1><p>Tử vi Đẩu Số · Chiêm Tinh</p></div></div>
  <nav class="tabs" aria-label="Trang">
-  <a href="#tu-vi" data-page="tu-vi">Tử Vi</a><a href="#than-so" data-page="than-so">Thần Số Học</a><a href="#tarot" data-page="tarot">Tarot</a>
+  <a href="#tu-vi" data-page="tu-vi">Tử Vi</a><a href="#chiem-tinh" data-page="chiem-tinh">Chiêm Tinh</a>
  </nav>
 </header>
 
@@ -307,7 +334,19 @@ body.locked{overflow:hidden}
 </section>
 
 <!-- THẦN SỐ -->
+<!-- CHIÊM TINH -->
+<section class="page" id="p-chiem-tinh" hidden>
+ <div class="ct-head"><div class="eyebrow">Chiêm Tinh</div><h2>Bạn muốn xem gì hôm nay?</h2><p class="muted">Chọn một môn để bắt đầu.</p></div>
+ <div class="ct-grid">
+  <a class="ct-card" href="#than-so"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" class="ct-l"/><circle cx="60" cy="60" r="34" class="ct-l"/><polygon points="60,10 89.4,95.5 13.4,42.7 106.6,42.7 30.6,95.5" class="ct-l"/><text x="60" y="72" text-anchor="middle" class="ct-n">9</text></svg>
+   <h3>Thần Số Học</h3><p>Giải mã con số trong họ tên và ngày sinh: số chủ đạo, sứ mệnh, linh hồn, chu kỳ năm và tháng cá nhân.</p><span class="ct-go">Xem thần số →</span></a>
+  <a class="ct-card" href="#tarot"><svg viewBox="0 0 120 120" aria-hidden="true"><rect x="34" y="16" width="52" height="88" rx="6" class="ct-l"/><path d="M66,42A18,18 0 1,0 66,78A22,22 0 0,1 66,42z" class="ct-f"/><circle cx="48" cy="34" r="2" class="ct-f"/><circle cx="74" cy="88" r="2" class="ct-f"/><circle cx="46" cy="84" r="1.5" class="ct-f"/></svg>
+   <h3>Tarot</h3><p>Rút ngẫu nhiên từ bộ 78 lá theo trải 1, 3 hoặc 5 lá và giải mã vận mệnh tương lai gần.</p><span class="ct-go">Rút bài →</span></a>
+ </div>
+</section>
+
 <section class="page" id="p-than-so" hidden>
+ <nav class="ct-sub" aria-label="Chiêm Tinh"><a href="#chiem-tinh" class="ct-back">Chiêm Tinh</a><span aria-hidden="true">›</span><a href="#than-so" aria-current="page">Thần Số Học</a><a href="#tarot">Tarot</a></nav>
  <form class="panel form" id="nsForm" autocomplete="off">
   <label class="wide">Họ và tên khai sinh (đầy đủ)<input id="nsName" required></label>
   <label>Ngày sinh (dương lịch)<input type="date" id="nsDate" required min="1900-01-01" max="2100-12-31"></label>
@@ -318,6 +357,7 @@ body.locked{overflow:hidden}
 
 <!-- TAROT -->
 <section class="page" id="p-tarot" hidden>
+ <nav class="ct-sub" aria-label="Chiêm Tinh"><a href="#chiem-tinh" class="ct-back">Chiêm Tinh</a><span aria-hidden="true">›</span><a href="#than-so">Thần Số Học</a><a href="#tarot" aria-current="page">Tarot</a></nav>
  <form class="panel form" id="trForm" autocomplete="off">
   <label class="wide">Câu hỏi của bạn (không bắt buộc)<input id="trQ" placeholder="Ví dụ: Công việc của tôi trong 3 tháng tới?"></label>
   <label>Chủ đề<select id="trTopic"><option value="chung">Tổng quát</option><option value="tinhyeu">Tình yêu</option><option value="congviec">Công việc</option><option value="taichinh">Tài chính</option></select></label>
@@ -381,6 +421,32 @@ const MINOR_INFO={ // [loại: good/bad/neutral, hành]
  'Tả Phù':['good','Thổ'],'Hữu Bật':['good','Thủy'],'Văn Xương':['good','Kim'],'Văn Khúc':['good','Thủy'],'Địa Không':['bad','Hỏa'],'Địa Kiếp':['bad','Hỏa'],
  'Hỏa Tinh':['bad','Hỏa'],'Linh Tinh':['bad','Hỏa'],'Thiên Mã':['good','Hỏa'],'Đào Hoa':['neutral','Mộc'],'Hồng Loan':['good','Thủy'],'Thiên Hỷ':['good','Thủy'],
  'Thiên Hình':['bad','Hỏa'],'Thiên Diêu':['neutral','Thủy']};
+const MORE_MINOR={ // tên: [loại, trọng số, ý nghĩa]
+ 'Long Trì':['good',.5,'tài hoa, khéo tay, hỷ sự'],'Phượng Các':['good',.5,'danh giá, thẩm mỹ, hỷ sự'],'Giải Thần':['good',.5,'giải trừ tai ách, hóa giải điều xấu'],
+ 'Tam Thai':['good',.5,'thăng tiến, được nâng đỡ, có địa vị'],'Bát Tọa':['good',.5,'vững vàng, có chỗ đứng, uy tín'],
+ 'Ân Quang':['good',.5,'được ân huệ, quý nhân, thi cử đỗ đạt'],'Thiên Quý':['good',.5,'được giúp đỡ, phúc đức, quý hiển'],
+ 'Thai Phụ':['good',.4,'danh tiếng, được khen thưởng'],'Phong Cáo':['good',.4,'bằng cấp, chức tước, được vinh danh'],
+ 'Thiên Quan':['good',.5,'quý nhân, công danh, được che chở'],'Thiên Phúc':['good',.5,'phúc lộc, được che chở, giải nạn'],
+ 'Quốc Ấn':['good',.5,'quyền chức, ấn tín, được tín nhiệm'],'Đường Phù':['good',.4,'nhà cửa, địa vị, phong thái chững chạc'],
+ 'Thiên Đức':['good',.5,'đức độ, giải hung, gặp may'],'Nguyệt Đức':['good',.5,'hiền hòa, giải hung, được giúp'],
+ 'Thiên Giải':['good',.5,'tháo gỡ khó khăn, hóa giải tai họa'],'Địa Giải':['good',.4,'giải trừ trở ngại vật chất'],
+ 'Thiên Tài':['good',.3,'tài năng, khéo léo, thông minh'],'Thiên Thọ':['good',.3,'phúc thọ, điềm đạm, sống lâu'],
+ 'Thiên Trù':['good',.3,'lộc ăn uống, được hưởng thụ'],'Thiên Y':['good',.3,'thuốc thang, chữa bệnh, y dược'],'Đẩu Quân':['neutral',0,'nghiêm khắc, cẩn trọng, giữ gìn'],
+ 'Hoa Cái':['neutral',.2,'cô cao, nghệ thuật, tôn giáo, tâm linh'],'Lưu Hà':['bad',-.5,'cẩn thận sông nước, máu huyết, sinh nở'],
+ 'Thiên Khốc':['bad',-.5,'buồn phiền, lo âu, nước mắt'],'Thiên Hư':['bad',-.5,'hư hao, trống rỗng, hứa nhiều làm ít'],
+ 'Cô Thần':['bad',-.5,'cô độc, ít người chia sẻ (bất lợi tình duyên nam)'],'Quả Tú':['bad',-.5,'đơn chiếc, quạnh hiu (bất lợi tình duyên nữ)'],
+ 'Phá Toái':['bad',-.5,'đổ vỡ, hao tổn, làm dở dang'],'Kiếp Sát':['bad',-.7,'tai nạn bất ngờ, mất mát'],
+ 'Thiên Không':['bad',-.6,'hư không, ảo tưởng, hao tán'],'Thiên La':['bad',-.4,'lưới trời, vướng víu, bị bó buộc'],'Địa Võng':['bad',-.4,'lưới đất, trói buộc, khó thoát'],
+ 'Thiên Thương':['bad',-.4,'hao tổn, buồn phiền do người ngoài'],'Thiên Sứ':['bad',-.4,'tai ách, ốm đau nhẹ, tin không vui']};
+Object.entries(MORE_MINOR).forEach(([k,v])=>{MINOR_INFO[k]=[v[0],''];});
+const BAC_SI=['Bác Sĩ','Lực Sĩ','Thanh Long','Tiểu Hao','Tướng Quân','Tấu Thư','Phi Liêm','Hỷ Thần','Bệnh Phù','Đại Hao','Phục Binh','Quan Phủ'];
+const THAI_TUE=['Thái Tuế','Thiếu Dương','Tang Môn','Thiếu Âm','Quan Phù','Tử Phù','Tuế Phá','Long Đức','Bạch Hổ','Phúc Đức','Điếu Khách','Trực Phù'];
+const RING_INFO={'Bác Sĩ':['good',.3,'thông minh, học rộng'],'Lực Sĩ':['good',.3,'sức mạnh, quyền lực'],'Thanh Long':['good',.5,'hỷ sự, may mắn, thăng tiến'],'Tiểu Hao':['bad',-.3,'hao tán nhỏ'],
+ 'Tướng Quân':['neutral',.2,'uy dũng, cương quyết'],'Tấu Thư':['good',.3,'văn thư, giấy tờ thuận'],'Phi Liêm':['bad',-.2,'nhanh nhẹn nhưng dễ thị phi'],'Hỷ Thần':['good',.4,'tin vui, hỷ sự'],
+ 'Bệnh Phù':['bad',-.3,'ốm đau, mệt mỏi'],'Đại Hao':['bad',-.5,'hao tài lớn'],'Phục Binh':['bad',-.3,'tiểu nhân ngầm hại'],'Quan Phủ':['bad',-.3,'kiện tụng, giấy tờ rắc rối'],
+ 'Thái Tuế':['neutral',-.2,'thị phi, ăn nói thẳng'],'Thiếu Dương':['good',.3,'thông minh, vui vẻ'],'Tang Môn':['bad',-.5,'tang chế, buồn phiền'],'Thiếu Âm':['good',.3,'hiền hòa, kín đáo'],
+ 'Quan Phù':['bad',-.3,'kiện cáo, thị phi'],'Tử Phù':['bad',-.3,'buồn rầu, bệnh tật'],'Tuế Phá':['bad',-.4,'phá tán, chống đối'],'Long Đức':['good',.4,'phúc đức, giải hung'],
+ 'Bạch Hổ':['bad',-.5,'tai nạn, máu huyết, tranh chấp'],'Phúc Đức':['good',.4,'phúc thiện, may mắn'],'Điếu Khách':['bad',-.3,'tin buồn, ăn nói khoa trương'],'Trực Phù':['bad',-.2,'cản trở, cô lập']};
 const STAR_W={'Tử Vi':3,'Thiên Phủ':3,'Thái Dương':2,'Thái Âm':2,'Thiên Lương':2,'Thiên Đồng':2,'Thiên Tướng':2,'Vũ Khúc':2,'Thiên Cơ':1,'Cự Môn':-1,'Tham Lang':0,'Liêm Trinh':0,'Thất Sát':0,'Phá Quân':-1,
  'Lộc Tồn':2,'Tả Phù':1,'Hữu Bật':1,'Văn Xương':1,'Văn Khúc':1,'Thiên Khôi':1,'Thiên Việt':1,'Thiên Mã':1,'Hồng Loan':1,'Thiên Hỷ':1,'Đào Hoa':0,'Thiên Diêu':0,
  'Kình Dương':-2,'Đà La':-2,'Địa Không':-2,'Địa Kiếp':-2,'Hỏa Tinh':-1,'Linh Tinh':-1,'Thiên Hình':-1,
@@ -427,8 +493,26 @@ function buildChart(inp){
  put('Thiên Mã',{2:8,0:2,1:11,3:5}[g4],'minor');
  put('Đào Hoa',{0:9,2:3,1:6,3:0}[g4],'minor');
  const hongLoan=mod(3-yz);put('Hồng Loan',hongLoan,'minor');put('Thiên Hỷ',hongLoan+6,'minor');
- put('Thiên Hình',9+lm-1,'minor');put('Thiên Diêu',1+lm-1,'minor');
+ put('Thiên Hình',9+lm-1,'minor');put('Thiên Diêu',1+lm-1,'minor');put('Thiên Y',1+lm-1,'minor');
+ const d1=L.d-1,taPhu=4+lm-1,huuBat=10-(lm-1),vanXuong=10-h,vanKhuc=4+h;
+ put('Long Trì',4+yz,'minor');put('Phượng Các',10-yz,'minor');put('Giải Thần',10-yz,'minor');
+ put('Thiên Khốc',6-yz,'minor');put('Thiên Hư',6+yz,'minor');
+ put('Cô Thần',[2,2,5,5,5,8,8,8,11,11,11,2][yz],'minor');put('Quả Tú',[10,10,1,1,1,4,4,4,7,7,7,10][yz],'minor');
+ put('Hoa Cái',{0:4,1:1,2:10,3:7}[g4],'minor');put('Kiếp Sát',{0:5,1:2,2:11,3:8}[g4],'minor');
+ put('Phá Toái',[5,1,9][yz%3],'minor');put('Thiên Đức',9+yz,'minor');put('Nguyệt Đức',5+yz,'minor');put('Thiên Không',yz+1,'minor');
+ put('Thiên Giải',8+lm-1,'minor');put('Địa Giải',7+lm-1,'minor');
+ put('Thiên Quan',[7,4,5,2,3,9,11,9,10,6][yc],'minor');put('Thiên Phúc',[9,8,0,11,3,2,6,5,6,5][yc],'minor');
+ put('Lưu Hà',[9,10,7,8,5,6,4,3,11,2][yc],'minor');put('Thiên Trù',[5,6,0,5,6,8,2,6,9,10][yc],'minor');
+ put('Quốc Ấn',locTon+8,'minor');put('Đường Phù',locTon+5,'minor');
+ put('Tam Thai',taPhu+d1,'minor');put('Bát Tọa',huuBat-d1,'minor');put('Ân Quang',vanXuong+d1-1,'minor');put('Thiên Quý',vanKhuc-d1+1,'minor');
+ put('Thai Phụ',vanKhuc+2,'minor');put('Phong Cáo',vanKhuc-2,'minor');
+ put('Thiên Tài',menh+yz,'minor');put('Thiên Thọ',than+yz,'minor');
+ put('Thiên Thương',menh+5,'minor');put('Thiên Sứ',menh+7,'minor');
+ put('Thiên La',4,'minor');put('Địa Võng',10,'minor');put('Đẩu Quân',yz-(lm-1)+h,'minor');
+ for(let k=0;k<12;k++){cells[mod(locTon+(thuan?k:-k))].ring={bs:BAC_SI[k]};}
+ for(let k=0;k<12;k++){cells[mod(yz+k)].ring.tt=THAI_TUE[k];}
  // tứ hóa
+ const ORD={good:0,neutral:1,bad:2};cells.forEach(c=>c.minor.sort((a,b)=>ORD[MINOR_INFO[a.name][0]]-ORD[MINOR_INFO[b.name][0]]));
  TU_HOA[yc].forEach((star,i)=>{cells.forEach(c=>[...c.major,...c.minor].forEach(s=>{if(s.name===star)s.hoa.push(HOA_NAME[i]);}));});
  // tuần triệt
  const triet=[[8,9],[6,7],[4,5],[2,3],[0,1]][yc%5];
@@ -445,7 +529,7 @@ function buildChart(inp){
   menhChu:MENH_CHU[menh],thanChu:THAN_CHU[yz],quai:cungPhi(L.y,male),tieuStart:{2:4,0:10,1:7,3:1}[g4]};
 }
 
-function cellScore(c){let s=0;c.major.forEach(st=>{let w=STAR_W[st.name]||0;if(st.bright==='sáng')w+=1;if(st.bright==='hãm')w-=2;s+=w;st.hoa.forEach(hh=>s+=STAR_W[hh]);});
+function cellScore(c){let s=0;if(c.ring){s+=RING_INFO[c.ring.bs][1]+RING_INFO[c.ring.tt][1];}c.minor.forEach(st=>{if(MORE_MINOR[st.name])s+=MORE_MINOR[st.name][1];});c.major.forEach(st=>{let w=STAR_W[st.name]||0;if(st.bright==='sáng')w+=1;if(st.bright==='hãm')w-=2;s+=w;st.hoa.forEach(hh=>s+=STAR_W[hh]);});
  c.minor.forEach(st=>{s+=STAR_W[st.name]||0;st.hoa.forEach(hh=>s+=STAR_W[hh]);});
  if(c.marks.includes('Triệt'))s-=1;if(c.marks.includes('Tuần'))s-=0.5;
  if(['Đế Vượng','Lâm Quan','Tràng Sinh'].includes(c.trangSinh))s+=1;if(['Tuyệt','Tử','Bệnh'].includes(c.trangSinh))s-=0.5;return s;}
@@ -497,6 +581,7 @@ const STAR_TXT={
 'Phá Quân':{k:'đổi mới, phá cách, thất thường',m:'Bạn can đảm, thích đổi mới, không chịu khuôn khổ. Cuộc đời có nhiều lần làm lại từ đầu. Bạn cần học sự kiên nhẫn và tránh phá bỏ khi chưa có phương án mới.',q:'Hợp khởi nghiệp, cải cách, vận tải, xây dựng, sáng tạo nội dung, công việc thường xuyên di chuyển.',p:'Tình duyên dễ trắc trở lần đầu; hãy chọn người bao dung.',t:'Tiền tán tụ thất thường; nên giữ một phần tài sản cố định.'}};
 
 const MINOR_TXT={'Lộc Tồn':'mang lộc, giữ của, cẩn trọng','Kình Dương':'quyết liệt, dễ va chạm, cần bớt nóng','Đà La':'chậm trễ, vướng mắc, dai dẳng','Thiên Khôi':'quý nhân nam giúp đỡ, thi cử thuận','Thiên Việt':'quý nhân nữ giúp đỡ, cơ hội bất ngờ','Tả Phù':'được trợ lực, có người phò tá','Hữu Bật':'được trợ lực, quan hệ rộng','Văn Xương':'học vấn, văn chương, giấy tờ','Văn Khúc':'tài nghệ, ăn nói, năng khiếu','Địa Không':'ý tưởng lạ nhưng dễ hao hụt','Địa Kiếp':'biến động, mất mát bất ngờ','Hỏa Tinh':'nóng nảy, bộc phát','Linh Tinh':'âm ỉ, lo âu, bất ngờ','Thiên Mã':'di chuyển, thay đổi, xuất ngoại','Đào Hoa':'duyên dáng, tình cảm, sức hút','Hồng Loan':'hỷ sự, tình duyên','Thiên Hỷ':'tin vui, hỷ sự','Thiên Hình':'kỷ luật, pháp lý, phẫu thuật','Thiên Diêu':'đa tình, lãng mạn, nghệ thuật'};
+Object.entries(MORE_MINOR).forEach(([k,v])=>{MINOR_TXT[k]=v[2];});
 const HOA_TXT={'Hóa Lộc':'thêm tài lộc, thuận lợi','Hóa Quyền':'thêm quyền lực, chủ động','Hóa Khoa':'danh tiếng, học vấn, được giải nạn','Hóa Kỵ':'trắc trở, thị phi, vướng mắc'};
 
 const CUNG_TXT={'Mệnh':'tính cách, căn số cả đời','Phụ Mẫu':'cha mẹ, cấp trên, giấy tờ','Phúc Đức':'phúc phần dòng họ, tinh thần, tuổi thọ','Điền Trạch':'nhà cửa, đất đai, tài sản cố định','Quan Lộc':'sự nghiệp, công danh','Nô Bộc':'bạn bè, cộng sự, cấp dưới','Thiên Di':'ra ngoài, môi trường xã hội, xuất ngoại','Tật Ách':'sức khỏe, tai ách','Tài Bạch':'tiền bạc, cách kiếm tiền','Tử Tức':'con cái, học trò, sáng tạo','Phu Thê':'vợ chồng, tình duyên','Huynh Đệ':'anh chị em, đồng nghiệp ngang hàng'};
@@ -631,8 +716,8 @@ const HOA_SHORT={'Hóa Lộc':'Lộc','Hóa Quyền':'Quyền','Hóa Khoa':'Khoa
 const hoaBadge=s=>s.hoa.map(h=>`<span class="hoa ${HOA_CLS[h]}">${HOA_SHORT[h]}</span>`).join('');
 
 // ---------- routing ----------
-const PAGES=['tu-vi','than-so','tarot'];
-function route(){const h=location.hash.slice(1);const p=PAGES.includes(h)?h:'tu-vi';document.body.dataset.page=p;if(window.skyStart)skyStart(p==='tarot');PAGES.forEach(x=>{$('#p-'+x).hidden=x!==p;});document.querySelectorAll('nav.tabs a').forEach(a=>{if(a.dataset.page===p)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});}
+const PAGES=['tu-vi','chiem-tinh','than-so','tarot'];
+function route(){const h=location.hash.slice(1);const p=PAGES.includes(h)?h:'tu-vi';document.body.dataset.page=p;setTimeout(()=>{try{if(window.skyStart)skyStart(p==='tarot'||p==='chiem-tinh');}catch(e){}},0);PAGES.forEach(x=>{$('#p-'+x).hidden=x!==p;});const top=p==='tu-vi'?'tu-vi':'chiem-tinh';document.querySelectorAll('nav.tabs a').forEach(a=>{if(a.dataset.page===top)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});}
 window.addEventListener('hashchange',route);
 
 // ================= TỬ VI =================
@@ -648,7 +733,8 @@ function renderChart(){
    <div class="c-cung">${c.cung}${c.isThan?'<span class="than">THÂN</span>':''}</div>
    <div class="c-major">${c.major.length?c.major.map(starLine).join(''):'<span class="muted" style="font-weight:500">Vô chính diệu</span>'}</div>
    <div class="c-minor">${minors}</div>
-   <div class="c-bot"><span>${c.trangSinh}</span><span>${c.marks.map(m=>`<span class="mk">${m}</span>`).join(' ')}</span></div></div>`;});
+   <div class="c-bot"><span class="${RING_INFO[c.ring.bs][0]==='bad'?'rb':''}">${c.ring.bs}</span><span>${c.trangSinh}</span><span class="${RING_INFO[c.ring.tt][0]==='bad'?'rb':''}">${c.ring.tt}</span></div>
+   ${c.marks.length?`<div class="c-marks">${c.marks.map(m=>`<span class="mk">${m}</span>`).join(' ')}</div>`:''}</div>`;});
  const L=CH.L,I=CH.inp;
  h+=`<div class="center"><div class="eyebrow">Lá số Tử Vi</div><h3>${esc(I.name)}</h3>
  <dl><dt>Dương lịch</dt><dd>${fmt(I.d,I.m,I.y)} · giờ ${CHI[I.hour]}</dd>
@@ -671,7 +757,9 @@ function cellDetail(c){
  majors.forEach(s=>{const t=STAR_TXT[s.name];let extra='';
   if(c.cung==='Mệnh')extra=t.m;else if(c.cung==='Quan Lộc')extra=t.q;else if(c.cung==='Phu Thê')extra=t.p;else if(c.cung==='Tài Bạch')extra=t.t;else extra=`Sao mang tính ${t.k}, tác động lên ${CUNG_TXT[c.cung]}.`;
   h+=`<p><b class="el-${MAJOR_EL[s.name]}">${s.name}</b>${s.bright?` (${s.bright})`:''}${s.hoa.length?' · '+s.hoa.join(', '):''}: ${extra}${s.hoa.map(x=>` ${x}: ${HOA_TXT[x]}.`).join('')}</p>`;});
- if(c.minor.length)h+=`<p><b>Phụ tinh:</b> ${c.minor.map(s=>`${s.name} (${MINOR_TXT[s.name]}${s.hoa.length?'; '+s.hoa.map(x=>HOA_TXT[x]).join('; '):''})`).join(', ')}.</p>`;
+ const grp=t=>c.minor.filter(s=>MINOR_INFO[s.name][0]===t);const li=s=>`<b>${s.name}</b>: ${MINOR_TXT[s.name]}${s.hoa.length?'; '+s.hoa.map(x=>HOA_TXT[x]).join('; '):''}`;
+ [['good','Cát tinh (sao tốt)','good'],['neutral','Trung tinh','mid'],['bad','Sát tinh, hung tinh (sao xấu)','bad']].forEach(([t,lbl,cl])=>{const g=grp(t);if(g.length)h+=`<div><span class="pill ${cl}">${lbl}</span><ul class="clean" style="margin-top:6px">${g.map(s=>`<li>${li(s)}</li>`).join('')}</ul></div>`;});
+ h+=`<p class="muted">Vòng Bác Sĩ: <b>${c.ring.bs}</b> (${RING_INFO[c.ring.bs][2]}). Vòng Thái Tuế: <b>${c.ring.tt}</b> (${RING_INFO[c.ring.tt][2]}).</p>`;
  if(c.marks.length)h+=`<p><b>${c.marks.join(', ')}</b>: làm giảm sức mạnh của các sao trong cung, điều tốt đến chậm, điều xấu cũng nhẹ đi.</p>`;
  h+=`<p class="muted">Tam phương tứ chính: ${tp.map(x=>x.cung).join(' · ')}.</p></div>`;return h;
 }
@@ -782,11 +870,20 @@ function ngheNghiep(){
  <li>Giai đoạn bứt phá sự nghiệp: đại hạn đi qua cung Quan Lộc (${ql.daiHan[0]}–${ql.daiHan[1]} tuổi) hoặc Tài Bạch (${tb.daiHan[0]}–${tb.daiHan[1]} tuổi).</li></ul></div></div></div>`;
 }
 
+function loveNotes(C,pt){const mc=C.cells[C.menh],inP=n=>pt.minor.some(s=>s.name===n),inM=n=>mc.minor.some(s=>s.name===n),out=[];
+ if(inP('Hồng Loan')||inP('Thiên Hỷ'))out.push('Hồng Loan/Thiên Hỷ ở Phu Thê: duyên lành, dễ có hỷ sự cưới hỏi sớm.');
+ if(inP('Long Trì')||inP('Phượng Các'))out.push('Long Trì/Phượng Các ở Phu Thê: người phối ngẫu có tài, gia đình có danh giá.');
+ if(inP('Đào Hoa')||inM('Đào Hoa'))out.push('Đào Hoa chiếu Mệnh hoặc Phu Thê: có sức hút, nhiều người để ý; cần giữ chừng mực để hôn nhân bền.');
+ if(inP('Cô Thần')||inP('Quả Tú')||inM('Cô Thần')||inM('Quả Tú'))out.push('Cô Thần/Quả Tú: dễ cảm thấy cô đơn trong tình cảm hoặc kết hôn muộn. Hóa giải: chủ động chia sẻ, dành thời gian chung, không giữ khoảng cách quá lâu.');
+ if(inP('Thiên Khốc')||inP('Thiên Hư'))out.push('Khốc/Hư ở Phu Thê: hay buồn phiền vì chuyện nhỏ; nên nói rõ mong muốn thay vì để trong lòng.');
+ if(inP('Kình Dương')||inP('Đà La')||inP('Địa Không')||inP('Địa Kiếp'))out.push('Có sát tinh ở Phu Thê: tình duyên có thử thách. Kết hôn sau khi đã tìm hiểu kỹ và ổn định công việc sẽ tốt hơn.');
+ if(inP('Thiên Đức')||inP('Nguyệt Đức')||inP('Giải Thần'))out.push('Có sao giải ở Phu Thê (Thiên Đức/Nguyệt Đức/Giải Thần): khó khăn trong hôn nhân thường được hóa giải.');
+ return out.length?`<ul class="clean">${out.map(x=>`<li>${x}</li>`).join('')}</ul>`:'';}
 function honNhan(){
  const C=CH,pt=cellOf(C,'Phu Thê'),pM=pt.major.length?pt.major:C.cells[mod(pt.chi+6)].major,[lb,cl]=scoreLabel(cellScore(pt));
  const P=PARTNER||{name:'',gender:C.male?'nu':'nam',date:''};
  let h=`<div class="stack"><div class="card"><div class="eyebrow">Cung Phu Thê · ${CAN[pt.can]} ${CHI[pt.chi]}</div><h3>${pM.map(s=>`<span class="el-${MAJOR_EL[s.name]}">${s.name}</span>`).join(' · ')}<span class="pill ${cl}">${lb}</span></h3>
- ${pM.map(s=>`<p>${STAR_TXT[s.name].p}</p>`).join('')}${pt.minor.length?`<p class="muted">Phụ tinh: ${pt.minor.map(s=>`${s.name} (${MINOR_TXT[s.name]})`).join(', ')}.</p>`:''}</div>
+ ${pM.map(s=>`<p>${STAR_TXT[s.name].p}</p>`).join('')}${loveNotes(C,pt)}${pt.minor.length?`<p class="muted">Phụ tinh tại Phu Thê: ${pt.minor.map(s=>`${s.name} (${MINOR_TXT[s.name]})`).join(', ')}.</p>`:''}</div>
  <form class="panel form" id="hnForm" autocomplete="off"><label class="wide">Tên ${C.male?'vợ':'chồng'} / người ấy<input id="hnName" value="${esc(P.name)}" required></label>
  <div><label style="margin-bottom:5px">Giới tính</label><div class="seg"><input type="radio" name="hnG" id="hnG1" value="nam" ${P.gender==='nam'?'checked':''}><label for="hnG1">Nam</label><input type="radio" name="hnG" id="hnG2" value="nu" ${P.gender==='nu'?'checked':''}><label for="hnG2">Nữ</label></div></div>
  <label>Ngày sinh (dương lịch)<input type="date" id="hnDate" value="${P.date}" required min="1900-01-01" max="2100-12-31"></label><button class="btn" type="submit">Xem hợp tuổi</button></form>`;
@@ -963,7 +1060,7 @@ function initTarot(){resetTarot();$('#trForm').addEventListener('submit',e=>{e.p
 
 
 // ===== Trời sao cho Tarot =====
-(function(){const cv=document.getElementById('sky');if(!cv||!cv.getContext)return;const ctx=cv.getContext('2d');let W,H,dpr,stars=[],cons=[],raf=null,on=false;
+(function(){const cv=document.getElementById('sky');if(!cv||!cv.getContext)return;const ctx=cv.getContext('2d');if(!ctx)return;let W,H,dpr,stars=[],cons=[],raf=null,on=false;
 const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
 const SHAPES=[[[0,0],[.06,.02],[.11,.0],[.15,.04],[.17,.11],[.23,.12],[.24,.05]],[[0,0],[.04,.08],[.02,.16],[.1,.1],[.18,.14],[.14,.06],[.1,.1]],[[0,.1],[.05,0],[.1,.08],[.15,.02],[.2,.1]],[[0,0],[.03,.07],[.09,.09],[.13,.04],[.09,.09],[.1,.16]],[[0,.05],[.06,0],[.12,.05],[.06,.12],[0,.05]]];
