@@ -350,6 +350,52 @@ label.chk input{width:auto}
 .zel-bg0{background:var(--zf)}.zel-bg1{background:var(--ze)}.zel-bg2{background:var(--za)}.zel-bg3{background:var(--zw)}
 @media (max-width:560px){.zbig{width:110px;height:110px;font-size:4.6rem}}
 @media (prefers-reduced-motion:reduce){.fx-zd .zring{animation:none}}
+
+/* ===== Bói Chỉ Tay: giấy dó, mực nâu, đường chỉ màu son ===== */
+body[data-page="chi-tay"]{--bg:#ece2cf;--surface:#f7f1e4;--sunk:#e4d8c1;--ink:#2a1f17;--muted:#6f5f4e;--line:#cdbb9c;--seal:#a8431f;--gold:#8b6a1f;--good:#2f7a4b;--bad:#a8431f;--warn:#94651a;
+ --f-display:"Cormorant Garamond",Georgia,serif;color-scheme:light;
+ background:radial-gradient(800px 500px at 85% -10%,rgba(168,67,31,.12),transparent 60%),radial-gradient(700px 500px at 0% 100%,rgba(139,106,31,.12),transparent 60%),#ece2cf;background-attachment:fixed}
+body[data-page="chi-tay"] .fx-pt{display:block}
+.fx-pt{display:none;position:fixed;inset:0;z-index:0;pointer-events:none}
+.fx-pt svg{position:absolute;right:-8vw;bottom:-6vh;width:min(70vw,640px);height:auto;opacity:.09}
+.fx-pt path{fill:none;stroke:#5a3a22;stroke-width:3;stroke-linecap:round}
+.pt-head{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;max-width:70ch}
+.pt-head h2{font-size:2.4rem;color:var(--seal)}
+.pt-act{display:flex;flex-direction:column;gap:16px}
+.pt-hand-pick{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.pt-hand-pick .seg{min-width:220px}
+.pt-lbl{font-size:.78rem;font-weight:600;letter-spacing:.04em;color:var(--muted)}
+.pt-hint{font-size:.82rem;color:var(--muted)}
+.pt-btns{display:flex;gap:10px;flex-wrap:wrap}
+.pt-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;font-size:1rem;cursor:pointer}
+.pt-btn svg{width:22px;height:22px}
+.vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+.vh:focus-visible+label,.pt-btns input:focus-visible{outline:2px solid var(--gold)}
+.pt-tips{margin:0;padding-left:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:4px 18px;color:var(--muted);font-size:.88rem}
+.pt-main{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:16px;margin-top:18px;align-items:start}
+@media (max-width:760px){.pt-main{grid-template-columns:1fr}}
+.pt-fig{align-items:stretch}
+.pt-stage{position:relative;border-radius:8px;overflow:hidden;background:var(--sunk);display:grid;place-items:center}
+.pt-stage canvas{display:block;max-width:100%;height:auto;max-height:70vh}
+.pt-svg{width:100%;max-width:320px;height:auto;padding:10px}
+.pt-hand rect{fill:#e9c9a6;stroke:#a07a55;stroke-width:1.5}
+.pt-l{fill:none;stroke-width:4;stroke-linecap:round}
+.pt-tag text{font:600 11px var(--f-body);fill:var(--ink)}
+.pt-scan{position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,rgba(168,67,31,.0) 40%,rgba(168,67,31,.45) 50%,rgba(168,67,31,0) 60%,transparent 100%);background-size:100% 200%;animation:ptscan 1.3s linear infinite;mix-blend-mode:multiply}
+@keyframes ptscan{from{background-position:0 100%}to{background-position:0 -100%}}
+.pt-leg{display:flex;gap:12px;flex-wrap:wrap;font-size:.82rem;color:var(--muted)}
+.pt-leg i,.pt-gh i{display:inline-block;width:14px;height:4px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.pt-grp{display:flex;flex-direction:column;gap:6px;padding:10px 0;border-top:1px solid var(--line)}
+.pt-gh{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}.pt-gh span{font-size:.8rem;color:var(--muted)}
+.pt-chips{display:flex;flex-wrap:wrap;gap:6px}
+.pt-chip{font:inherit;font-size:.86rem;padding:6px 12px;border-radius:99px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.pt-chip.on{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.pt-chip small{font-size:.66rem;opacity:.75;margin-left:4px;text-transform:uppercase;letter-spacing:.06em}
+.pt-chip:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.pt-read{margin-top:16px;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:640px){.pt-read{grid-template-columns:1fr}}
+body[data-page="chi-tay"] #ptOut>.card{margin-top:16px}
+@media (prefers-reduced-motion:reduce){.pt-scan{animation:none;background:rgba(168,67,31,.15)}}
 </style></head><body>
 <div class="gate" id="gate" role="dialog" aria-modal="true" aria-label="Mở đầu">
  <div id="gIntro"><div class="brandmark" aria-label="PHITANG"><span style="animation-delay:0.00s">P</span><span style="animation-delay:0.12s">H</span><span style="animation-delay:0.24s">I</span><span style="animation-delay:0.36s">T</span><span style="animation-delay:0.48s">A</span><span style="animation-delay:0.60s">N</span><span style="animation-delay:0.72s">G</span></div><div class="brandline"></div><div class="brandsub">Huyền Cơ · Tử vi · Thần số · Tarot</div></div>
@@ -359,6 +405,7 @@ label.chk input{width:auto}
   <div class="acts"><button type="button" class="yes" id="gExit">Thoát</button></div><p id="gExitNote" hidden style="font-size:.85rem">Vuốt từ cạnh dưới màn hình lên để đóng ứng dụng.</p></div>
 </div>
 <p class="ref-note">Nội dung trong ứng dụng này chỉ mang tính chất tham khảo</p>
+<div class="fx-pt" aria-hidden="true"><svg viewBox="0 0 400 500"><path d="M330,170 C270,185 190,178 140,140"/><path d="M60,200 C130,215 220,240 300,290"/><path d="M70,190 C140,240 160,330 140,470"/><path d="M220,480 C216,400 210,330 200,240"/><path d="M335,150 L310,153"/><path d="M335,135 L315,137"/></svg></div>
 <div class="fx-tv" aria-hidden="true"><svg viewBox="-20 -20 1040 1040"><g class="tv-nh"><polygon class="sinh" points="500.0,110.0 870.9,379.5 729.2,815.5 270.8,815.5 129.1,379.5"/><polygon class="khac" points="500.0,110.0 729.2,815.5 129.1,379.5 870.9,379.5 270.8,815.5"/><circle cx="500.0" cy="110.0" r="58" class="nh-c e-hoa"/><text x="500.0" y="116.0" class="nh-h e-hoa">火</text><text x="500.0" y="144.0" class="nh-v e-hoa">HỎA</text><circle cx="870.9" cy="379.5" r="58" class="nh-c e-tho"/><text x="870.9" y="385.5" class="nh-h e-tho">土</text><text x="870.9" y="413.5" class="nh-v e-tho">THỔ</text><circle cx="729.2" cy="815.5" r="58" class="nh-c e-kim"/><text x="729.2" y="821.5" class="nh-h e-kim">金</text><text x="729.2" y="849.5" class="nh-v e-kim">KIM</text><circle cx="270.8" cy="815.5" r="58" class="nh-c e-thuy"/><text x="270.8" y="821.5" class="nh-h e-thuy">水</text><text x="270.8" y="849.5" class="nh-v e-thuy">THỦY</text><circle cx="129.1" cy="379.5" r="58" class="nh-c e-moc"/><text x="129.1" y="385.5" class="nh-h e-moc">木</text><text x="129.1" y="413.5" class="nh-v e-moc">MỘC</text></g><g class="spin-slow"><g class="tv-bq"><g transform="rotate(0 500 500)"><rect x="465.0" y="300" width="70" height="8" class="tri"/><rect x="465.0" y="284" width="29.4" height="8" class="tri"/><rect x="505.6" y="284" width="29.4" height="8" class="tri"/><rect x="465.0" y="268" width="70" height="8" class="tri"/></g><g transform="rotate(45 500 500)"><rect x="465.0" y="300" width="29.4" height="8" class="tri"/><rect x="505.6" y="300" width="29.4" height="8" class="tri"/><rect x="465.0" y="284" width="29.4" height="8" class="tri"/><rect x="505.6" y="284" width="29.4" height="8" class="tri"/><rect x="465.0" y="268" width="29.4" height="8" class="tri"/><rect x="505.6" y="268" width="29.4" height="8" class="tri"/></g><g transform="rotate(90 500 500)"><rect x="465.0" y="300" width="70" height="8" class="tri"/><rect x="465.0" y="284" width="70" height="8" class="tri"/><rect x="465.0" y="268" width="29.4" height="8" class="tri"/><rect x="505.6" y="268" width="29.4" height="8" class="tri"/></g><g transform="rotate(135 500 500)"><rect x="465.0" y="300" width="70" height="8" class="tri"/><rect x="465.0" y="284" width="70" height="8" class="tri"/><rect x="465.0" y="268" width="70" height="8" class="tri"/></g><g transform="rotate(180 500 500)"><rect x="465.0" y="300" width="29.4" height="8" class="tri"/><rect x="505.6" y="300" width="29.4" height="8" class="tri"/><rect x="465.0" y="284" width="70" height="8" class="tri"/><rect x="465.0" y="268" width="29.4" height="8" class="tri"/><rect x="505.6" y="268" width="29.4" height="8" class="tri"/></g><g transform="rotate(225 500 500)"><rect x="465.0" y="300" width="29.4" height="8" class="tri"/><rect x="505.6" y="300" width="29.4" height="8" class="tri"/><rect x="465.0" y="284" width="29.4" height="8" class="tri"/><rect x="505.6" y="284" width="29.4" height="8" class="tri"/><rect x="465.0" y="268" width="70" height="8" class="tri"/></g><g transform="rotate(270 500 500)"><rect x="465.0" y="300" width="70" height="8" class="tri"/><rect x="465.0" y="284" width="29.4" height="8" class="tri"/><rect x="505.6" y="284" width="29.4" height="8" class="tri"/><rect x="465.0" y="268" width="29.4" height="8" class="tri"/><rect x="505.6" y="268" width="29.4" height="8" class="tri"/></g><g transform="rotate(-45 500 500)"><rect x="465.0" y="300" width="29.4" height="8" class="tri"/><rect x="505.6" y="300" width="29.4" height="8" class="tri"/><rect x="465.0" y="284" width="70" height="8" class="tri"/><rect x="465.0" y="268" width="70" height="8" class="tri"/></g><circle cx="500" cy="500" r="180" class="ln"/><circle cx="500" cy="500" r="262" class="ln"/></g></g><g class="spin-yy"><g class="tv-yy"><circle cx="500" cy="500" r="150" class="yy-l"/>
 <path class="yy-d" d="M500,350 A150,150 0 0,1 500,650 A75.0,75.0 0 0,1 500,500 A75.0,75.0 0 0,0 500,350z"/>
 <circle cx="500" cy="425.0" r="21.428571428571427" class="yy-d"/><circle cx="500" cy="575.0" r="21.428571428571427" class="yy-l"/>
@@ -368,9 +415,9 @@ label.chk input{width:auto}
 <div class="fx-sky" aria-hidden="true"><canvas id="sky"></canvas></div>
 <div class="wrap">
 <header class="top">
- <div class="brand"><div class="seal" aria-hidden="true">玄</div><div><h1>Huyền Cơ</h1><p>Tử vi Đẩu Số · Chiêm Tinh</p></div></div>
+ <div class="brand"><div class="seal" aria-hidden="true">玄</div><div><h1>Huyền Cơ</h1><p>Tử vi Đẩu Số · Chiêm Tinh · Chỉ Tay</p></div></div>
  <nav class="tabs" aria-label="Trang">
-  <a href="#tu-vi" data-page="tu-vi">Tử Vi</a><a href="#chiem-tinh" data-page="chiem-tinh">Chiêm Tinh</a>
+  <a href="#tu-vi" data-page="tu-vi">Tử Vi</a><a href="#chiem-tinh" data-page="chiem-tinh">Chiêm Tinh</a><a href="#chi-tay" data-page="chi-tay">Chỉ Tay</a>
  </nav>
 </header>
 
@@ -388,6 +435,20 @@ label.chk input{width:auto}
 </section>
 
 <!-- THẦN SỐ -->
+<!-- CHỈ TAY -->
+<section class="page" id="p-chi-tay" hidden>
+ <div class="pt-head"><div class="eyebrow">Xem tướng tay</div><h2>Bói Chỉ Tay</h2><p class="muted">Chụp lòng bàn tay hoặc chọn ảnh có sẵn. App quét và phân tích các đường chỉ tay ngay trên máy của bạn, ảnh không được tải lên đâu cả.</p></div>
+ <div class="panel pt-act">
+  <div class="pt-hand-pick"><span class="pt-lbl">Bàn tay xem</span><div class="seg"><input type="radio" name="ptH" id="ptH1" value="trai" checked><label for="ptH1">Tay trái</label><input type="radio" name="ptH" id="ptH2" value="phai"><label for="ptH2">Tay phải</label></div><span class="pt-hint">Nam xem tay trái, nữ xem tay phải</span></div>
+  <div class="pt-btns"><label class="btn pt-btn" for="ptCam"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>Chụp ảnh</label>
+   <label class="btn ghost pt-btn" for="ptLib"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 16l4-4 3 3 2-2 3 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="9" cy="9.5" r="1.4" fill="currentColor"/></svg>Chọn từ thư viện</label>
+   <input class="vh" type="file" id="ptCam" accept="image/*" capture="environment"><input class="vh" type="file" id="ptLib" accept="image/*"></div>
+  <p class="zerr" id="ptErr" role="alert" hidden></p>
+  <ul class="pt-tips"><li>Xòe bàn tay, các ngón khép nhẹ, hướng ngón tay lên trên</li><li>Ánh sáng đều, tránh bóng đổ và đèn flash chói</li><li>Đặt tay trên nền tối, một màu</li><li>Lòng bàn tay chiếm phần lớn khung hình, chụp rõ nét</li></ul>
+ </div>
+ <div id="ptOut"></div>
+</section>
+
 <!-- CHIÊM TINH -->
 <section class="page" id="p-chiem-tinh" hidden>
  <div class="ct-head"><div class="eyebrow">Chiêm Tinh</div><h2>Bạn muốn xem gì hôm nay?</h2><p class="muted">Chọn một trong ba môn để bắt đầu.</p></div>
@@ -780,8 +841,8 @@ const HOA_SHORT={'Hóa Lộc':'Lộc','Hóa Quyền':'Quyền','Hóa Khoa':'Khoa
 const hoaBadge=s=>s.hoa.map(h=>`<span class="hoa ${HOA_CLS[h]}">${HOA_SHORT[h]}</span>`).join('');
 
 // ---------- routing ----------
-const PAGES=['tu-vi','chiem-tinh','than-so','tarot','hoang-dao'];
-function route(){const h=location.hash.slice(1);const p=PAGES.includes(h)?h:'tu-vi';document.body.dataset.page=p;setTimeout(()=>{try{if(window.skyStart)skyStart(p==='tarot'||p==='chiem-tinh'||p==='hoang-dao');}catch(e){}},0);PAGES.forEach(x=>{$('#p-'+x).hidden=x!==p;});const top=p==='tu-vi'?'tu-vi':'chiem-tinh';document.querySelectorAll('nav.tabs a').forEach(a=>{if(a.dataset.page===top)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});}
+const PAGES=['tu-vi','chiem-tinh','than-so','tarot','hoang-dao','chi-tay'];
+function route(){const h=location.hash.slice(1);const p=PAGES.includes(h)?h:'tu-vi';document.body.dataset.page=p;setTimeout(()=>{try{if(window.skyStart)skyStart(p==='tarot'||p==='chiem-tinh'||p==='hoang-dao');}catch(e){}},0);PAGES.forEach(x=>{$('#p-'+x).hidden=x!==p;});const top=p==='tu-vi'||p==='chi-tay'?p:'chiem-tinh';document.querySelectorAll('nav.tabs a').forEach(a=>{if(a.dataset.page===top)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});}
 window.addEventListener('hashchange',route);
 
 // ================= TỬ VI =================
@@ -1473,7 +1534,148 @@ function initZD(){
  $('#zdOut').addEventListener('submit',e=>{if(e.target.id!=='zpForm')return;e.preventDefault();const p=zRead('zp');const er=$('#zpErr');if(p.err){er.textContent=p.err;er.hidden=false;return;}ZD.pv=p;store.set('zdp',p);ZD.partner=zChart(p);renderZD();});
  go(!saved);}
 
-route();initTV();initNS();initTarot();initZD();
+// ===== BÓI CHỈ TAY: xử lý ảnh trên máy =====
+function ptAnalyze(img,handSide){
+ const sc=560/Math.max(img.naturalWidth||img.width,img.naturalHeight||img.height),W=Math.max(40,Math.round((img.naturalWidth||img.width)*Math.min(1,sc))),H=Math.max(40,Math.round((img.naturalHeight||img.height)*Math.min(1,sc)));
+ const cv=document.createElement('canvas');cv.width=W;cv.height=H;const cx=cv.getContext('2d',{willReadFrequently:true});cx.drawImage(img,0,0,W,H);
+ const px=cx.getImageData(0,0,W,H).data,N=W*H,gray=new Float32Array(N);let skin=new Uint8Array(N);
+ for(let i=0;i<N;i++){const r=px[i*4],g=px[i*4+1],b=px[i*4+2];const Y=.299*r+.587*g+.114*b,Cb=128-.168736*r-.331264*g+.5*b,Cr=128+.5*r-.418688*g-.081312*b;gray[i]=Y;skin[i]=(Cr>=133&&Cr<=182&&Cb>=72&&Cb<=135&&Y>35)?1:0;}
+ // tích phân để lọc hộp
+ const integ=a=>{const I=new Float64Array((W+1)*(H+1));for(let y=0;y<H;y++){let s=0;for(let x=0;x<W;x++){s+=a[y*W+x];I[(y+1)*(W+1)+x+1]=I[y*(W+1)+x+1]+s;}}return I;};
+ const box=(I,x,y,r)=>{const x0=Math.max(0,x-r),y0=Math.max(0,y-r),x1=Math.min(W,x+r+1),y1=Math.min(H,y+r+1);return[(I[y1*(W+1)+x1]-I[y0*(W+1)+x1]-I[y1*(W+1)+x0]+I[y0*(W+1)+x0]),(x1-x0)*(y1-y0)];};
+ // làm mịn mặt nạ da
+ {const I=integ(skin),m=new Uint8Array(N);for(let y=0;y<H;y++)for(let x=0;x<W;x++){const [s,a]=box(I,x,y,3);m[y*W+x]=s>a*.5?1:0;}skin=m;}
+ // vùng da lớn nhất
+ const lab=new Int32Array(N).fill(-1),q=new Int32Array(N);let best=-1,bestA=0,cid=0;
+ for(let i=0;i<N;i++){if(!skin[i]||lab[i]>=0)continue;let h=0,t=0;q[t++]=i;lab[i]=cid;let a=0;while(h<t){const j=q[h++];a++;const x=j%W,y=(j-x)/W;const nb=[x>0?j-1:-1,x<W-1?j+1:-1,y>0?j-W:-1,y<H-1?j+W:-1];for(const k of nb)if(k>=0&&skin[k]&&lab[k]<0){lab[k]=cid;q[t++]=k;}}if(a>bestA){bestA=a;best=cid;}cid++;}
+ let ok=bestA>N*.07;const mask=new Uint8Array(N);
+ if(ok){for(let i=0;i<N;i++)mask[i]=lab[i]===best?1:0;}else{for(let y=0;y<H;y++)for(let x=0;x<W;x++){const dx=(x-W/2)/(W*.42),dy=(y-H*.55)/(H*.45);mask[y*W+x]=dx*dx+dy*dy<1?1:0;}}
+ // phân tích hàng
+ let bx0=W,bx1=0,by0=H,by1=0;for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(mask[y*W+x]){if(x<bx0)bx0=x;if(x>bx1)bx1=x;if(y<by0)by0=y;if(y>by1)by1=y;}
+ const rows=[];let maxW=0;for(let y=by0;y<=by1;y++){let runs=0,inR=false,len=0,l=-1,r=-1,w=0;for(let x=bx0;x<=bx1;x++){const m=mask[y*W+x];if(m){w++;if(l<0)l=x;r=x;if(!inR){inR=true;len=0;}len++;}else if(inR){inR=false;if(len>3)runs++;}}if(inR&&len>3)runs++;rows.push({y,runs,l,r,w});if(w>maxW)maxW=w;}
+ let pTop=null;for(const o of rows){if(o.runs===1&&o.w>=.6*maxW){pTop=o;break;}}
+ if(!pTop)pTop=rows[Math.floor(rows.length*.35)]||rows[0];
+ const topRows=rows.filter(o=>o.y>=pTop.y&&o.y<pTop.y+6);let pl=topRows.reduce((a,o)=>a+o.l,0)/topRows.length,pr=topRows.reduce((a,o)=>a+o.r,0)/topRows.length;const pw0=Math.max(20,pr-pl);
+ let pBot=by1;for(const o of rows){if(o.y>pTop.y+.65*pw0&&o.w<.8*pw0){pBot=o.y;break;}}pBot=Math.min(pBot,Math.round(pTop.y+1.45*pw0),H-1);
+ const ph=Math.max(20,pBot-pTop.y);
+ const mid=rows.filter(o=>o.y>pTop.y+.3*ph&&o.y<pTop.y+.75*ph);const mL=mid.reduce((a,o)=>a+o.l,0)/Math.max(1,mid.length),mR=mid.reduce((a,o)=>a+o.r,0)/Math.max(1,mid.length);
+ const extL=pl-mL,extR=mR-pr;let thumbLeft;if(Math.abs(extL-extR)>.05*pw0)thumbLeft=extL>extR;else thumbLeft=handSide==='trai';
+ // bản đồ nếp chỉ: vùng tối hơn xung quanh
+ const pw=pw0,r2=Math.max(4,Math.round(pw*.04)),er=Math.max(3,Math.round(pw*.035));
+ const Ig=integ(gray),g2=new Float32Array(N);const sq=new Float32Array(N);for(let i=0;i<N;i++)sq[i]=gray[i]*gray[i];const Is=integ(sq);
+ const Im=integ(mask),ridge=new Float32Array(N);const vals=[];
+ for(let y=Math.max(0,pTop.y-Math.round(.2*ph));y<=Math.min(H-1,pBot);y++)for(let x=Math.max(0,bx0);x<=bx1;x++){const i=y*W+x;if(!mask[i])continue;const [ms,ma]=box(Im,x,y,er);if(ms<ma)continue;
+  const [s1,a1]=box(Ig,x,y,1),[s2,a2]=box(Ig,x,y,r2),[q2]=box(Is,x,y,r2);const m1=s1/a1,m2=s2/a2,sd=Math.sqrt(Math.max(0,q2/a2-m2*m2));const v=Math.max(0,(m2-m1)/(sd+6));ridge[i]=v;if(v>0)vals.push(v);}
+ vals.sort((a,b)=>a-b);const p92=vals.length?vals[Math.floor(vals.length*.92)]||1e-3:1;for(let i=0;i<N;i++)ridge[i]=Math.min(2,ridge[i]/(p92||1e-3));
+ const XY=(u,v)=>[thumbLeft?pl+u*pw:pr-u*pw,pTop.y+v*ph];
+ const R=(u,v)=>{const [x,y]=XY(u,v);const xi=Math.round(x),yi=Math.round(y);let m=0;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const xx=xi+dx,yy=yi+dy;if(xx>=0&&yy>=0&&xx<W&&yy<H){const v2=ridge[yy*W+xx];if(v2>m)m=v2;}}return m;};
+ // đường tối ưu (quy hoạch động)
+ function seam(horiz,a0,a1,b0,b1,n=80,m=56,jump=2){const sc=new Float32Array(n*m),bk=new Int8Array(n*m);const P=(k,j)=>{const a=a0+(a1-a0)*k/(n-1),b=b0+(b1-b0)*j/(m-1);return horiz?[a,b]:[b,a];};
+  for(let k=0;k<n;k++)for(let j=0;j<m;j++){const [u,v]=P(k,j);const e=R(u,v);if(k===0){sc[j]=e;continue;}let bv=-1,bj=0;for(let d=-jump;d<=jump;d++){const jj=j+d;if(jj<0||jj>=m)continue;const s=sc[(k-1)*m+jj]-Math.abs(d)*.04;if(s>bv){bv=s;bj=d;}}sc[k*m+j]=bv+e;bk[k*m+j]=bj;}
+  let j=0,bv=-1;for(let jj=0;jj<m;jj++)if(sc[(n-1)*m+jj]>bv){bv=sc[(n-1)*m+jj];j=jj;}const path=[];for(let k=n-1;k>=0;k--){const [u,v]=P(k,j);path.unshift({u,v,s:R(u,v)});j+=bk[k*m+j];}
+  const sm=path.map((p,i)=>(path[Math.max(0,i-1)].s+p.s+path[Math.min(n-1,i+1)].s)/3);return{path,sm};}
+ function runs(sm,t=.5,gap=5){const out=[];let st=-1,last=-1;sm.forEach((v,i)=>{if(v>=t){if(st<0)st=i;last=i;}else if(st>=0&&i-last>gap){out.push([st,last]);st=-1;}});if(st>=0)out.push([st,last]);return out;}
+ const T=.5;
+ // Tâm đạo: từ mép ngón út sang phía ngón trỏ
+ const hs=seam(true,1,.1,.05,.38);let hr=runs(hs.sm,T).filter(r=>r[0]<20);let hRun=hr.sort((a,b)=>(b[1]-b[0])-(a[1]-a[0]))[0]||[0,Math.round(hs.sm.length*.35)];
+ const hP=hs.path.slice(hRun[0],hRun[1]+1),hLen=1-hP[hP.length-1].u,hEndRise=hP[0].v-hP[hP.length-1].v;
+ const heart=hLen<.5?'ngan':hEndRise>.06?'dai-cong':'dai-thang';
+ // Trí đạo
+ const ds=seam(true,.02,.96,.28,.64);let dr=runs(ds.sm,T).filter(r=>r[0]<26);let dRun=dr.sort((a,b)=>(b[1]-b[0])-(a[1]-a[0]))[0]||[0,Math.round(ds.sm.length*.45)];
+ const dP=ds.path.slice(dRun[0],dRun[1]+1),dLen=dP[dP.length-1].u,dSlope=dP[dP.length-1].v-dP[0].v;
+ const head=dLen<.55?'ngan':dSlope>.09?'dai-doc':'dai-thang';
+ // Sinh đạo
+ const ls=seam(false,.18,.98,0,.55,80,48,2);const lr=runs(ls.sm,T,4);let lRun=lr.sort((a,b)=>(b[1]-b[0])-(a[1]-a[0]))[0]||[0,40];
+ const lP=ls.path.slice(lRun[0],lRun[1]+1),lFrac=(lRun[1]-lRun[0])/79,lWide=Math.max(...lP.map(p=>p.u));const lBreaks=runs(ls.sm,T,1).filter(r=>r[1]-r[0]>6).length;
+ const life=lBreaks>=3&&lFrac<.8?'dut':lFrac<.6?'ngan':lWide>.34?'dai-rong':'dai-sat';
+ // Định mệnh
+ const fs=seam(false,.98,.2,.36,.64,80,36,1);const fr=runs(fs.sm,T,4);let fRun=fr.sort((a,b)=>(b[1]-b[0])-(a[1]-a[0]))[0]||[0,0];const fFrac=(fRun[1]-fRun[0])/79;
+ const fP=fs.path.slice(fRun[0],fRun[1]+1);const fate=fFrac>.45?'ro':fFrac>.2?'mo':'khong';
+ // Đường hôn nhân: các vạch ngang ở mép ngón út, trên tâm đạo
+ const top=-.1,bot=Math.max(top+.06,hP[0].v-.04),prof=[];for(let k=0;k<30;k++){const v=top+(bot-top)*k/29;let s=0;for(let u=.86;u<=1.0;u+=.02)s+=R(u,v);prof.push(s/8);}
+ let mar=0;for(let k=1;k<29;k++)if(prof[k]>T*.9&&prof[k]>=prof[k-1]&&prof[k]>=prof[k+1]){mar++;k+=2;}mar=Math.min(3,mar);
+ // Dáng bàn tay theo ngũ hành
+ const fingerLen=pTop.y-by0,ratio=ph/pw,fr2=fingerLen/ph;const square=ratio<1.12,longF=fr2>.82;
+ const shape=!ok||fingerLen<5?'khi':square?(longF?'khi':'dat'):(longF?'nuoc':'hoa');
+ const toXY=arr=>{const w=3;return arr.map((p,i)=>{let su=0,sv=0,c=0;for(let j=Math.max(0,i-w);j<=Math.min(arr.length-1,i+w);j++){su+=arr[j].u;sv+=arr[j].v;c++;}return XY(su/c,sv/c);});};
+ return{W,H,cv,ok,box:[bx0,by0,bx1,by1],palm:{pl,pr,pt:pTop.y,pb:pBot,thumbLeft},ridge,
+  lines:{heart:toXY(hP),head:toXY(dP),life:toXY(lP),fate:fate==='khong'?[]:toXY(fP)},
+  res:{heart,head,life,fate,mar:String(mar),shape},raw:{hLen,hEndRise,dLen,dSlope,lFrac,lWide,lBreaks,fFrac,mar,ratio,fr2}};}
+
+// ===== UI: BÓI CHỈ TAY =====
+const PT_OPT={
+ life:{n:'Sinh đạo',sub:'Đường sinh mệnh',c:'#2f7a4b',o:[['dai-rong','Dài, cong rộng'],['dai-sat','Dài, ôm sát ngón cái'],['ngan','Ngắn'],['dut','Đứt đoạn']]},
+ head:{n:'Trí đạo',sub:'Đường trí tuệ',c:'#2f5d9b',o:[['dai-thang','Dài, thẳng'],['dai-doc','Dài, dốc xuống'],['ngan','Ngắn']]},
+ heart:{n:'Tâm đạo',sub:'Đường tình cảm',c:'#b8322a',o:[['dai-cong','Dài, cong lên'],['dai-thang','Dài, thẳng'],['ngan','Ngắn']]},
+ fate:{n:'Định mệnh',sub:'Đường sự nghiệp',c:'#6b3fa0',o:[['ro','Rõ, dài'],['mo','Mờ, ngắn'],['khong','Không thấy']]},
+ mar:{n:'Hôn nhân',sub:'Vạch dưới ngón út',c:'#b0477a',o:[['0','Không rõ'],['1','1 vạch'],['2','2 vạch'],['3','3 vạch trở lên']]},
+ shape:{n:'Dáng bàn tay',sub:'Theo ngũ hành',c:'#8a6a2a',o:[['dat','Đất: lòng vuông, ngón ngắn'],['khi','Khí: lòng vuông, ngón dài'],['hoa','Lửa: lòng dài, ngón ngắn'],['nuoc','Nước: lòng dài, ngón dài']]}};
+const PT_TXT={
+ life:{'dai-rong':'Sinh đạo dài và cong rộng ra giữa lòng bàn tay: bạn có sức sống dồi dào, nhiệt tình, thích hoạt động và hồi phục nhanh sau mệt mỏi. Bạn sống cởi mở, rộng rãi với mọi người.',
+  'dai-sat':'Sinh đạo dài nhưng ôm sát gò ngón cái: bạn bền bỉ nhưng sống thận trọng, tiết kiệm năng lượng, hay giữ mình. Dễ mệt khi phải tiếp xúc quá nhiều; hãy dành thời gian nạp lại sức.',
+  'ngan':'Sinh đạo ngắn không có nghĩa là đời ngắn. Theo xem tướng tay, đây là người độc lập, tự chủ, không thích phụ thuộc ai. Nên chú ý duy trì nếp sinh hoạt điều độ để giữ sức khỏe ổn định.',
+  'dut':'Sinh đạo có đoạn đứt: cuộc sống từng (hoặc sẽ) có những bước ngoặt lớn như đổi nơi ở, đổi nghề, thay đổi lối sống. Mỗi lần đứt là một lần làm mới; đừng sợ thay đổi.'},
+ head:{'dai-thang':'Trí đạo dài và thẳng: tư duy logic, thực tế, phân tích rõ ràng. Bạn giỏi lập kế hoạch, ra quyết định dựa trên dữ kiện, hợp các nghề kỹ thuật, tài chính, quản lý.',
+  'dai-doc':'Trí đạo dài và dốc xuống gò Mặt Trăng: giàu trí tưởng tượng, sáng tạo, nhạy cảm với cái đẹp. Hợp nghệ thuật, viết lách, thiết kế, tâm lý. Đôi khi dễ mơ mộng, cần biến ý tưởng thành hành động.',
+  'ngan':'Trí đạo ngắn: suy nghĩ nhanh, thẳng vào vấn đề, thích hành động hơn bàn luận. Bạn quyết đoán, hợp công việc thực hành; cần kiên nhẫn hơn với những việc cần suy tính lâu dài.'},
+ heart:{'dai-cong':'Tâm đạo dài và cong lên phía ngón trỏ: tình cảm ấm áp, chủ động và lãng mạn. Bạn dám bày tỏ, yêu hết lòng và trân trọng sự gắn bó lâu dài.',
+  'dai-thang':'Tâm đạo dài và thẳng: tình cảm sâu sắc nhưng kín đáo, lý trí trong tình yêu. Bạn suy nghĩ kỹ trước khi trao lòng tin, đã yêu thì chung thủy.',
+  'ngan':'Tâm đạo ngắn: bạn thực tế trong tình cảm, coi trọng hành động hơn lời nói, cần không gian riêng. Hãy học cách thể hiện cảm xúc để người thương hiểu bạn hơn.'},
+ fate:{'ro':'Đường định mệnh rõ và dài: bạn có định hướng sự nghiệp sớm, kiên định với mục tiêu và thường thăng tiến đều đặn. Thành công đến từ sự bền bỉ.',
+  'mo':'Đường định mệnh mờ hoặc ngắn: sự nghiệp linh hoạt, có thể thay đổi vài lần trước khi tìm được hướng đi đúng. Giai đoạn đường chỉ rõ dần là lúc sự nghiệp ổn định.',
+  'khong':'Không thấy rõ đường định mệnh: bạn tự do, không bị ràng buộc bởi khuôn khổ, tự tạo con đường riêng. Nhiều người thành công ở nghề tự do, kinh doanh riêng có đặc điểm này.'},
+ mar:{'0':'Vạch hôn nhân chưa rõ: chuyện tình cảm đến tự nhiên, không vội vàng. Hôn nhân phụ thuộc nhiều vào lựa chọn và sự vun đắp của bạn.','1':'Một vạch hôn nhân rõ: tình cảm chuyên nhất, dễ có một mối quan hệ sâu đậm và bền lâu.','2':'Hai vạch hôn nhân: có hai mối tình đáng nhớ trong đời; hãy trân trọng và học hỏi từ mỗi mối quan hệ.','3':'Nhiều vạch hôn nhân: bạn đa cảm, dễ rung động và được nhiều người quý mến. Khi đã chọn, hãy giữ sự chân thành để hôn nhân bền vững.'},
+ shape:{'dat':'Bàn tay Đất (lòng vuông, ngón ngắn): thực tế, chăm chỉ, đáng tin cậy, thích làm việc bằng tay và giá trị hữu hình.','khi':'Bàn tay Khí (lòng vuông, ngón dài): thông minh, giao tiếp tốt, ham hiểu biết, thích trao đổi ý tưởng.','hoa':'Bàn tay Lửa (lòng dài, ngón ngắn): nhiệt huyết, năng động, quyết đoán, thích dẫn đầu và trải nghiệm.','nuoc':'Bàn tay Nước (lòng dài, ngón dài): nhạy cảm, giàu trực giác, sáng tạo, giàu lòng trắc ẩn.'}};
+const PT_JOB={dat:'xây dựng, nông nghiệp, kỹ thuật, kế toán',khi:'truyền thông, giáo dục, công nghệ, tư vấn',hoa:'kinh doanh, bán hàng, thể thao, quản lý',nuoc:'nghệ thuật, y tế, tâm lý, chăm sóc'};
+let PT={res:{life:'dai-rong',head:'dai-doc',heart:'dai-cong',fate:'ro',mar:'1',shape:'khi'},auto:null,an:null,hand:'trai',sample:true,showRidge:false,busy:false};
+function ptSampleSVG(){return `<svg viewBox="0 0 300 400" class="pt-svg" role="img" aria-label="Sơ đồ các đường chỉ tay chính">
+ <g class="pt-hand"><rect x="72" y="58" width="36" height="120" rx="18"/><rect x="112" y="36" width="38" height="142" rx="19"/><rect x="154" y="50" width="36" height="128" rx="18"/><rect x="194" y="88" width="32" height="96" rx="16"/>
+ <rect x="18" y="200" width="40" height="118" rx="20" transform="rotate(-32 58 318)"/><rect x="68" y="150" width="162" height="200" rx="44"/><rect x="96" y="330" width="110" height="60" rx="12"/></g>
+ <path d="M226,200 C190,210 140,204 110,176" class="pt-l" stroke="${PT_OPT.heart.c}"/><path d="M76,218 C120,230 168,244 212,270" class="pt-l" stroke="${PT_OPT.head.c}"/>
+ <path d="M80,210 C122,238 132,292 118,344" class="pt-l" stroke="${PT_OPT.life.c}"/><path d="M160,346 C158,296 154,256 150,206" class="pt-l" stroke="${PT_OPT.fate.c}"/><path d="M228,186 L212,188" class="pt-l" stroke="${PT_OPT.mar.c}" style="stroke-width:3"/>
+ <g class="pt-tag"><text x="238" y="206">Tâm đạo</text><text x="218" y="284">Trí đạo</text><text x="20" y="372">Sinh đạo</text><text x="166" y="330">Định mệnh</text><text x="236" y="180">Hôn nhân</text></g></svg>`;}
+function ptDraw(){const A=PT.an;if(!A)return;const c=document.getElementById('ptCanvas');if(!c)return;const [x0,y0,x1,y1]=A.box,m=12,bx=Math.max(0,x0-m),by=Math.max(0,y0-m),bw=Math.min(A.W,x1+m)-bx,bh=Math.min(A.H,y1+m)-by;
+ const k=Math.min(2,900/Math.max(bw,bh));c.width=Math.round(bw*k);c.height=Math.round(bh*k);const g=c.getContext('2d');g.drawImage(A.cv,bx,by,bw,bh,0,0,c.width,c.height);
+ if(PT.showRidge){const id=g.getImageData(0,0,c.width,c.height),d=id.data;for(let y=0;y<c.height;y++)for(let x=0;x<c.width;x++){const sx=Math.floor(bx+x/k),sy=Math.floor(by+y/k),r=A.ridge[sy*A.W+sx];if(r>.45){const i=(y*c.width+x)*4,a=Math.min(1,(r-.45)*1.6);d[i]=d[i]*(1-a)+168*a;d[i+1]=d[i+1]*(1-a)+67*a;d[i+2]=d[i+2]*(1-a)+31*a;}}g.putImageData(id,0,0);}
+ g.lineCap='round';g.lineJoin='round';
+ [['heart',A.lines.heart],['head',A.lines.head],['life',A.lines.life],['fate',A.lines.fate]].forEach(([key,pts])=>{if(!pts||pts.length<2)return;g.strokeStyle='rgba(255,255,255,.85)';g.lineWidth=7;g.beginPath();pts.forEach(([x,y],i)=>{const X=(x-bx)*k,Y=(y-by)*k;i?g.lineTo(X,Y):g.moveTo(X,Y);});g.stroke();g.strokeStyle=PT_OPT[key].c;g.lineWidth=3.5;g.stroke();});}
+function ptReading(){const R=PT.res,T=PT_TXT,hand=PT.hand==='trai'?'trái':'phải';
+ const big=[];if(R.life!=='ngan'&&R.fate==='ro')big.push('một người bền bỉ, có định hướng rõ ràng');if(R.head==='dai-doc')big.push('giàu óc sáng tạo');if(R.head==='dai-thang')big.push('tư duy logic, thực tế');if(R.heart==='dai-cong')big.push('ấm áp, chủ động trong tình cảm');if(R.heart==='dai-thang')big.push('sâu sắc, chung thủy');if(R.heart==='ngan')big.push('thực tế, độc lập');if(R.fate==='khong')big.push('tự do, thích tự mở đường');
+ const tips=[];if(R.life==='dai-sat'||R.life==='ngan')tips.push('Giữ nếp ngủ nghỉ, vận động đều đặn để luôn dồi dào năng lượng.');if(R.life==='dut')tips.push('Khi đứng trước thay đổi lớn, hãy chuẩn bị kỹ tài chính và tinh thần; đó là cơ hội làm mới bản thân.');
+ if(R.head==='dai-doc')tips.push('Ghi lại ý tưởng và đặt hạn chót cụ thể để biến sự sáng tạo thành kết quả.');if(R.head==='ngan')tips.push('Trước quyết định lớn, hãy cho mình một đêm suy nghĩ.');if(R.heart==='ngan'||R.heart==='dai-thang')tips.push('Nói ra cảm xúc của mình nhiều hơn; người thương không đoán được điều bạn giữ trong lòng.');
+ if(R.fate!=='ro')tips.push('Thử nhiều lĩnh vực khi còn trẻ, nhưng chọn một kỹ năng cốt lõi để đầu tư lâu dài.');tips.push(`Ngành hợp với dáng bàn tay của bạn: ${PT_JOB[R.shape]}.`);
+ return `<div class="grid2 pt-read"><div class="card"><div class="eyebrow">Tổng quan · tay ${hand}</div><h3>Con người bạn</h3><p>${T.shape[R.shape]}</p><p>Nhìn chung, chỉ tay cho thấy ${big.length?big.join(', '):'một người cân bằng giữa lý trí và cảm xúc'}.</p></div>
+ <div class="card"><div class="eyebrow" style="color:${PT_OPT.heart.c}">Tâm đạo · Hôn nhân</div><h3>Tình cảm</h3><p>${T.heart[R.heart]}</p><p>${T.mar[R.mar]}</p></div>
+ <div class="card"><div class="eyebrow" style="color:${PT_OPT.head.c}">Trí đạo · Định mệnh</div><h3>Trí tuệ & sự nghiệp</h3><p>${T.head[R.head]}</p><p>${T.fate[R.fate]}</p></div>
+ <div class="card"><div class="eyebrow" style="color:${PT_OPT.life.c}">Sinh đạo</div><h3>Sức sống</h3><p>${T.life[R.life]}</p></div></div>
+ <div class="card"><div class="eyebrow">Lời khuyên</div><h3>Để phát huy lá bài trong lòng bàn tay</h3><ul class="clean">${tips.map(x=>`<li>${x}</li>`).join('')}</ul>
+ <p class="muted">Theo quan niệm "nam tả nữ hữu", nam xem tay trái, nữ xem tay phải. Xem tướng tay phương Tây thì cho rằng tay không thuận thể hiện bẩm sinh, tay thuận thể hiện những gì bạn tự xây dựng. Chỉ tay thay đổi theo thời gian, hãy xem lại sau vài năm.</p></div>`;}
+function ptRender(){const A=PT.an,out=document.getElementById('ptOut');
+ const chips=Object.keys(PT_OPT).map(k=>{const o=PT_OPT[k];return `<div class="pt-grp"><div class="pt-gh"><i style="background:${o.c}"></i><b>${o.n}</b><span>${o.sub}</span></div><div class="pt-chips">${o.o.map(([v,l])=>`<button type="button" class="pt-chip${PT.res[k]===v?' on':''}" data-k="${k}" data-v="${v}" aria-pressed="${PT.res[k]===v}">${l}${PT.auto&&PT.auto[k]===v?' <small>tự nhận</small>':''}</button>`).join('')}</div></div>`;}).join('');
+ out.innerHTML=`${PT.sample?'<p class="note"><span class="sample">Ví dụ mẫu</span> Chụp hoặc chọn ảnh lòng bàn tay của bạn để quét đường chỉ tay thật.</p>':''}
+ <div class="pt-main"><div class="card pt-fig"><div class="eyebrow">${A?'Ảnh đã quét':'Sơ đồ đường chỉ tay'}</div><div class="pt-stage">${A?'<canvas id="ptCanvas" aria-label="Ảnh bàn tay với các đường chỉ tay được nhận diện"></canvas>':ptSampleSVG()}<div class="pt-scan" id="ptScan" hidden></div></div>
+ ${A?`<label class="chk"><input type="checkbox" id="ptRidge" ${PT.showRidge?'checked':''}> Hiện bản đồ nếp chỉ</label>${A.ok?'':'<p class="zerr">Chưa tách rõ bàn tay khỏi nền. Kết quả có thể kém chính xác; hãy chụp lại trên nền tối, đủ sáng.</p>'}`:''}
+ <div class="pt-leg">${['heart','head','life','fate'].map(k=>`<span><i style="background:${PT_OPT[k].c}"></i>${PT_OPT[k].n}</span>`).join('')}</div></div>
+ <div class="card"><div class="eyebrow">Kết quả nhận diện</div><h3>${A?'Đối chiếu với bàn tay thật':'Đặc điểm chỉ tay'}</h3><p class="muted" style="font-size:.88rem">${A?'Máy quét tự động và đã chọn sẵn đặc điểm (nhãn "tự nhận"). Ánh sáng và góc chụp có thể làm sai lệch, hãy nhìn bàn tay thật và chạm để chỉnh lại nếu chưa đúng.':'Chọn đặc điểm giống bàn tay của bạn, hoặc chụp ảnh để máy tự nhận diện.'}</p>${chips}</div></div>
+ <div id="ptRead">${ptReading()}</div>`;
+ if(A)ptDraw();}
+function ptLoad(file){if(!file||!/^image\//.test(file.type||'image/')){return;}PT.busy=true;const url=URL.createObjectURL(file),img=new Image();
+ img.onload=()=>{PT.sample=false;PT.an={box:[0,0,1,1],W:1,H:1,lines:{},ridge:[],ok:true,cv:document.createElement('canvas')};
+  // hiện ảnh và hiệu ứng quét trước khi phân tích
+  ptRender();const c=document.getElementById('ptCanvas');const k=Math.min(1,900/Math.max(img.naturalWidth,img.naturalHeight));c.width=img.naturalWidth*k;c.height=img.naturalHeight*k;c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+  const sc=document.getElementById('ptScan');sc.hidden=false;
+  setTimeout(()=>{try{const A=ptAnalyze(img,PT.hand);PT.an=A;PT.auto={...A.res};PT.res={...A.res};}catch(e){PT.an=null;PT.sample=true;document.getElementById('ptErr').textContent='Không đọc được ảnh này. Hãy thử ảnh khác (định dạng JPG hoặc PNG).';document.getElementById('ptErr').hidden=false;}
+   URL.revokeObjectURL(url);PT.busy=false;ptRender();document.getElementById('ptOut').scrollIntoView({behavior:'smooth',block:'start'});},matchMedia('(prefers-reduced-motion: reduce)').matches?50:1400);};
+ img.onerror=()=>{PT.busy=false;const e=document.getElementById('ptErr');e.textContent='Không mở được ảnh. Hãy chọn ảnh định dạng JPG hoặc PNG.';e.hidden=false;};img.src=url;}
+function initPT(){ptRender();
+ ['ptCam','ptLib'].forEach(id=>document.getElementById(id).addEventListener('change',e=>{document.getElementById('ptErr').hidden=true;ptLoad(e.target.files&&e.target.files[0]);e.target.value='';}));
+ document.querySelectorAll('input[name=ptH]').forEach(r=>r.addEventListener('change',e=>{PT.hand=e.target.value;document.getElementById('ptRead').innerHTML=ptReading();}));
+ const out=document.getElementById('ptOut');
+ out.addEventListener('click',e=>{const b=e.target.closest('.pt-chip');if(!b)return;PT.res[b.dataset.k]=b.dataset.v;out.querySelectorAll(`.pt-chip[data-k="${b.dataset.k}"]`).forEach(x=>{const on=x===b;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on);});document.getElementById('ptRead').innerHTML=ptReading();});
+ out.addEventListener('change',e=>{if(e.target.id==='ptRidge'){PT.showRidge=e.target.checked;ptDraw();}});
+ const drop=document.getElementById('p-chi-tay');drop.addEventListener('dragover',e=>{e.preventDefault();});drop.addEventListener('drop',e=>{e.preventDefault();const f=e.dataTransfer.files&&e.dataTransfer.files[0];if(f)ptLoad(f);});}
+
+route();initTV();initNS();initTarot();initZD();initPT();
 
 </script>
 <script>if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));</script></body></html>
