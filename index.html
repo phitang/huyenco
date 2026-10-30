@@ -855,7 +855,7 @@ const hoaBadge=s=>s.hoa.map(h=>`<span class="hoa ${HOA_CLS[h]}">${HOA_SHORT[h]}<
 
 // ---------- routing ----------
 const PAGES=['tu-vi','tu-vi-dau-so','luc-hao','chiem-tinh','than-so','tarot','hoang-dao'];
-function route(){const h=location.hash.slice(1);const p=PAGES.includes(h)?h:'tu-vi';document.body.dataset.page=p;setTimeout(()=>{try{if(window.skyStart)skyStart(p==='tarot'||p==='chiem-tinh'||p==='hoang-dao');}catch(e){}},0);PAGES.forEach(x=>{$('#p-'+x).hidden=x!==p;});const top=['tu-vi','tu-vi-dau-so','luc-hao'].includes(p)?'tu-vi':'chiem-tinh';document.querySelectorAll('nav.tabs a').forEach(a=>{if(a.dataset.page===top)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});}
+let ROUTE_PREV=null;function route(){const h=location.hash.slice(1);const p=PAGES.includes(h)?h:'tu-vi';if(ROUTE_PREV!==null&&ROUTE_PREV!==p){try{window.scrollTo({top:0,left:0,behavior:'instant'});}catch(e){window.scrollTo(0,0);}document.documentElement.scrollTop=0;document.body.scrollTop=0;}ROUTE_PREV=p;document.body.dataset.page=p;setTimeout(()=>{try{if(window.skyStart)skyStart(p==='tarot'||p==='chiem-tinh'||p==='hoang-dao');}catch(e){}},0);PAGES.forEach(x=>{$('#p-'+x).hidden=x!==p;});const top=['tu-vi','tu-vi-dau-so','luc-hao'].includes(p)?'tu-vi':'chiem-tinh';document.querySelectorAll('nav.tabs a').forEach(a=>{if(a.dataset.page===top)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});}
 window.addEventListener('hashchange',route);
 
 // ================= TỬ VI =================
