@@ -35,7 +35,7 @@ p{margin:0}
 .eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--seal);font-weight:600}
 /* header */
 .top{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:28px 18px;border-bottom:1px solid var(--line)}
-.brand{display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:14px;color:inherit;text-decoration:none}
 .seal{width:46px;height:46px;border:2px solid var(--seal);color:var(--seal);display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:1.05rem;line-height:1;border-radius:4px;transform:rotate(-4deg);text-align:center}
 .brand h1{font-size:2.3rem;letter-spacing:.01em}
 .brand p{font-size:.85rem;color:var(--muted)}
@@ -396,9 +396,38 @@ label.chk input{width:auto}
 .lh-day b{font-size:.92rem;font-variant-numeric:tabular-nums}
 .lh-day.good{border-color:color-mix(in srgb,var(--good) 50%,transparent);color:var(--good)}.lh-day.bad{border-color:color-mix(in srgb,var(--bad) 50%,transparent);color:var(--bad)}
 .lh-day b{color:var(--ink)}
+
+/* ===== Màn PHITANG căn giữa ===== */
+#gIntro{display:flex;flex-direction:column;align-items:center;text-align:center;width:100%}
+.brandmark{justify-content:center;padding-left:.12em}
+/* ===== Trang chủ: sơn mài đỏ, hai cửa Đông – Tây ===== */
+body[data-page="trang-chu"]{--bg:#140d0b;--surface:#1f1613;--ink:#f1e7d4;--muted:#b3a48c;--line:rgba(216,180,102,.25);--gold:#d8b466;--seal:#e0634f;color-scheme:dark;
+ background:radial-gradient(700px 420px at 50% -5%,rgba(163,38,29,.45),transparent 70%),radial-gradient(600px 500px at 100% 100%,rgba(40,48,110,.45),transparent 70%),#140d0b;background-attachment:fixed}
+body[data-page="trang-chu"] .seal{border-color:var(--gold);color:var(--gold)}
+body[data-page="trang-chu"] nav.tabs a{color:var(--muted)}
+.hm-head{text-align:center;display:flex;flex-direction:column;gap:8px;margin:18px auto 28px;max-width:60ch}
+.hm-head .eyebrow{color:var(--gold);letter-spacing:.3em}
+.hm-head h2{font-size:clamp(2rem,6vw,3rem);color:var(--gold);text-shadow:0 0 26px rgba(216,180,102,.3)}
+.hm-head p{color:var(--muted)}
+.hm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;max-width:1000px;margin:0 auto}
+.hm-card{display:flex;flex-direction:column;gap:14px;padding:26px 24px;border-radius:14px;text-decoration:none;border:1px solid var(--line);transition:transform .25s,box-shadow .25s,border-color .25s;position:relative;overflow:hidden}
+.hm-card:hover,.hm-card:focus-visible{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 14px 40px rgba(0,0,0,.4);outline:none}
+.hm-tv{background:linear-gradient(160deg,#f3ead8,#e6d6b8);color:#2a1d16}
+.hm-tv .hm-kicker,.hm-tv .hm-go{color:#a3261d}.hm-tv h3{color:#7a1d16}.hm-tv svg{color:#a3261d}.hm-tv .hm-hole{fill:#efe3cd}.hm-tv .hm-list span{color:#5a4a3d}.hm-tv .hm-list li{border-color:rgba(122,29,22,.18)}
+.hm-ct{background:radial-gradient(circle at 80% 15%,rgba(233,201,125,.18),transparent 40%),radial-gradient(1.5px 1.5px at 20% 30%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 70% 60%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 40% 80%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 88% 40%,#fff 50%,transparent 51%),linear-gradient(160deg,#18204a,#0b1028);color:#ece6f6}
+.hm-ct .hm-kicker,.hm-ct .hm-go{color:#b9a8ff}.hm-ct h3{color:#e9c97d}.hm-ct svg{color:#e9c97d}.hm-ct .hm-list span{color:#b4b2d2}.hm-ct .hm-list li{border-color:rgba(185,168,255,.2)}
+.hm-top{display:flex;align-items:center;gap:16px}
+.hm-top svg{width:72px;height:72px;flex:0 0 auto}
+.hm-kicker{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600}
+.hm-card h3{font-family:"Cormorant Unicase","Cormorant Garamond",Georgia,serif;font-size:2.2rem;letter-spacing:.04em;line-height:1}
+.hm-lead{font-size:1rem;font-style:italic;font-family:"Cormorant Garamond",Georgia,serif;font-size:1.15rem}
+.hm-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.hm-list li{display:flex;flex-direction:column;gap:3px;padding:10px 0;border-top:1px solid}
+.hm-list b{font-size:1rem}.hm-list span{font-size:.9rem;line-height:1.55}
+.hm-go{margin-top:auto;font-weight:700;font-size:1rem;padding-top:4px}
 </style></head><body>
 <div class="gate" id="gate" role="dialog" aria-modal="true" aria-label="Mở đầu">
- <div id="gIntro"><div class="brandmark" aria-label="PHITANG"><span style="animation-delay:0.00s">P</span><span style="animation-delay:0.12s">H</span><span style="animation-delay:0.24s">I</span><span style="animation-delay:0.36s">T</span><span style="animation-delay:0.48s">A</span><span style="animation-delay:0.60s">N</span><span style="animation-delay:0.72s">G</span></div><div class="brandline"></div><div class="brandsub">Huyền Cơ · Tử vi · Thần số · Tarot</div></div>
+ <div id="gIntro"><div class="brandmark" aria-label="PHITANG"><span style="animation-delay:0.00s">P</span><span style="animation-delay:0.12s">H</span><span style="animation-delay:0.24s">I</span><span style="animation-delay:0.36s">T</span><span style="animation-delay:0.48s">A</span><span style="animation-delay:0.60s">N</span><span style="animation-delay:0.72s">G</span></div><div class="brandline"></div><div class="brandsub">Huyền Cơ · Tử Vi · Chiêm Tinh</div></div>
  <div class="agebox" id="gAge" hidden><div class="ic">16+</div><h2>Xác nhận độ tuổi</h2><p>Ứng dụng có nội dung chiêm nghiệm về vận mệnh, tình duyên và hôn nhân, dành cho người từ 16 tuổi trở lên. Bạn cam kết mình đã đủ 16 tuổi?</p>
   <div class="acts"><button type="button" class="yes" id="gYes">Tôi đã đủ 16 tuổi</button><button type="button" class="no" id="gNo">Tôi chưa đủ 16 tuổi</button></div></div>
  <div class="agebox" id="gBye" hidden><div class="ic">♡</div><h2>Cảm ơn bạn</h2><p>Cảm ơn bạn đã tải ứng dụng Huyền Cơ. Nội dung của ứng dụng dành cho người từ 16 tuổi trở lên, hẹn gặp lại bạn khi đủ tuổi nhé.</p>
@@ -414,11 +443,33 @@ label.chk input{width:auto}
 <div class="fx-sky" aria-hidden="true"><canvas id="sky"></canvas></div>
 <div class="wrap">
 <header class="top">
- <div class="brand"><div class="seal" aria-hidden="true">玄</div><div><h1>Huyền Cơ</h1><p>Tử Vi · Chiêm Tinh</p></div></div>
+ <a class="brand" href="#trang-chu" aria-label="Huyền Cơ – trang chủ"><div class="seal" aria-hidden="true">玄</div><div><h1>Huyền Cơ</h1><p>Tử Vi · Chiêm Tinh</p></div></a>
  <nav class="tabs" aria-label="Trang">
   <a href="#tu-vi" data-page="tu-vi">Tử Vi</a><a href="#chiem-tinh" data-page="chiem-tinh">Chiêm Tinh</a>
  </nav>
 </header>
+
+<!-- TRANG CHỦ -->
+<section class="page" id="p-trang-chu" hidden>
+ <div class="hm-head"><div class="eyebrow">Chào mừng đến với Huyền Cơ</div><h2>Bạn muốn xem gì?</h2><p>Chọn một trong hai môn huyền học dưới đây.</p></div>
+ <div class="hm-grid">
+  <a class="hm-card hm-tv" href="#tu-vi">
+   <div class="hm-top"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" fill="none" stroke="currentColor" stroke-width="2"/><path d="M60,10A50,50 0 0,1 60,110A25,25 0 0,1 60,60A25,25 0 0,0 60,10z" fill="currentColor"/><circle cx="60" cy="35" r="7" fill="currentColor"/><circle cx="60" cy="85" r="7" class="hm-hole"/></svg>
+    <div><div class="hm-kicker">Huyền học phương Đông</div><h3>Tử Vi</h3></div></div>
+   <p class="hm-lead">Luận vận mệnh theo âm dương ngũ hành, can chi và lịch âm.</p>
+   <ul class="hm-list"><li><b>Tử Vi Đẩu Số</b><span>Lập lá số 12 cung theo ngày giờ sinh âm lịch: tổng quan cuộc đời, đại vận, vận hạn từng năm, định hướng nghề nghiệp, xem hợp tuổi vợ chồng và cách hóa giải.</span></li>
+    <li><b>Lục Hào</b><span>Gieo quẻ theo ngày giờ hiện tại để hỏi một việc cụ thể như mất đồ, kinh doanh, công danh, thi cử, bệnh tật, tình duyên; xem cát hung, ứng kỳ và cách hóa giải.</span></li></ul>
+   <span class="hm-go">Vào Tử Vi →</span></a>
+  <a class="hm-card hm-ct" href="#chiem-tinh">
+   <div class="hm-top"><svg viewBox="0 0 120 120" aria-hidden="true"><path d="M78,22A40,40 0 1,0 78,98A32,32 0 1,1 78,22z" fill="currentColor"/><path d="M92,30l3,8 8,3-8,3-3,8-3-8-8-3 8-3z" fill="currentColor"/><circle cx="98" cy="74" r="2.5" fill="currentColor"/><circle cx="84" cy="62" r="1.8" fill="currentColor"/></svg>
+    <div><div class="hm-kicker">Huyền học phương Tây</div><h3>Chiêm Tinh</h3></div></div>
+   <p class="hm-lead">Khám phá bản thân qua các con số, lá bài và bầu trời sao.</p>
+   <ul class="hm-list"><li><b>Thần Số Học</b><span>Giải mã họ tên và ngày sinh: số chủ đạo, sứ mệnh, linh hồn, nhân cách, biểu đồ ngày sinh, chu kỳ năm và tháng cá nhân.</span></li>
+    <li><b>Tarot</b><span>Rút ngẫu nhiên từ bộ 78 lá theo trải 1, 3 hoặc 5 lá để giải mã vận mệnh tương lai gần về tình yêu, công việc, tài chính.</span></li>
+    <li><b>12 Cung Hoàng Đạo</b><span>Bản đồ sao lúc chào đời: tính cách, công việc và sở trường, vận hạn theo tháng và năm, độ hợp nhau trong tình yêu.</span></li></ul>
+   <span class="hm-go">Vào Chiêm Tinh →</span></a>
+ </div>
+</section>
 
 <!-- TỬ VI: trang chọn -->
 <section class="page" id="p-tu-vi">
@@ -854,8 +905,8 @@ const HOA_SHORT={'Hóa Lộc':'Lộc','Hóa Quyền':'Quyền','Hóa Khoa':'Khoa
 const hoaBadge=s=>s.hoa.map(h=>`<span class="hoa ${HOA_CLS[h]}">${HOA_SHORT[h]}</span>`).join('');
 
 // ---------- routing ----------
-const PAGES=['tu-vi','tu-vi-dau-so','luc-hao','chiem-tinh','than-so','tarot','hoang-dao'];
-let ROUTE_PREV=null;function route(){const h=location.hash.slice(1);const p=PAGES.includes(h)?h:'tu-vi';if(ROUTE_PREV!==null&&ROUTE_PREV!==p){try{window.scrollTo({top:0,left:0,behavior:'instant'});}catch(e){window.scrollTo(0,0);}document.documentElement.scrollTop=0;document.body.scrollTop=0;}ROUTE_PREV=p;document.body.dataset.page=p;setTimeout(()=>{try{if(window.skyStart)skyStart(p==='tarot'||p==='chiem-tinh'||p==='hoang-dao');}catch(e){}},0);PAGES.forEach(x=>{$('#p-'+x).hidden=x!==p;});const top=['tu-vi','tu-vi-dau-so','luc-hao'].includes(p)?'tu-vi':'chiem-tinh';document.querySelectorAll('nav.tabs a').forEach(a=>{if(a.dataset.page===top)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});}
+const PAGES=['trang-chu','tu-vi','tu-vi-dau-so','luc-hao','chiem-tinh','than-so','tarot','hoang-dao'];
+let ROUTE_PREV=null;function route(){const h=location.hash.slice(1);const p=PAGES.includes(h)?h:'trang-chu';if(ROUTE_PREV!==null&&ROUTE_PREV!==p){try{window.scrollTo({top:0,left:0,behavior:'instant'});}catch(e){window.scrollTo(0,0);}document.documentElement.scrollTop=0;document.body.scrollTop=0;}ROUTE_PREV=p;document.body.dataset.page=p;setTimeout(()=>{try{if(window.skyStart)skyStart(p==='tarot'||p==='chiem-tinh'||p==='hoang-dao');}catch(e){}},0);PAGES.forEach(x=>{$('#p-'+x).hidden=x!==p;});const top=p==='trang-chu'?'':['tu-vi','tu-vi-dau-so','luc-hao'].includes(p)?'tu-vi':'chiem-tinh';document.querySelectorAll('nav.tabs a').forEach(a=>{if(a.dataset.page===top)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});}
 window.addEventListener('hashchange',route);
 
 // ================= TỬ VI =================
