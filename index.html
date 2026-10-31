@@ -438,6 +438,11 @@ body[data-page="trang-chu"] nav.tabs a{color:var(--muted)}
 .cd-chip.good small{color:var(--good)}.cd-chip.mid small{color:var(--warn)}.cd-chip.bad small{color:var(--bad)}
 .cd-chip:hover{border-color:var(--seal)}
 [id^="cd-"]{scroll-margin-top:12px}
+
+@keyframes flashBox{0%{box-shadow:0 0 0 3px var(--gold)}100%{box-shadow:0 0 0 0 transparent}}
+.flash{animation:flashBox 1.4s ease-out}
+.cell,.num{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+@media (prefers-reduced-motion:reduce){.flash{animation:none}}
 </style></head><body>
 <div class="gate" id="gate" role="dialog" aria-modal="true" aria-label="Mở đầu">
  <div id="gIntro"><div class="brandmark" aria-label="PHITANG"><span style="animation-delay:0.00s">P</span><span style="animation-delay:0.12s">H</span><span style="animation-delay:0.24s">I</span><span style="animation-delay:0.36s">T</span><span style="animation-delay:0.48s">A</span><span style="animation-delay:0.60s">N</span><span style="animation-delay:0.72s">G</span></div><div class="brandline"></div><div class="brandsub">Huyền Cơ · Tử Vi · Chiêm Tinh</div></div>
@@ -946,7 +951,7 @@ function renderChart(){
  <dt>Cục</dt><dd class="el-${CH.menhNapAm.el}">${CH.cucName}</dd>
  <dt>Mệnh chủ</dt><dd>${CH.menhChu}</dd><dt>Thân chủ</dt><dd>${CH.thanChu}</dd>
  <dt>Cung phi</dt><dd>${QUAI[CH.quai][0]} (${QUAI[CH.quai][1]})</dd></dl></div></div></div>
- <p class="note">Chạm vào một cung để xem luận giải chi tiết bên dưới, hoặc mở tab "Luận giải 12 cung" để đọc lần lượt cả 12 cung. Viền vàng là tam phương tứ chính của cung đang chọn.</p><div id="cellDetail"></div>`;
+ <p class="note">Chạm vào một cung để xem luận giải chi tiết bên dưới, chạm 2 lần để nhảy thẳng tới phần luận giải, hoặc mở tab "Luận giải 12 cung" để đọc lần lượt cả 12 cung. Viền vàng là tam phương tứ chính của cung đang chọn.</p><div id="cellDetail"></div>`;
  return h;
 }
 const CUNG_GUIDE={
@@ -1005,6 +1010,8 @@ function cellDetail(c){
 function luanCung(){const order=CUNG.map(n=>cellOf(CH,n));let h=`<div class="card"><div class="eyebrow">Luận giải 12 cung</div><h3>Chọn cung để xem nhanh</h3><div class="cd-nav">${order.map(c=>{const [lb,cl]=scoreLabel(cellScore(c));return `<a href="#" data-goto="cd-${c.chi}" class="cd-chip ${cl}">${c.cung}<small>${lb}</small></a>`;}).join('')}</div></div>`;
  order.forEach(c=>{h+=`<div id="cd-${c.chi}">${cellDetail(c)}</div>`;});return h;}
 
+const DBL={k:null,t:0};function isDbl(k){const n=Date.now(),d=DBL.k===k&&n-DBL.t<450;DBL.k=d?null:k;DBL.t=n;return d;}
+function goTo(el){if(!el)return;const y=el.getBoundingClientRect().top+scrollY-12;setTimeout(()=>{window.scrollTo(0,el.getBoundingClientRect().top+scrollY-12);},30);el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}
 function selectCell(chi){SEL=chi;document.querySelectorAll('.cell').forEach(e=>{const z=+e.dataset.chi;e.classList.toggle('sel',z===chi);e.classList.toggle('tp',[4,8,6].some(k=>mod(chi+k)===z));});$('#cellDetail').innerHTML=cellDetail(CH.cells[chi]);}
 
 function tongQuan(){
@@ -1185,7 +1192,7 @@ function initTV(){
   CH=buildChart(inp);CH.sample=sample;SEL=null;if(!sample)store.set('tv',{name,gender:inp.gender,date,hour:inp.hour});renderTV();};
  $('#tvForm').addEventListener('submit',e=>{e.preventDefault();go(false);});
  $('#tvOut').addEventListener('click',e=>{const gt=e.target.closest('[data-goto]');if(gt){e.preventDefault();const el=document.getElementById(gt.dataset.goto);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});return;}const t=e.target.closest('[data-t]');if(t){TV_TAB=t.dataset.t;renderTV();return;}
-  const c=e.target.closest('.cell');if(c){selectCell(+c.dataset.chi);return;}
+  const c=e.target.closest('.cell');if(c){selectCell(+c.dataset.chi);if(isDbl('cell'+c.dataset.chi))goTo(document.querySelector('#cellDetail .cd'));return;}
   const s=e.target.closest('.s[data-y]');if(s){VH_YEAR=+s.dataset.y;renderTV();}});
  $('#tvOut').addEventListener('keydown',e=>{const c=e.target.closest('.cell');if(c&&(e.key==='Enter'||e.key===' ')){e.preventDefault();selectCell(+c.dataset.chi);}});
  $('#tvOut').addEventListener('change',e=>{if(e.target.id==='vhYear'){VH_YEAR=+e.target.value;renderTV();}});
@@ -1202,8 +1209,8 @@ function renderNS(){
  const disp=n=>n===22?'22/4':n===33?'33/6':n;
  let h=(NS.sample?'<p class="note"><span class="sample">Ví dụ mẫu</span> Nhập họ tên và ngày sinh của bạn để xem kết quả riêng.</p>':'')+`<div class="stack" style="margin-top:20px">
  <div class="card"><div class="eyebrow">${esc(name)} · ${fmt(d,m,y)}</div><div class="hero-num"><div class="big">${disp(R.lp)}</div><div style="flex:1;min-width:240px"><h2>${NUM_TXT[R.lp].t}</h2><p>${NUM_TXT[R.lp].c}</p></div></div></div>
- <div class="nums">${items.map(i=>`<button type="button" class="num${i[0]===NS_SEL?' on':''}" data-n="${i[0]}"><span>${i[1]}</span><b>${disp(i[2])}</b><span>${i[3]}</span></button>`).join('')}</div>
- <div class="card"><div class="eyebrow">${sel[1]} ${disp(sel[2])}</div><h3>${T.t}</h3><p>${T.c}</p>
+ <p class="note">Chạm vào một con số để xem ý nghĩa, chạm 2 lần để nhảy tới phần diễn giải.</p><div class="nums">${items.map(i=>`<button type="button" class="num${i[0]===NS_SEL?' on':''}" data-n="${i[0]}"><span>${i[1]}</span><b>${disp(i[2])}</b><span>${i[3]}</span></button>`).join('')}</div>
+ <div class="card" id="nsDetail"><div class="eyebrow">${sel[1]} ${disp(sel[2])}</div><h3>${T.t}</h3><p>${T.c}</p>
  <dl class="kv"><dt>Điểm mạnh</dt><dd>${T.s}</dd><dt>Điểm cần cải thiện</dt><dd>${T.w}</dd><dt>Nghề phù hợp</dt><dd>${T.j}</dd><dt>Lời khuyên</dt><dd>${T.a}</dd></dl></div>`;
  // biểu đồ
  const grid=(ch)=>{const order=[3,6,9,2,5,8,1,4,7];return `<div class="pgrid">${order.map(n=>`<div class="${ch[n]?'':'e'}">${ch[n]?String(n).repeat(ch[n]):n}</div>`).join('')}</div>`;};
@@ -1231,7 +1238,7 @@ function initNS(){
  const saved=store.get('ns');const v=saved||{name:'Nguyễn Minh An',date:'1992-08-15'};$('#nsName').value=v.name;$('#nsDate').value=v.date;
  const go=sample=>{const name=$('#nsName').value.trim(),date=$('#nsDate').value;if(!name||!date||!stripVN(name))return;const {d,m,y}=parseDate(date);NS={name,d,m,y,r:numerology(name,d,m,y),sample};if(!sample)store.set('ns',{name,date});renderNS();};
  $('#nsForm').addEventListener('submit',e=>{e.preventDefault();go(false);});
- $('#nsOut').addEventListener('click',e=>{const b=e.target.closest('[data-n]');if(b){NS_SEL=b.dataset.n;renderNS();}});
+ $('#nsOut').addEventListener('click',e=>{const b=e.target.closest('[data-n]');if(b){const dbl=isDbl('ns'+b.dataset.n);NS_SEL=b.dataset.n;renderNS();if(dbl)goTo(document.getElementById('nsDetail'));}});
  go(!saved);
 }
 
