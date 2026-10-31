@@ -425,6 +425,19 @@ body[data-page="trang-chu"] nav.tabs a{color:var(--muted)}
 .hm-list li{display:flex;flex-direction:column;gap:3px;padding:10px 0;border-top:1px solid}
 .hm-list b{font-size:1rem}.hm-list span{font-size:.9rem;line-height:1.55}
 .hm-go{margin-top:auto;font-weight:700;font-size:1rem;padding-top:4px}
+
+.cd{gap:12px}
+.cd-sec{display:flex;flex-direction:column;gap:8px;padding-top:12px;border-top:1px solid var(--line)}
+.cd-sec h4{margin:0;font-size:1rem;font-family:var(--f-body);font-weight:700}
+.cd-sec p{max-width:75ch}
+.cd-warn{border-top:none;border-left:4px solid var(--bad);padding:12px 14px;background:color-mix(in srgb,var(--bad) 6%,transparent);border-radius:0 8px 8px 0}
+.cd-save{color:var(--good)}
+.cd-nav{display:flex;flex-wrap:wrap;gap:8px}
+.cd-chip{display:flex;flex-direction:column;align-items:flex-start;padding:7px 12px;border-radius:8px;border:1px solid var(--line);text-decoration:none;color:var(--ink);font-weight:600;font-size:.9rem;min-width:96px;background:var(--surface)}
+.cd-chip small{font-weight:500;font-size:.72rem}
+.cd-chip.good small{color:var(--good)}.cd-chip.mid small{color:var(--warn)}.cd-chip.bad small{color:var(--bad)}
+.cd-chip:hover{border-color:var(--seal)}
+[id^="cd-"]{scroll-margin-top:12px}
 </style></head><body>
 <div class="gate" id="gate" role="dialog" aria-modal="true" aria-label="Mở đầu">
  <div id="gIntro"><div class="brandmark" aria-label="PHITANG"><span style="animation-delay:0.00s">P</span><span style="animation-delay:0.12s">H</span><span style="animation-delay:0.24s">I</span><span style="animation-delay:0.36s">T</span><span style="animation-delay:0.48s">A</span><span style="animation-delay:0.60s">N</span><span style="animation-delay:0.72s">G</span></div><div class="brandline"></div><div class="brandsub">Huyền Cơ · Tử Vi · Chiêm Tinh</div></div>
@@ -933,25 +946,65 @@ function renderChart(){
  <dt>Cục</dt><dd class="el-${CH.menhNapAm.el}">${CH.cucName}</dd>
  <dt>Mệnh chủ</dt><dd>${CH.menhChu}</dd><dt>Thân chủ</dt><dd>${CH.thanChu}</dd>
  <dt>Cung phi</dt><dd>${QUAI[CH.quai][0]} (${QUAI[CH.quai][1]})</dd></dl></div></div></div>
- <p class="note">Chạm vào một cung để xem luận giải. Viền vàng là tam phương tứ chính của cung đang chọn.</p><div id="cellDetail"></div>`;
+ <p class="note">Chạm vào một cung để xem luận giải chi tiết bên dưới, hoặc mở tab "Luận giải 12 cung" để đọc lần lượt cả 12 cung. Viền vàng là tam phương tứ chính của cung đang chọn.</p><div id="cellDetail"></div>`;
  return h;
 }
+const CUNG_GUIDE={
+'Mệnh':{g:'bản thân có nhiều thuận lợi, tính cách vững vàng, dễ được người khác tin cậy',b:'tính cách dễ nóng vội hoặc cực đoan, cuộc đời có nhiều thăng trầm phải tự vượt qua',t:['Rèn tính kiên nhẫn, suy nghĩ kỹ trước những quyết định lớn.','Chọn môi trường ổn định, có người đi trước dẫn dắt.','Tu dưỡng đạo đức, làm việc thiện; người xưa nói "Đức năng thắng số".']},
+'Phụ Mẫu':{g:'cha mẹ khỏe mạnh, được che chở, giấy tờ và cấp trên thuận lợi',b:'cha mẹ vất vả hoặc ít gần gũi, dễ vướng giấy tờ, bất đồng với cấp trên',t:['Quan tâm sức khỏe cha mẹ, thăm hỏi thường xuyên.','Kiểm tra kỹ giấy tờ, hợp đồng trước khi ký.','Giữ thái độ mềm mỏng, tôn trọng với cấp trên, người lớn tuổi.']},
+'Phúc Đức':{g:'phúc phần dày, tinh thần an vui, được tổ tiên phù hộ, sống thọ',b:'tinh thần hay lo âu, họ hàng ít giúp đỡ, phúc phần cần tự vun đắp',t:['Thờ cúng tổ tiên chu đáo, giữ hòa khí trong họ hàng.','Làm việc thiện, giúp người để tích phúc.','Dành thời gian thiền, nghỉ ngơi để tinh thần an định.']},
+'Điền Trạch':{g:'có nhà đất, tài sản cố định, gia đạo yên ổn',b:'nhà cửa hay thay đổi, dễ tranh chấp đất đai, khó giữ tài sản lâu dài',t:['Kiểm tra pháp lý kỹ khi mua bán nhà đất.','Không đứng tên hay bảo lãnh tài sản cho người khác.','Giữ nhà cửa sạch sẽ, gọn gàng, sửa chữa hư hỏng sớm.']},
+'Quan Lộc':{g:'sự nghiệp hanh thông, có địa vị, được trọng dụng',b:'công việc nhiều trắc trở, hay thay đổi, dễ va chạm với cấp trên',t:['Chọn nghề hợp sở trường và kiên trì theo một hướng.','Rèn chuyên môn thật vững để không phụ thuộc vào người khác.','Tránh tranh giành quyền lợi nơi công sở.']},
+'Nô Bộc':{g:'bạn bè, cộng sự, cấp dưới tốt, thường được giúp đỡ',b:'dễ gặp bạn xấu, bị lợi dụng, cấp dưới khó quản',t:['Chọn bạn mà chơi, hạn chế cho vay số tiền lớn.','Hợp tác làm ăn cần giấy tờ rõ ràng.','Không tin người quá nhanh, giữ kín kế hoạch quan trọng.']},
+'Thiên Di':{g:'ra ngoài gặp may, có quý nhân, đi xa hoặc làm ăn xa có lợi',b:'ra ngoài dễ gặp thị phi, va chạm hoặc vất vả khi đi xa',t:['Cẩn thận khi đi lại, tuân thủ luật giao thông.','Giữ lời ăn tiếng nói nơi đông người.','Chuẩn bị kỹ trước chuyến đi xa, nên có bảo hiểm.']},
+'Tật Ách':{g:'sức khỏe tốt, ít bệnh tật, gặp nạn thường được giải',b:'dễ có bệnh vặt hoặc tai nạn nhỏ, cần chú ý giữ gìn sức khỏe',t:['Khám sức khỏe định kỳ mỗi năm.','Sinh hoạt điều độ, ngủ đủ giấc, tập thể dục.','Cẩn thận khi làm việc với máy móc, xe cộ, dao kéo.']},
+'Tài Bạch':{g:'tiền bạc dồi dào, kiếm tiền thuận lợi',b:'tiền tài tán tụ thất thường, dễ hao hụt hoặc bị lừa',t:['Lập quỹ dự phòng, tiết kiệm đều đặn mỗi tháng.','Tránh đầu cơ, cờ bạc, đầu tư mạo hiểm.','Không cho vay, không đứng ra bảo lãnh khoản lớn.']},
+'Tử Tức':{g:'con cái ngoan ngoãn, hiếu thảo, có chí',b:'con cái khó nuôi, có con muộn hoặc dễ bất đồng với con',t:['Dành thời gian lắng nghe và đồng hành cùng con.','Dạy con bằng sự kiên nhẫn, làm gương thay vì áp đặt.','Chăm sóc sức khỏe sinh sản, khám thai đầy đủ.']},
+'Phu Thê':{g:'vợ chồng hòa hợp, người phối ngẫu tốt, hỗ trợ nhau',b:'hôn nhân dễ trắc trở, hay bất hòa hoặc kết hôn muộn',t:['Tìm hiểu kỹ trước khi kết hôn, không nên quá vội.','Học cách lắng nghe và nhường nhịn khi bất đồng.','Tôn trọng không gian riêng và gia đình hai bên.']},
+'Huynh Đệ':{g:'anh em hòa thuận, giúp đỡ nhau, đồng nghiệp tốt',b:'anh em ít hợp, mỗi người một nơi, dễ tranh chấp tài sản',t:['Rõ ràng chuyện tiền bạc với anh em.','Chủ động giữ liên lạc và nhường nhịn.','Hạn chế chung vốn làm ăn nếu không có giấy tờ.']}};
+const BAD_ADV={'Kình Dương':'Bớt nóng nảy, tránh đối đầu trực diện; hướng năng lượng vào thể thao hoặc công việc cần quyết đoán.','Đà La':'Việc hay chậm, vướng; lên kế hoạch dư thời gian và kiên nhẫn theo đuổi đến cùng.','Địa Không':'Dễ hao hụt vì ý tưởng viển vông; kiểm chứng kỹ trước khi bỏ tiền, luôn giữ tiền dự phòng.','Địa Kiếp':'Đề phòng mất mát bất ngờ; nên mua bảo hiểm, không dồn tất cả vào một việc.','Hỏa Tinh':'Kiềm chế nóng giận bộc phát; không quyết định khi đang tức giận, cẩn thận lửa và điện.','Linh Tinh':'Hay lo âu âm ỉ; tập thư giãn, chia sẻ với người tin cậy thay vì giữ trong lòng.','Thiên Hình':'Liên quan pháp lý, kỷ luật, dao kéo; làm việc đúng luật, giữ giấy tờ rõ ràng, cẩn thận khi phẫu thuật.','Thiên Khốc':'Dễ buồn phiền; giữ tinh thần lạc quan, tránh suy nghĩ tiêu cực kéo dài.','Thiên Hư':'Dễ hứa nhiều làm ít; chỉ hứa điều làm được, làm đến đâu chắc đến đó.','Cô Thần':'Dễ cảm thấy cô đơn; chủ động kết nối, chia sẻ với người thân.','Quả Tú':'Dễ đơn chiếc; mở lòng hơn, tham gia hoạt động cộng đồng.','Phá Toái':'Dễ làm dở dang; chia việc nhỏ và hoàn thành từng phần.','Kiếp Sát':'Đề phòng tai nạn, mất trộm; khóa cửa cẩn thận, đi đường chậm rãi.','Thiên Không':'Dễ ảo tưởng, hao tán; đặt mục tiêu thực tế, có kế hoạch tài chính rõ.','Lưu Hà':'Cẩn thận sông nước, máu huyết; với phụ nữ chú ý sức khỏe khi sinh nở.','Thiên La':'Dễ bị bó buộc; kiên nhẫn chờ thời, tránh hành động liều.','Địa Võng':'Dễ vướng víu, khó thoát; đọc kỹ cam kết trước khi nhận lời.','Thiên Thương':'Dễ hao tổn vì người ngoài; giữ khoảng cách với người mới quen.','Thiên Sứ':'Dễ gặp tin không vui, ốm vặt; giữ sức khỏe, bình tĩnh trước biến cố.','Hóa Kỵ':'Dễ thị phi, vướng mắc, tính toán sai; giữ lời nói, không hứa suông, xử lý dứt điểm từng việc.',
+ 'Đại Hao':'Dễ hao tài lớn; tránh chi tiêu phô trương, cân nhắc trước khoản chi lớn.','Tiểu Hao':'Dễ hao tài vặt; ghi chép chi tiêu hằng tháng.','Tang Môn':'Dễ có chuyện buồn trong nhà; quan tâm sức khỏe người thân lớn tuổi.','Bạch Hổ':'Dễ va chạm, tranh chấp, tai nạn; tránh xô xát, đi lại cẩn thận.','Quan Phù':'Dễ dính kiện cáo, thị phi; làm việc đúng luật, lưu giữ chứng từ.','Quan Phủ':'Dễ rắc rối giấy tờ, công quyền; chuẩn bị hồ sơ đầy đủ.','Tuế Phá':'Dễ chống đối, va chạm cấp trên; mềm mỏng, tránh tranh cãi.','Tử Phù':'Dễ buồn rầu, mệt mỏi; giữ tinh thần vui vẻ, nghỉ ngơi hợp lý.','Bệnh Phù':'Dễ ốm vặt; giữ ấm, ăn uống sạch sẽ.','Phục Binh':'Có tiểu nhân ngầm; giữ kín kế hoạch, không khoe khoang.','Điếu Khách':'Dễ nói quá lời, nhận tin buồn; cẩn trọng lời nói.','Phi Liêm':'Dễ dính thị phi; tránh buôn chuyện, nói xấu người khác.','Trực Phù':'Dễ bị cô lập; chủ động hợp tác, kết nối.','Thái Tuế':'Dễ khẩu thiệt; nói ít, nghe nhiều, tránh tranh luận gay gắt.'};
+const MAJ_CARE={'Phá Quân':'Phá Quân chủ phá cũ xây mới: dễ thay đổi đột ngột ở lĩnh vực này. Trước khi phá bỏ điều gì hãy chuẩn bị sẵn phương án thay thế.','Thất Sát':'Thất Sát cương mãnh, cô độc: thành công đến qua thử thách. Nên kiềm chế tính nóng, tránh hành động liều lĩnh.','Cự Môn':'Cự Môn chủ thị phi, ăn nói: dễ hiểu lầm vì lời nói. Hãy nói rõ ràng, mềm mỏng và giữ chữ tín.','Tham Lang':'Tham Lang chủ ham muốn: dễ sa đà hưởng thụ, đam mê. Đặt giới hạn rõ cho bản thân.','Liêm Trinh':'Liêm Trinh cương trực nhưng dễ dính pháp lý, va chạm. Giữ nguyên tắc nhưng linh hoạt trong cách ứng xử.','Vũ Khúc':'Vũ Khúc cương nghị, có phần cô khắc: dễ khô khan về tình cảm. Nên bày tỏ cảm xúc nhiều hơn.','Thiên Cơ':'Thiên Cơ dễ dao động, đổi ý: nên kiên định với quyết định đã cân nhắc kỹ.'};
+const SAVIOR=['Thiên Giải','Địa Giải','Giải Thần','Thiên Đức','Nguyệt Đức','Thiên Quan','Thiên Phúc','Long Đức','Phúc Đức','Hóa Khoa','Tử Vi','Thiên Lương','Lộc Tồn','Thiên Khôi','Thiên Việt'];
 function cellDetail(c){
- const sc=cellScore(c),[lb,cl]=scoreLabel(sc);
- const tp=[0,4,8,6].map(k=>CH.cells[mod(c.chi+k)]);
- let h=`<div class="card" style="margin-top:14px"><h3>Cung ${c.cung} <span class="muted" style="font-size:.95rem">${CAN[c.can]} ${CHI[c.chi]}</span><span class="pill ${cl}">${lb}</span></h3>
- <p class="muted">Cung ${c.cung} nói về ${CUNG_TXT[c.cung]}. Đại hạn ${c.daiHan[0]}–${c.daiHan[1]} tuổi đi qua cung này. Vòng Tràng sinh: ${c.trangSinh}.</p>`;
- const majors=c.major.length?c.major:CH.cells[mod(c.chi+6)].major;
- if(!c.major.length)h+=`<p><b>Vô chính diệu</b>: cung không có chính tinh, mượn sao cung đối diện (${CH.cells[mod(c.chi+6)].cung}) để luận, sức ảnh hưởng giảm khoảng một nửa.</p>`;
- majors.forEach(s=>{const t=STAR_TXT[s.name];let extra='';
-  if(c.cung==='Mệnh')extra=t.m;else if(c.cung==='Quan Lộc')extra=t.q;else if(c.cung==='Phu Thê')extra=t.p;else if(c.cung==='Tài Bạch')extra=t.t;else extra=`Sao mang tính ${t.k}, tác động lên ${CUNG_TXT[c.cung]}.`;
-  h+=`<p><b class="el-${MAJOR_EL[s.name]}">${s.name}</b>${s.bright?` (${s.bright})`:''}${s.hoa.length?' · '+s.hoa.join(', '):''}: ${extra}${s.hoa.map(x=>` ${x}: ${HOA_TXT[x]}.`).join('')}</p>`;});
+ const sc=cellScore(c),[lb,cl]=scoreLabel(sc),G=CUNG_GUIDE[c.cung],opp=CH.cells[mod(c.chi+6)];
+ const tp=[4,8].map(k=>CH.cells[mod(c.chi+k)]);
+ const majors=c.major.length?c.major:opp.major;
+ const allNames=[...c.major,...c.minor].flatMap(s=>[s.name,...s.hoa]).concat([c.ring.bs,c.ring.tt]);
+ const bads=[];c.minor.forEach(s=>{if(MINOR_INFO[s.name][0]==='bad'&&BAD_ADV[s.name])bads.push([s.name,BAD_ADV[s.name]]);});
+ [...c.major,...c.minor].forEach(s=>s.hoa.forEach(x=>{if(x==='Hóa Kỵ')bads.push([`Hóa Kỵ (${s.name})`,BAD_ADV['Hóa Kỵ']]);}));
+ [c.ring.bs,c.ring.tt].forEach(n=>{if(RING_INFO[n][0]==='bad'&&BAD_ADV[n])bads.push([n,BAD_ADV[n]]);});
+ const cares=[];c.major.forEach(s=>{if(s.bright==='hãm')cares.push(`${s.name} hãm địa: sao mất ánh sáng, ${s.name==='Thái Dương'?'dễ vất vả vì người khác, cẩn thận mắt và huyết áp, liên quan đến cha hoặc chồng':'dễ đa sầu, tiền bạc khó tích lũy, liên quan đến mẹ hoặc vợ'}. Nên chủ động, sống thực tế và làm việc ban ngày nhiều hơn.`);if(MAJ_CARE[s.name]&&(STAR_W[s.name]<=0||['Mệnh','Phu Thê','Tài Bạch','Quan Lộc','Tật Ách'].includes(c.cung)))cares.push(MAJ_CARE[s.name]);});
+ if(!c.major.length)cares.push(`Vô chính diệu: cung không có chính tinh nên dễ chịu ảnh hưởng hoàn cảnh. Hãy chủ động xây dựng lĩnh vực ${CUNG_TXT[c.cung]} thay vì phó mặc.`);
+ if(c.marks.includes('Triệt'))cares.push('Triệt: điều tốt bị chặn, đến chậm, nhất là trước 30 tuổi. Kiên nhẫn, việc thường thuận dần về sau.');
+ if(c.marks.includes('Tuần'))cares.push('Tuần: sức sao giảm, cả tốt lẫn xấu đều nhẹ đi. Càng về trung niên càng ổn định.');
+ const saves=SAVIOR.filter(n=>allNames.includes(n));
+ const isBad=sc<-1||bads.length>=2;
+ const qual=s=>{const w=(STAR_W[s.name]||0)+(s.bright==='sáng'?1:s.bright==='hãm'?-2:0)+s.hoa.reduce((a,x)=>a+(STAR_W[x]||0)*.5,0);return w>=2?'good':w<=-1?'bad':'mid';};
+ let h=`<div class="card cd" style="margin-top:14px"><h3>Cung ${c.cung} <span class="muted" style="font-size:.95rem">${CAN[c.can]} ${CHI[c.chi]}</span><span class="pill ${cl}">${lb}</span></h3>
+ <p>Cung ${c.cung} nói về <b>${CUNG_TXT[c.cung]}</b>. ${sc>=1.5?`Cung này tốt: ${G.g}.`:sc>=-1?`Cung này ở mức trung bình: có điểm thuận (${G.g.split(',')[0]}) nhưng cũng cần lưu ý (${G.b.split(',')[0]}).`:`Cung này có nhiều sao xấu: ${G.b}. Đây là lĩnh vực bạn cần chủ động chăm lo.`}</p>
+ <div class="cd-sec"><h4>Chính tinh</h4>`;
+ if(!c.major.length)h+=`<p class="muted">Vô chính diệu: mượn ${opp.major.map(s=>s.name).join(', ')} từ cung đối diện (${opp.cung}) để luận, ảnh hưởng giảm khoảng một nửa.</p>`;
+ majors.forEach(s=>{const t=STAR_TXT[s.name],q=qual(s);let ex;
+  if(c.cung==='Mệnh')ex=t.m;else if(c.cung==='Quan Lộc')ex=t.q;else if(c.cung==='Phu Thê')ex=t.p;else if(c.cung==='Tài Bạch')ex=t.t;
+  else ex=`${s.name} mang tính ${t.k}. Tại cung ${c.cung}, ${q==='good'?`sao phát huy mặt tốt: ${G.g}.`:q==='bad'?`sao dễ bộc lộ mặt hạn chế: ${G.b}.`:`tốt xấu tùy vào các sao đi kèm; nếu nhiều cát tinh thì ${G.g.split(',')[0]}, gặp sát tinh thì ${G.b.split(',')[0]}.`}`;
+  h+=`<p><b class="el-${MAJOR_EL[s.name]}">${s.name}</b> <span class="pill ${q}">${s.bright?s.bright+' · ':''}${MAJOR_EL[s.name]}</span>${s.hoa.map(x=>` <span class="hoa ${HOA_CLS[x]}">${HOA_SHORT[x]}</span>`).join('')}<br>${ex}${s.hoa.map(x=>` ${x}: ${HOA_TXT[x]}.`).join('')}</p>`;});
+ h+=`</div>`;
  const grp=t=>c.minor.filter(s=>MINOR_INFO[s.name][0]===t);const li=s=>`<b>${s.name}</b>: ${MINOR_TXT[s.name]}${s.hoa.length?'; '+s.hoa.map(x=>HOA_TXT[x]).join('; '):''}`;
- [['good','Cát tinh (sao tốt)','good'],['neutral','Trung tinh','mid'],['bad','Sát tinh, hung tinh (sao xấu)','bad']].forEach(([t,lbl,cl])=>{const g=grp(t);if(g.length)h+=`<div><span class="pill ${cl}">${lbl}</span><ul class="clean" style="margin-top:6px">${g.map(s=>`<li>${li(s)}</li>`).join('')}</ul></div>`;});
- h+=`<p class="muted">Vòng Bác Sĩ: <b>${c.ring.bs}</b> (${RING_INFO[c.ring.bs][2]}). Vòng Thái Tuế: <b>${c.ring.tt}</b> (${RING_INFO[c.ring.tt][2]}).</p>`;
- if(c.marks.length)h+=`<p><b>${c.marks.join(', ')}</b>: làm giảm sức mạnh của các sao trong cung, điều tốt đến chậm, điều xấu cũng nhẹ đi.</p>`;
- h+=`<p class="muted">Tam phương tứ chính: ${tp.map(x=>x.cung).join(' · ')}.</p></div>`;return h;
+ h+=`<div class="cd-sec"><h4>Phụ tinh</h4>`;
+ [['good','Cát tinh (sao tốt)','good'],['neutral','Trung tinh','mid'],['bad','Sát tinh, hung tinh (sao xấu)','bad']].forEach(([t,lbl,cl2])=>{const g=grp(t);if(g.length)h+=`<div><span class="pill ${cl2}">${lbl}</span><ul class="clean" style="margin-top:6px">${g.map(s=>`<li>${li(s)}</li>`).join('')}</ul></div>`;});
+ h+=`<p class="muted">Vòng Bác Sĩ: <b>${c.ring.bs}</b> (${RING_INFO[c.ring.bs][2]}). Vòng Thái Tuế: <b>${c.ring.tt}</b> (${RING_INFO[c.ring.tt][2]}). Vòng Tràng sinh: <b>${c.trangSinh}</b>.</p></div>`;
+ h+=`<div class="cd-sec"><h4>Ảnh hưởng từ tam phương tứ chính</h4><p>Cung ${c.cung} còn chịu ảnh hưởng từ cung xung chiếu <b>${opp.cung}</b> (${opp.major.map(s=>s.name).join(', ')||'vô chính diệu'}) và hai cung tam hợp <b>${tp[0].cung}</b> (${tp[0].major.map(s=>s.name).join(', ')||'vô chính diệu'}), <b>${tp[1].cung}</b> (${tp[1].major.map(s=>s.name).join(', ')||'vô chính diệu'}). ${(cellScore(opp)+cellScore(tp[0])+cellScore(tp[1]))/3>=1?'Các cung chiếu về khá tốt, giúp nâng đỡ cung này.':'Các cung chiếu về không mạnh, nên cung này phải tự lực nhiều hơn.'}</p>
+ <p class="muted">Đại hạn ${c.daiHan[0]}–${c.daiHan[1]} tuổi đi qua cung này: trong 10 năm đó, chuyện ${CUNG_TXT[c.cung]} sẽ nổi bật và ${sc>=1.5?'thuận lợi':sc>=-1?'có thăng có trầm':'cần đặc biệt cẩn trọng'}.</p></div>`;
+ if(bads.length||cares.length){h+=`<div class="cd-sec cd-warn"><h4>Sao xấu và lời khuyên</h4><ul class="clean">${cares.map(x=>`<li>${x}</li>`).join('')}${bads.map(([n,a])=>`<li><b>${n}</b>: ${a}</li>`).join('')}</ul>
+  ${saves.length?`<p class="cd-save"><b>Sao giải cứu:</b> cung có ${saves.join(', ')}, giúp giảm nhẹ điều xấu, gặp khó có người giúp.</p>`:''}
+  <p><b>Lời khuyên chung cho cung ${c.cung}:</b></p><ol class="lh-fix">${G.t.map(x=>`<li>${x}</li>`).join('')}</ol></div>`;}
+ else h+=`<div class="cd-sec"><h4>Lời khuyên</h4><p>Cung không có sao xấu đáng kể. ${saves.length?`Có thêm ${saves.join(', ')} hỗ trợ. `:''}Hãy phát huy thế mạnh này: ${G.t[0].toLowerCase()}</p></div>`;
+ return h+'</div>';
 }
+function luanCung(){const order=CUNG.map(n=>cellOf(CH,n));let h=`<div class="card"><div class="eyebrow">Luận giải 12 cung</div><h3>Chọn cung để xem nhanh</h3><div class="cd-nav">${order.map(c=>{const [lb,cl]=scoreLabel(cellScore(c));return `<a href="#" data-goto="cd-${c.chi}" class="cd-chip ${cl}">${c.cung}<small>${lb}</small></a>`;}).join('')}</div></div>`;
+ order.forEach(c=>{h+=`<div id="cd-${c.chi}">${cellDetail(c)}</div>`;});return h;}
+
 function selectCell(chi){SEL=chi;document.querySelectorAll('.cell').forEach(e=>{const z=+e.dataset.chi;e.classList.toggle('sel',z===chi);e.classList.toggle('tp',[4,8,6].some(k=>mod(chi+k)===z));});$('#cellDetail').innerHTML=cellDetail(CH.cells[chi]);}
 
 function tongQuan(){
@@ -1116,9 +1169,9 @@ function compat(P){
 
 function renderTV(){
  if(!CH)return;
- const tabs=[['la-so','Lá số'],['tong-quan','Tổng quan cuộc đời'],['van-han','Vận hạn từng năm'],['nghe-nghiep','Nghề nghiệp'],['hon-nhan','Hôn nhân']];
+ const tabs=[['la-so','Lá số'],['luan-cung','Luận giải 12 cung'],['tong-quan','Tổng quan cuộc đời'],['van-han','Vận hạn từng năm'],['nghe-nghiep','Nghề nghiệp'],['hon-nhan','Hôn nhân']];
  let h=`<div class="subtabs" role="tablist">${tabs.map(([k,v])=>`<button type="button" role="tab" data-t="${k}" aria-selected="${TV_TAB===k}">${v}</button>`).join('')}</div><div id="tvBody">`;
- h+=TV_TAB==='la-so'?renderChart():TV_TAB==='tong-quan'?tongQuan():TV_TAB==='van-han'?vanHan():TV_TAB==='nghe-nghiep'?ngheNghiep():honNhan();
+ h+=TV_TAB==='la-so'?renderChart():TV_TAB==='luan-cung'?luanCung():TV_TAB==='tong-quan'?tongQuan():TV_TAB==='van-han'?vanHan():TV_TAB==='nghe-nghiep'?ngheNghiep():honNhan();
  $('#tvOut').innerHTML=(CH.sample?'<p class="note"><span class="sample">Lá số mẫu</span> Nhập thông tin của bạn phía trên để lập lá số riêng.</p>':'')+h+'</div>';
  if(TV_TAB==='la-so')selectCell(SEL??CH.menh);
 }
@@ -1131,7 +1184,7 @@ function initTV(){
   const inp={name,gender:document.querySelector('input[name=tvG]:checked').value,d,m,y,hour:+$('#tvHour').value};
   CH=buildChart(inp);CH.sample=sample;SEL=null;if(!sample)store.set('tv',{name,gender:inp.gender,date,hour:inp.hour});renderTV();};
  $('#tvForm').addEventListener('submit',e=>{e.preventDefault();go(false);});
- $('#tvOut').addEventListener('click',e=>{const t=e.target.closest('[data-t]');if(t){TV_TAB=t.dataset.t;renderTV();return;}
+ $('#tvOut').addEventListener('click',e=>{const gt=e.target.closest('[data-goto]');if(gt){e.preventDefault();const el=document.getElementById(gt.dataset.goto);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});return;}const t=e.target.closest('[data-t]');if(t){TV_TAB=t.dataset.t;renderTV();return;}
   const c=e.target.closest('.cell');if(c){selectCell(+c.dataset.chi);return;}
   const s=e.target.closest('.s[data-y]');if(s){VH_YEAR=+s.dataset.y;renderTV();}});
  $('#tvOut').addEventListener('keydown',e=>{const c=e.target.closest('.cell');if(c&&(e.key==='Enter'||e.key===' ')){e.preventDefault();selectCell(+c.dataset.chi);}});
