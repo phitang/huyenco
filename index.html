@@ -443,6 +443,11 @@ body[data-page="trang-chu"] nav.tabs a{color:var(--muted)}
 .flash{animation:flashBox 1.4s ease-out}
 .cell,.num{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 @media (prefers-reduced-motion:reduce){.flash{animation:none}}
+
+.tap-hint{display:flex;align-items:center;gap:10px;margin:0 0 10px;padding:9px 14px;border-radius:8px;background:color-mix(in srgb,var(--gold) 14%,var(--surface));border:1px solid color-mix(in srgb,var(--gold) 40%,transparent);font-size:.92rem}
+.tap-hint svg{width:24px;height:24px;flex:0 0 auto;color:var(--seal)}
+.ns-yhead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.ns-ysel{max-width:200px}
 </style></head><body>
 <div class="gate" id="gate" role="dialog" aria-modal="true" aria-label="Mở đầu">
  <div id="gIntro"><div class="brandmark" aria-label="PHITANG"><span style="animation-delay:0.00s">P</span><span style="animation-delay:0.12s">H</span><span style="animation-delay:0.24s">I</span><span style="animation-delay:0.36s">T</span><span style="animation-delay:0.48s">A</span><span style="animation-delay:0.60s">N</span><span style="animation-delay:0.72s">G</span></div><div class="brandline"></div><div class="brandsub">Huyền Cơ · Tử Vi · Chiêm Tinh</div></div>
@@ -932,7 +937,7 @@ let CH=null,TV_TAB='la-so',SEL=null,VH_YEAR=CUR_Y,PARTNER=null;
 const POS={5:[1,1],6:[1,2],7:[1,3],8:[1,4],9:[2,4],10:[3,4],11:[4,4],0:[4,3],1:[4,2],2:[4,1],3:[3,1],4:[2,1]};
 function starLine(s){return `<span class="el-${MAJOR_EL[s.name]}">${s.name}${s.bright?`<span class="br">${s.bright}</span>`:''}${hoaBadge(s)}</span>`;}
 function renderChart(){
- let h='<div class="chart-scroll"><div class="chart" role="grid" aria-label="Lá số tử vi">';
+ let h='<p class="tap-hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11m0-1.5a1.5 1.5 0 0 1 3 0V12m0-1a1.5 1.5 0 0 1 3 0v4.5a5.5 5.5 0 0 1-5.5 5.5h-.6a5 5 0 0 1-4-2l-2.6-3.6a1.5 1.5 0 0 1 2.3-1.9L9 15V11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Chạm 2 lần</b> vào một cung trên lá số để xem diễn giải chi tiết của cung đó.</span></p><div class="chart-scroll"><div class="chart" role="grid" aria-label="Lá số tử vi">';
  CH.cells.forEach(c=>{const [r,col]=POS[c.chi];
   const minors=c.minor.map(s=>{const t=MINOR_INFO[s.name][0];return `<span class="${t==='good'?'g':t==='bad'?'b':''}">${s.name}${hoaBadge(s)}</span>`;}).join('');
   h+=`<div class="cell" tabindex="0" data-chi="${c.chi}" style="grid-row:${r};grid-column:${col}">
@@ -1201,7 +1206,7 @@ function initTV(){
 }
 
 // ================= THẦN SỐ HỌC =================
-let NS=null,NS_SEL='lp';
+let NS=null,NS_SEL='lp',NS_Y=CUR_Y;
 function renderNS(){
  const R=NS.r,{d,m,y,name}=NS;
  const items=[['lp','Số chủ đạo',R.lp,'Con đường đời, bài học lớn nhất'],['expr','Số sứ mệnh',R.expr,'Tài năng bẩm sinh từ họ tên'],['soul','Số linh hồn',R.soul,'Khao khát bên trong (nguyên âm)'],['pers','Số nhân cách',R.pers,'Ấn tượng bạn để lại (phụ âm)'],['bday','Số ngày sinh',R.bday,'Năng khiếu đặc biệt'],['att','Số thái độ',R.att,'Cách bạn phản ứng lúc đầu'],['mature','Số trưởng thành',R.mature,'Mục tiêu nửa sau cuộc đời']];
@@ -1223,22 +1228,26 @@ function renderNS(){
  const age=CUR_Y-y;
  h+=`<div class="card"><div class="eyebrow">Bốn đỉnh cao & thử thách</div><h3>Các chặng đời</h3><div class="tscroll"><table class="tbl"><thead><tr><th>Chặng</th><th>Tuổi</th><th>Đỉnh cao</th><th>Ý nghĩa</th><th>Thử thách</th></tr></thead><tbody>${R.peaks.map((p,i)=>{const on=age>=p[1]&&(p[2]===null||age<=p[2]);return `<tr class="${on?'now':''}"><td>${i+1}</td><td>${p[1]}${p[2]!==null?'–'+p[2]:'+'}</td><td><b>${p[0]}</b> ${NUM_TXT[p[0]].t}</td><td>${PY_TXT[p[0]][1].split('.')[0]}.</td><td><b>${R.challenges[i]}</b> ${CHAL_TXT[R.challenges[i]]}</td></tr>`;}).join('')}</tbody></table></div></div>`;
  // năm cá nhân
- const py=R.py(CUR_Y);
- h+=`<div class="card"><div class="eyebrow">Chu kỳ năm cá nhân</div><h3>Năm ${CUR_Y}: năm cá nhân số ${py} · ${PY_TXT[py][0]}</h3><p>${PY_TXT[py][1]}</p><div class="strip" style="--n:9">`;
- for(let Y=CUR_Y-2;Y<CUR_Y+7;Y++){const p=R.py(Y);h+=`<div class="s${Y===CUR_Y?' on':''}"><div class="bar"><i style="height:${p*11}%;background:${Y===CUR_Y?'var(--seal)':'var(--gold)'}"></i></div><b>${Y}</b><span class="muted">${p} · ${PY_TXT[p][0].split(' ')[0]}</span></div>`;}
- h+=`</div><p class="note">Chu kỳ 9 năm đi từ 1 (gieo hạt) đến 9 (kết thúc). Chiều cao cột là số năm cá nhân.</p></div>`;
- h+=`<div class="card"><div class="eyebrow">Tháng cá nhân năm ${CUR_Y}</div><h3>Ý nghĩa từng tháng</h3><div class="tscroll"><table class="tbl"><thead><tr><th>Tháng</th><th>Số</th><th>Chủ đề</th><th>Lời khuyên</th></tr></thead><tbody>`;
- for(let M=1;M<=12;M++){const pm=reduce1(py+M);h+=`<tr class="${M===CUR_M?'now':''}"><td>${M}/${CUR_Y}</td><td><b>${pm}</b></td><td>${PY_TXT[pm][0]}</td><td>${PM_TXT[pm]}</td></tr>`;}
+ const Y0=NS_Y,py=R.py(Y0),yAge=Y0-y;
+ h+=`<div class="card" id="nsYearCard"><div class="eyebrow">Chu kỳ năm cá nhân</div><div class="ns-yhead"><h3>Năm ${Y0}: năm cá nhân số ${py} · ${PY_TXT[py][0]}</h3>
+ <label class="ns-ysel">Chọn năm<select id="nsYear">${[...Array(41)].map((_,k)=>{const Y=CUR_Y-15+k;return `<option value="${Y}" ${Y===Y0?'selected':''}>${Y}${Y===CUR_Y?' (năm nay)':''}</option>`;}).join('')}</select></label></div>
+ <p>${PY_TXT[py][1]}</p>${yAge>0?`<p class="muted">Năm ${Y0} bạn ${yAge} tuổi.${Y0===CUR_Y?'':` Đây là ${Y0<CUR_Y?'năm đã qua, dùng để chiêm nghiệm lại':'năm sắp tới, hãy chuẩn bị từ bây giờ'}.`}</p>`:''}
+ <div class="strip" style="--n:9">`;
+ for(let Y=Y0-4;Y<=Y0+4;Y++){const p=R.py(Y);h+=`<button type="button" class="s${Y===Y0?' on':''}" data-ny="${Y}" aria-label="Xem năm ${Y}"><div class="bar"><i style="height:${p*11}%;background:${Y===Y0?'var(--seal)':Y===CUR_Y?'var(--accent2,var(--gold))':'var(--gold)'}"></i></div><b>${Y}</b><span class="muted">${p} · ${PY_TXT[p][0].split(' ')[0]}</span></button>`;}
+ h+=`</div><p class="note">Chạm vào một năm trên biểu đồ (hoặc chọn trong danh sách) để xem ý nghĩa từng tháng của năm đó. Chu kỳ 9 năm đi từ 1 (gieo hạt) đến 9 (kết thúc).</p></div>`;
+ h+=`<div class="card"><div class="eyebrow">Tháng cá nhân năm ${Y0}</div><h3>Ý nghĩa từng tháng năm ${Y0}</h3><div class="tscroll"><table class="tbl"><thead><tr><th>Tháng</th><th>Số</th><th>Chủ đề</th><th>Lời khuyên</th></tr></thead><tbody>`;
+ for(let M=1;M<=12;M++){const pm=reduce1(py+M);h+=`<tr class="${Y0===CUR_Y&&M===CUR_M?'now':''}"><td>${M}/${Y0}</td><td><b>${pm}</b></td><td>${PY_TXT[pm][0]}</td><td>${PM_TXT[pm]}</td></tr>`;}
  h+=`</tbody></table></div></div>`;
- const npy=R.py(CUR_Y+1);
- h+=`<div class="card"><div class="eyebrow">Lời khuyên tổng hợp</div><h3>Hướng đi cho bạn</h3><ul class="clean"><li>${NUM_TXT[R.lp].a}</li><li>Linh hồn số ${R.soul} khao khát: ${NUM_TXT[reduce1(R.soul)].c.toLowerCase()} Hãy chọn môi trường đáp ứng điều đó.</li><li>Năm ${CUR_Y} (số ${py}): ${PY_TXT[py][1].split('.').slice(1,2).join('').trim()||PY_TXT[py][0]}. Năm ${CUR_Y+1} chuyển sang số ${npy} (${PY_TXT[npy][0].toLowerCase()}), hãy chuẩn bị từ bây giờ.</li></ul></div></div>`;
+ const npy=R.py(Y0+1);
+ h+=`<div class="card"><div class="eyebrow">Lời khuyên tổng hợp</div><h3>Hướng đi cho bạn</h3><ul class="clean"><li>${NUM_TXT[R.lp].a}</li><li>Linh hồn số ${R.soul} khao khát: ${NUM_TXT[reduce1(R.soul)].c.toLowerCase()} Hãy chọn môi trường đáp ứng điều đó.</li><li>Năm ${Y0} (số ${py}): ${PY_TXT[py][1].split('.').slice(1,2).join('').trim()||PY_TXT[py][0]}. Năm ${Y0+1} chuyển sang số ${npy} (${PY_TXT[npy][0].toLowerCase()}), hãy chuẩn bị từ bây giờ.</li></ul></div></div>`;
  $('#nsOut').innerHTML=h;
 }
 function initNS(){
  const saved=store.get('ns');const v=saved||{name:'Nguyễn Minh An',date:'1992-08-15'};$('#nsName').value=v.name;$('#nsDate').value=v.date;
  const go=sample=>{const name=$('#nsName').value.trim(),date=$('#nsDate').value;if(!name||!date||!stripVN(name))return;const {d,m,y}=parseDate(date);NS={name,d,m,y,r:numerology(name,d,m,y),sample};if(!sample)store.set('ns',{name,date});renderNS();};
  $('#nsForm').addEventListener('submit',e=>{e.preventDefault();go(false);});
- $('#nsOut').addEventListener('click',e=>{const b=e.target.closest('[data-n]');if(b){const dbl=isDbl('ns'+b.dataset.n);NS_SEL=b.dataset.n;renderNS();if(dbl)goTo(document.getElementById('nsDetail'));}});
+ $('#nsOut').addEventListener('change',e=>{if(e.target.id==='nsYear'){NS_Y=+e.target.value;renderNS();}});
+ $('#nsOut').addEventListener('click',e=>{const yb=e.target.closest('[data-ny]');if(yb){NS_Y=+yb.dataset.ny;renderNS();return;}const b=e.target.closest('[data-n]');if(b){const dbl=isDbl('ns'+b.dataset.n);NS_SEL=b.dataset.n;renderNS();if(dbl)goTo(document.getElementById('nsDetail'));}});
  go(!saved);
 }
 

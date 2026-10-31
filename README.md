@@ -13,7 +13,7 @@
 
 ## Dùng ngay
 - **Trên web / iPhone / iPad**: mở https://phitang.github.io/huyenco/ bằng Safari → nút **Chia sẻ** → **Thêm vào MH chính**.
-- **Trên Android**: tải file [HuyenCo.apk](https://phitang.github.io/huyenco/download/HuyenCo.apk) (phiên bản 2.2), mở file và cho phép cài ứng dụng từ nguồn này.
+- **Trên Android**: tải file [HuyenCo.apk](https://phitang.github.io/huyenco/download/HuyenCo.apk) (phiên bản 2.3), mở file và cho phép cài ứng dụng từ nguồn này.
 
 [Chính sách quyền riêng tư](https://phitang.github.io/huyenco/privacy.html)
 
