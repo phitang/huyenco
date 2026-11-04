@@ -448,6 +448,10 @@ body[data-page="trang-chu"] nav.tabs a{color:var(--muted)}
 .tap-hint svg{width:24px;height:24px;flex:0 0 auto;color:var(--seal)}
 .ns-yhead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
 .ns-ysel{max-width:200px}
+
+.pv{max-width:760px;margin:0 auto;gap:10px}.pv h3{font-size:1.15rem;margin-top:8px}.pv p{max-width:70ch}
+.pv-url{word-break:break-all;user-select:all}
+.pv-link{color:inherit;text-decoration:underline;white-space:nowrap}
 </style></head><body>
 <div class="gate" id="gate" role="dialog" aria-modal="true" aria-label="Mở đầu">
  <div id="gIntro"><div class="brandmark" aria-label="PHITANG"><span style="animation-delay:0.00s">P</span><span style="animation-delay:0.12s">H</span><span style="animation-delay:0.24s">I</span><span style="animation-delay:0.36s">T</span><span style="animation-delay:0.48s">A</span><span style="animation-delay:0.60s">N</span><span style="animation-delay:0.72s">G</span></div><div class="brandline"></div><div class="brandsub">Huyền Cơ · Tử Vi · Chiêm Tinh</div></div>
@@ -582,7 +586,21 @@ body[data-page="trang-chu"] nav.tabs a{color:var(--muted)}
  <div id="trReading"></div>
 </section>
 
-<p class="footer">Nội dung luận giải dựa trên nguyên lý Tử vi Đẩu Số, Thần số học Pythagoras và ý nghĩa truyền thống của Tarot, mang tính tham khảo và chiêm nghiệm. Các quyết định quan trọng về sức khỏe, tài chính và hôn nhân nên dựa trên thực tế của chính bạn.</p>
+<!-- CHÍNH SÁCH QUYỀN RIÊNG TƯ -->
+<section class="page" id="p-rieng-tu" hidden>
+ <div class="card pv"><div class="eyebrow">Huyền Cơ · PHITANG</div><h2>Chính sách quyền riêng tư</h2><p class="muted">Cập nhật: 04/11/2026</p>
+ <h3>1. Dữ liệu chúng tôi thu thập</h3><p>Huyền Cơ không thu thập, không gửi đi và không chia sẻ bất kỳ dữ liệu cá nhân nào. Ứng dụng không yêu cầu tài khoản, không có quảng cáo, công cụ phân tích hay dịch vụ của bên thứ ba.</p>
+ <h3>2. Thông tin bạn nhập</h3><p>Họ tên, giới tính, ngày giờ và nơi sinh bạn nhập chỉ dùng để tính toán ngay trên thiết bị. Lần nhập gần nhất và lựa chọn xác nhận độ tuổi được lưu trong bộ nhớ của ứng dụng trên máy bạn để tiện dùng lần sau; dữ liệu này không bao giờ rời khỏi thiết bị.</p>
+ <h3>3. Quyền truy cập</h3><p>Ứng dụng không yêu cầu quyền truy cập Internet, danh bạ, vị trí, máy ảnh hay bất kỳ quyền nhạy cảm nào.</p>
+ <h3>4. Xóa dữ liệu</h3><p>Bạn có thể xóa toàn bộ dữ liệu bằng cách gỡ ứng dụng, hoặc vào Cài đặt → Ứng dụng → Huyền Cơ → Bộ nhớ → Xóa dữ liệu.</p>
+ <h3>5. Độ tuổi</h3><p>Ứng dụng dành cho người từ 16 tuổi trở lên và có bước xác nhận độ tuổi khi mở lần đầu.</p>
+ <h3>6. Tính chất nội dung</h3><p>Nội dung tử vi, lục hào, thần số học, tarot và chiêm tinh trong ứng dụng chỉ mang tính chất tham khảo và giải trí.</p>
+ <h3>7. Liên hệ</h3><p>Mọi thắc mắc vui lòng liên hệ qua email hỗ trợ ghi trên trang Google Play của ứng dụng Huyền Cơ.</p>
+ <p class="muted">Bản trực tuyến: <span class="pv-url">https://phitang.github.io/huyenco/privacy.html</span></p>
+ <p><a class="btn ghost" href="#trang-chu">← Về trang chủ</a></p></div>
+</section>
+
+<p class="footer">Nội dung luận giải dựa trên nguyên lý Tử vi Đẩu Số, Thần số học Pythagoras và ý nghĩa truyền thống của Tarot, mang tính tham khảo và chiêm nghiệm. Các quyết định quan trọng về sức khỏe, tài chính và hôn nhân nên dựa trên thực tế của chính bạn. <a href="#rieng-tu" class="pv-link">Chính sách quyền riêng tư</a></p>
 </div>
 <script>
 // ===== ENGINE: âm lịch, can chi, an sao tử vi =====
@@ -928,8 +946,8 @@ const HOA_SHORT={'Hóa Lộc':'Lộc','Hóa Quyền':'Quyền','Hóa Khoa':'Khoa
 const hoaBadge=s=>s.hoa.map(h=>`<span class="hoa ${HOA_CLS[h]}">${HOA_SHORT[h]}</span>`).join('');
 
 // ---------- routing ----------
-const PAGES=['trang-chu','tu-vi','tu-vi-dau-so','luc-hao','chiem-tinh','than-so','tarot','hoang-dao'];
-let ROUTE_PREV=null;function route(){const h=location.hash.slice(1);const p=PAGES.includes(h)?h:'trang-chu';if(ROUTE_PREV!==null&&ROUTE_PREV!==p){try{window.scrollTo({top:0,left:0,behavior:'instant'});}catch(e){window.scrollTo(0,0);}document.documentElement.scrollTop=0;document.body.scrollTop=0;}ROUTE_PREV=p;document.body.dataset.page=p;setTimeout(()=>{try{if(window.skyStart)skyStart(p==='tarot'||p==='chiem-tinh'||p==='hoang-dao');}catch(e){}},0);PAGES.forEach(x=>{$('#p-'+x).hidden=x!==p;});const top=p==='trang-chu'?'':['tu-vi','tu-vi-dau-so','luc-hao'].includes(p)?'tu-vi':'chiem-tinh';document.querySelectorAll('nav.tabs a').forEach(a=>{if(a.dataset.page===top)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});}
+const PAGES=['trang-chu','rieng-tu','tu-vi','tu-vi-dau-so','luc-hao','chiem-tinh','than-so','tarot','hoang-dao'];
+let ROUTE_PREV=null;function route(){const h=location.hash.slice(1);const p=PAGES.includes(h)?h:'trang-chu';if(ROUTE_PREV!==null&&ROUTE_PREV!==p){try{window.scrollTo({top:0,left:0,behavior:'instant'});}catch(e){window.scrollTo(0,0);}document.documentElement.scrollTop=0;document.body.scrollTop=0;}ROUTE_PREV=p;document.body.dataset.page=p;setTimeout(()=>{try{if(window.skyStart)skyStart(p==='tarot'||p==='chiem-tinh'||p==='hoang-dao');}catch(e){}},0);PAGES.forEach(x=>{$('#p-'+x).hidden=x!==p;});const top=(p==='trang-chu'||p==='rieng-tu')?'':['tu-vi','tu-vi-dau-so','luc-hao'].includes(p)?'tu-vi':'chiem-tinh';document.querySelectorAll('nav.tabs a').forEach(a=>{if(a.dataset.page===top)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});}
 window.addEventListener('hashchange',route);
 
 // ================= TỬ VI =================
