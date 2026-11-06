@@ -5,6 +5,7 @@
 **Tử Vi**
 - **Tử Vi Đẩu Số**: lập lá số 12 cung (chính tinh, phụ tinh, Tứ hóa, Tuần – Triệt), tổng quan cuộc đời, vận hạn từng năm, nghề nghiệp, hợp tuổi hôn nhân và cách hóa giải.
 - **Lục Hào**: gieo quẻ theo ngày giờ (Mai Hoa Dịch Số), luận cát hung theo nạp giáp cho từng việc: mất đồ, kinh doanh, công danh, thi cử, bệnh tật, tình duyên…, kèm ứng kỳ và cách hóa giải.
+- **Lịch Vạn Niên**: lịch âm dương theo con giáp, giờ hoàng đạo, trực, sao, tuổi xung, xem ngày tốt xấu cho động thổ, cưới hỏi, khai trương, mua xe, xuất hành và văn khấn.
 
 **Chiêm Tinh**
 - **Thần Số Học**: số chủ đạo, sứ mệnh, linh hồn, chu kỳ năm và tháng cá nhân.
@@ -13,7 +14,7 @@
 
 ## Dùng ngay
 - **Trên web / iPhone / iPad**: mở https://phitang.github.io/huyenco/ bằng Safari → nút **Chia sẻ** → **Thêm vào MH chính**.
-- **Trên Android**: tải file [HuyenCo.apk](https://phitang.github.io/huyenco/download/HuyenCo.apk) (phiên bản 2.4), mở file và cho phép cài ứng dụng từ nguồn này.
+- **Trên Android**: tải file [HuyenCo.apk](https://phitang.github.io/huyenco/download/HuyenCo.apk) (phiên bản 2.5), mở file và cho phép cài ứng dụng từ nguồn này.
 
 [Chính sách quyền riêng tư](https://phitang.github.io/huyenco/privacy.html)
 
