@@ -531,7 +531,28 @@ nav.tabs a[aria-current="page"],body[data-page] nav.tabs a[aria-current="page"]{
 .agebox button:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(0,0,0,.45)}
 @media (max-width:560px){nav.tabs a{font-size:1.15rem;padding:8px 16px}.btn{padding:12px 20px}}
 @media (prefers-reduced-motion:reduce){.btn,nav.tabs a,.ct-sub a,.subtabs button{transition:none}}
-</style></head><body>
+
+/* ô nhập ngày + lịch nhỏ */
+.dp{position:relative;display:flex;gap:6px;align-items:stretch;width:100%}
+.dp .dp-text{flex:1;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.dp .dp-native{display:none!important}
+.dp-btn{flex:0 0 44px;width:44px;min-height:42px;display:grid;place-items:center;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--seal);cursor:pointer;padding:0;box-shadow:0 3px 0 var(--sh3d,rgba(0,0,0,.18)),0 5px 10px var(--sh3d2,rgba(0,0,0,.08));transition:transform .08s,box-shadow .08s}
+.dp-btn svg{width:22px;height:22px}
+.dp-btn:active,.dp-btn[aria-expanded="true"]{transform:translateY(2px);box-shadow:0 1px 0 var(--sh3d,rgba(0,0,0,.18))}
+.dp-pop{position:fixed;top:0;left:0;z-index:9000;width:296px;max-width:calc(100vw - 16px);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:10px;box-shadow:0 14px 34px rgba(0,0,0,.28);text-transform:none;letter-spacing:0;font-weight:400;font-size:.92rem}
+.dp-head{display:flex;gap:6px;align-items:center;margin-bottom:8px}
+.dp-head select{flex:1;padding:6px 4px;font-size:.9rem;width:auto}
+.dp-nav{flex:0 0 34px;height:34px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font-size:1.2rem;line-height:1;cursor:pointer;padding:0}
+.dp-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center}
+.dp-wd{font-size:.72rem;color:var(--muted);padding:2px 0;font-weight:600}
+.dp-wd:last-of-type{color:var(--seal)}
+.dp-d{aspect-ratio:1;min-height:34px;border:1px solid transparent;border-radius:8px;background:transparent;color:var(--ink);font:inherit;font-size:.9rem;cursor:pointer;padding:0;font-variant-numeric:tabular-nums}
+.dp-d:hover{background:var(--sunk)}
+.dp-d.t{border-color:var(--gold);font-weight:700}
+.dp-d.on{background:var(--seal);color:#fff;font-weight:700;border-color:var(--seal)}
+.dp-foot{display:flex;justify-content:space-between;gap:8px;margin-top:8px}
+.dp-foot button{flex:1;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit;font-size:.88rem;cursor:pointer}
+</style>
 <div class="gate" id="gate" role="dialog" aria-modal="true" aria-label="Mở đầu">
  <div id="gIntro"><div class="brandmark" aria-label="PHITANG"><span style="animation-delay:0.00s">P</span><span style="animation-delay:0.12s">H</span><span style="animation-delay:0.24s">I</span><span style="animation-delay:0.36s">T</span><span style="animation-delay:0.48s">A</span><span style="animation-delay:0.60s">N</span><span style="animation-delay:0.72s">G</span></div><div class="brandline"></div><div class="brandsub">Huyền Cơ · Tử Vi · Chiêm Tinh</div></div>
  <div class="agebox" id="gAge" hidden><div class="ic">16+</div><h2>Xác nhận độ tuổi</h2><p>Ứng dụng có nội dung chiêm nghiệm về vận mệnh, tình duyên và hôn nhân, dành cho người từ 16 tuổi trở lên. Bạn cam kết mình đã đủ 16 tuổi?</p>
@@ -2180,7 +2201,56 @@ function initLV(){const sv=store.get('lv');if(sv){LV.f={...LV.f,...(sv.f||{})};L
  out.addEventListener('input',e=>{const m=e.target.id.match(/^lvF_(\w+)$/);if(m){LV.f[m[1]]=e.target.value;save();const t=document.getElementById('lvText');if(t)t.textContent=lvFill(LV_VK[LV.vk][2]);}});
  renderLV();}
 
-route();initTV();initNS();initTarot();initZD();initLH();initLV();
+// ===== Ô NHẬP NGÀY: gõ bàn phím dd/mm/yyyy + lịch nhỏ =====
+const DP_ICON='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="7" y="13" width="3" height="3" rx=".6" fill="currentColor"/></svg>';
+const dpPad=n=>String(n).padStart(2,'0');
+function dpIsoToText(v){if(!v)return '';const [y,m,d]=v.split('-');return `${d}/${m}/${y}`;}
+function dpParse(t){const p=t.split(/[^\d]+/).filter(Boolean);if(p.length!==3)return null;let [d,m,y]=p.map(Number);if(p[2].length===2)y+=y>40?1900:2000;
+ if(!(m>=1&&m<=12&&d>=1&&y>=1000))return null;const dim=new Date(y,m,0).getDate();if(d>dim)return null;return{d,m,y};}
+function dpMask(raw,del){const segs=raw.split(/[^\d]+/);let out;
+ if(segs.length===1){const d=raw.replace(/\D/g,'').slice(0,8);out=d.slice(0,2)+(d.length>2?'/'+d.slice(2,4):'')+(d.length>4?'/'+d.slice(4):'');if(!del&&(d.length===2||d.length===4))out+='/';}
+ else{const day=segs[0].slice(0,2),mon=(segs[1]||'').slice(0,2),yr=(segs[2]||'').slice(0,4);out=day+'/'+mon;if(segs.length>2)out+='/'+yr;else if(!del&&mon.length===2)out+='/';}
+ return out;}
+function enhanceDate(nat){if(nat.dataset.dp)return;nat.dataset.dp='1';
+ const wrap=document.createElement('span');wrap.className='dp';nat.parentNode.insertBefore(wrap,nat);
+ const txt=document.createElement('input');txt.type='text';txt.className='dp-text';txt.inputMode='numeric';txt.autocomplete='off';txt.placeholder='ngày/tháng/năm';txt.setAttribute('aria-label','Nhập ngày theo dạng ngày/tháng/năm');
+ if(nat.required){txt.required=true;nat.required=false;}
+ const btn=document.createElement('button');btn.type='button';btn.className='dp-btn';btn.innerHTML=DP_ICON;btn.setAttribute('aria-label','Mở lịch để chọn ngày');
+ wrap.appendChild(txt);wrap.appendChild(btn);wrap.appendChild(nat);nat.classList.add('dp-native');nat.tabIndex=-1;nat.setAttribute('aria-hidden','true');
+ txt.value=dpIsoToText(nat.value);
+ const minY=nat.min?+nat.min.slice(0,4):1900,maxY=nat.max?+nat.max.slice(0,4):2100;
+ const commit=(o,fire)=>{const iso=`${o.y}-${dpPad(o.m)}-${dpPad(o.d)}`;txt.value=`${dpPad(o.d)}/${dpPad(o.m)}/${o.y}`;txt.setCustomValidity('');if(nat.value!==iso||fire){nat.value=iso;nat.dispatchEvent(new Event('input',{bubbles:true}));nat.dispatchEvent(new Event('change',{bubbles:true}));}};
+ const check=()=>{if(!txt.value){txt.setCustomValidity(txt.required?'Hãy nhập ngày, ví dụ 15/08/1992.':'');return null;}const o=dpParse(txt.value);
+  if(!o||o.y<minY||o.y>maxY){txt.setCustomValidity(`Ngày chưa hợp lệ. Hãy nhập theo dạng ngày/tháng/năm, ví dụ 15/08/1992 (năm từ ${minY} đến ${maxY}).`);return null;}txt.setCustomValidity('');return o;};
+ txt.addEventListener('input',e=>{const del=(e.inputType||'').startsWith('delete');const v=dpMask(txt.value,del);if(v!==txt.value)txt.value=v;const o=dpParse(txt.value);if(o&&String(o.y).length===4&&txt.value.split('/')[2]&&txt.value.split('/')[2].length===4&&check())commit(o,false);else check();});
+ txt.addEventListener('blur',()=>{const o=check();if(o)commit(o,false);});
+ txt.addEventListener('keydown',e=>{if(e.key==='Enter'){const o=check();if(o)commit(o,false);}});
+ // lịch nhỏ
+ let pop=null,vy,vm;
+ const close=()=>{if(pop){pop.remove();pop=null;btn.setAttribute('aria-expanded','false');document.removeEventListener('pointerdown',outside,true);document.removeEventListener('keydown',esc,true);removeEventListener('scroll',place,true);removeEventListener('resize',place);}};
+ const outside=e=>{if(pop&&!wrap.contains(e.target)&&!pop.contains(e.target))close();};
+ const place=()=>{if(!pop)return;const w=wrap.getBoundingClientRect(),pw=pop.offsetWidth,ph=pop.offsetHeight;let l=Math.min(w.left,innerWidth-8-pw);l=Math.max(8,l);let t=w.bottom+6;if(t+ph>innerHeight-8&&w.top-6-ph>8)t=w.top-6-ph;pop.style.left=l+'px';pop.style.top=t+'px';};const esc=e=>{if(e.key==='Escape'){close();btn.focus();}};
+ const draw=()=>{const cur=dpParse(txt.value),T=new Date(),first=new Date(vy,vm-1,1),off=(first.getDay()+6)%7,nd=new Date(vy,vm,0).getDate();
+  let h=`<div class="dp-head"><button type="button" class="dp-nav" data-dpn="-1" aria-label="Tháng trước">‹</button><select class="dp-m" aria-label="Tháng">${[...Array(12)].map((_,i)=>`<option value="${i+1}" ${i+1===vm?'selected':''}>Tháng ${i+1}</option>`).join('')}</select>
+  <select class="dp-y" aria-label="Năm">${[...Array(maxY-minY+1)].map((_,i)=>{const Y=maxY-i;return `<option ${Y===vy?'selected':''}>${Y}</option>`;}).join('')}</select><button type="button" class="dp-nav" data-dpn="1" aria-label="Tháng sau">›</button></div>
+  <div class="dp-grid">${['T2','T3','T4','T5','T6','T7','CN'].map(w=>`<span class="dp-wd">${w}</span>`).join('')}${'<span></span>'.repeat(off)}`;
+  for(let d=1;d<=nd;d++){const isS=cur&&cur.y===vy&&cur.m===vm&&cur.d===d,isT=T.getFullYear()===vy&&T.getMonth()+1===vm&&T.getDate()===d;h+=`<button type="button" class="dp-d${isS?' on':''}${isT?' t':''}" data-dpd="${d}">${d}</button>`;}
+  h+=`</div><div class="dp-foot"><button type="button" class="dp-today" data-dptoday="1">Hôm nay</button><button type="button" class="dp-close" data-dpclose="1">Đóng</button></div>`;pop.innerHTML=h;};
+ btn.addEventListener('click',()=>{if(pop){close();return;}const cur=dpParse(txt.value)||{y:Math.min(maxY,Math.max(minY,nat.id==='tvDate'||nat.id==='nsDate'||nat.id==='hnDate'?1995:new Date().getFullYear())),m:new Date().getMonth()+1};
+  vy=cur.y;vm=cur.m;pop=document.createElement('div');pop.className='dp-pop';pop.setAttribute('role','dialog');pop.setAttribute('aria-label','Chọn ngày');document.body.appendChild(pop);btn.setAttribute('aria-expanded','true');draw();place();addEventListener('scroll',place,true);addEventListener('resize',place);
+  setTimeout(()=>{document.addEventListener('pointerdown',outside,true);document.addEventListener('keydown',esc,true);},0);
+  pop.addEventListener('click',e=>{e.stopPropagation();const n=e.target.closest('[data-dpn]');if(n){vm+=+n.dataset.dpn;if(vm<1){vm=12;vy--;}if(vm>12){vm=1;vy++;}vy=Math.min(maxY,Math.max(minY,vy));draw();return;}
+   const d=e.target.closest('[data-dpd]');if(d){commit({y:vy,m:vm,d:+d.dataset.dpd},true);close();txt.focus();return;}
+   if(e.target.closest('[data-dptoday]')){const T=new Date();vy=T.getFullYear();vm=T.getMonth()+1;draw();return;}
+   if(e.target.closest('[data-dpclose]'))close();});
+  pop.addEventListener('change',e=>{e.stopPropagation();if(e.target.classList.contains('dp-m'))vm=+e.target.value;if(e.target.classList.contains('dp-y'))vy=+e.target.value;draw();});});
+ // đồng bộ khi mã khác gán giá trị
+ const desc=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value');Object.defineProperty(nat,'value',{get(){return desc.get.call(this);},set(v){desc.set.call(this,v);if(document.activeElement!==txt)txt.value=dpIsoToText(v);},configurable:true});}
+function initDatePickers(){document.querySelectorAll('input[type=date]').forEach(enhanceDate);
+ new MutationObserver(ms=>{for(const m of ms)for(const n of m.addedNodes)if(n.nodeType===1){if(n.matches&&n.matches('input[type=date]'))enhanceDate(n);else if(n.querySelectorAll)n.querySelectorAll('input[type=date]').forEach(enhanceDate);}}).observe(document.body,{childList:true,subtree:true});}
+
+route();initTV();initNS();initTarot();initZD();initLH();initLV();initDatePickers();
 
 </script>
+
 <script>if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));</script></body></html>
