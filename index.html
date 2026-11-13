@@ -490,6 +490,47 @@ body[data-page="trang-chu"] nav.tabs a{color:var(--muted)}
 .lv-gd.top{background:color-mix(in srgb,var(--good) 10%,var(--surface))}
 .lv-text{white-space:pre-wrap;font-family:var(--f-body);font-size:.98rem;line-height:1.75;margin:0;padding:16px;border-radius:10px;background:color-mix(in srgb,var(--gold) 8%,var(--surface));border:1px solid var(--line);max-width:75ch;user-select:text}
 .lv-c:focus-visible,.lv-gd:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* ===== Nút 3D lớn, rõ nét ===== */
+:root{--sh3d:rgba(40,25,15,.32);--sh3d2:rgba(40,25,15,.14)}
+body[data-page="than-so"],body[data-page="tarot"],body[data-page="hoang-dao"],body[data-page="chiem-tinh"],body[data-page="trang-chu"]{--sh3d:rgba(0,0,0,.55);--sh3d2:rgba(0,0,0,.3)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sh3d:rgba(0,0,0,.55);--sh3d2:rgba(0,0,0,.3)}}
+:root[data-theme="dark"]{--sh3d:rgba(0,0,0,.55);--sh3d2:rgba(0,0,0,.3)}
+.btn{padding:13px 26px;font-size:1.04rem;font-weight:700;border-radius:12px;letter-spacing:.01em;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -3px 0 rgba(0,0,0,.18),0 5px 0 var(--sh3d),0 10px 18px var(--sh3d2);
+ transition:transform .08s,box-shadow .08s,filter .15s;position:relative;top:0}
+.btn:hover{filter:brightness(1.07)}
+.btn:active{transform:translateY(4px);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),inset 0 -1px 0 rgba(0,0,0,.18),0 1px 0 var(--sh3d),0 3px 6px var(--sh3d2)}
+.btn.ghost{background:var(--surface);border:1.5px solid var(--line);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 4px 0 var(--sh3d2),0 8px 14px var(--sh3d2)}
+nav.tabs{gap:8px;padding-bottom:6px}
+nav.tabs a{font-size:1.32rem;padding:9px 20px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 4px 0 var(--sh3d),0 8px 14px var(--sh3d2);transition:transform .08s,box-shadow .08s}
+nav.tabs a:active{transform:translateY(3px);box-shadow:0 1px 0 var(--sh3d)}
+nav.tabs a[aria-current="page"],body[data-page] nav.tabs a[aria-current="page"]{background:var(--seal);color:var(--bg);border-color:var(--seal);transform:translateY(3px);
+ box-shadow:inset 0 2px 4px rgba(0,0,0,.25),0 1px 0 var(--sh3d)}
+.ct-sub{gap:10px}
+.ct-sub a:not(.ct-back){padding:10px 18px;font-size:1rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 4px 0 var(--sh3d),0 8px 14px var(--sh3d2);transition:transform .08s,box-shadow .08s}
+.ct-sub a:not(.ct-back):active{transform:translateY(3px);box-shadow:0 1px 0 var(--sh3d)}
+.ct-sub a[aria-current="page"],body[data-page] .ct-sub a[aria-current="page"]{background:var(--seal);color:var(--bg);border-color:var(--seal);transform:translateY(3px);box-shadow:inset 0 2px 4px rgba(0,0,0,.25),0 1px 0 var(--sh3d)}
+.subtabs{gap:10px;margin:22px 0 20px}
+.subtabs button{padding:11px 20px;font-size:1rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 4px 0 var(--sh3d),0 8px 14px var(--sh3d2);transition:transform .08s,box-shadow .08s}
+.subtabs button:active{transform:translateY(3px);box-shadow:0 1px 0 var(--sh3d)}
+.subtabs button[aria-selected="true"],body[data-page] .subtabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink);transform:translateY(3px);box-shadow:inset 0 2px 4px rgba(0,0,0,.3),0 1px 0 var(--sh3d)}
+.seg{border-radius:12px;border:1.5px solid var(--line);box-shadow:0 4px 0 var(--sh3d2),0 8px 14px var(--sh3d2)}
+.seg label{padding:13px 8px;font-size:1rem;font-weight:600}
+.seg input:checked+label{box-shadow:inset 0 3px 6px rgba(0,0,0,.28);font-weight:700}
+.num,.lv-gd,.cd-chip,.hm-card,.ct-card{box-shadow:0 4px 0 var(--sh3d2),0 10px 18px var(--sh3d2)}
+.num:active,.lv-gd:active,.cd-chip:active{transform:translateY(3px);box-shadow:0 1px 0 var(--sh3d2)}
+.num.on{transform:translateY(2px)}
+.lv-c{box-shadow:0 2px 0 var(--sh3d2)}.lv-c:active{transform:translateY(2px);box-shadow:none}
+.lv-c.sel{box-shadow:inset 0 2px 4px rgba(0,0,0,.3)}
+.strip .s{box-shadow:0 2px 0 var(--sh3d2);background:var(--surface)}.strip .s.on{box-shadow:inset 0 2px 4px rgba(0,0,0,.2)}
+.agebox button{padding:15px 16px;font-size:1.05rem;border-radius:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 5px 0 rgba(0,0,0,.45),0 10px 18px rgba(0,0,0,.35);transition:transform .08s,box-shadow .08s}
+.agebox button:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(0,0,0,.45)}
+@media (max-width:560px){nav.tabs a{font-size:1.15rem;padding:8px 16px}.btn{padding:12px 20px}}
+@media (prefers-reduced-motion:reduce){.btn,nav.tabs a,.ct-sub a,.subtabs button{transition:none}}
 </style></head><body>
 <div class="gate" id="gate" role="dialog" aria-modal="true" aria-label="Mở đầu">
  <div id="gIntro"><div class="brandmark" aria-label="PHITANG"><span style="animation-delay:0.00s">P</span><span style="animation-delay:0.12s">H</span><span style="animation-delay:0.24s">I</span><span style="animation-delay:0.36s">T</span><span style="animation-delay:0.48s">A</span><span style="animation-delay:0.60s">N</span><span style="animation-delay:0.72s">G</span></div><div class="brandline"></div><div class="brandsub">Huyền Cơ · Tử Vi · Chiêm Tinh</div></div>
