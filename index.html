@@ -2127,6 +2127,7 @@ function zHero(ch,who){const i=ch.sun,S=ZS[i],[lv,cl,lt]=zLevel(ch);
 function zTongQuan(ch){const i=ch.sun,S=ZS[i];let h=zHero(ch,ch.p.name)+`<div class="card"><div class="eyebrow">Tính cách</div><h3>Bản chất ${S.n}</h3><p>${S.ov}</p>`;
  if(ch.decan!=null){const sub=zm(i+ch.decan*4);h+=`<p class="muted">Mặt Trời ở ${zDeg(ch.pos.sun.lon)}, thuộc decan ${ch.decan+1}${ch.decan?`, mang thêm sắc thái của ${ZS[sub].n} (${ZS[sub].kw.split(' · ')[0].toLowerCase()})`:': nét '+S.n+' thuần khiết nhất'}.</p>`;}
  h+=`<div class="grid2" style="gap:12px"><div><span class="pill good">Điểm mạnh</span><ul class="clean" style="margin-top:6px">${S.st.map(x=>`<li>${x}</li>`).join('')}</ul></div><div><span class="pill bad">Cần cải thiện</span><ul class="clean" style="margin-top:6px">${S.wk.map(x=>`<li>${x}</li>`).join('')}</ul></div></div></div>`;
+ h+=zDeepCard(i);
  // bộ ba
  const lock=t=>`<p class="muted zlock">${t}</p>`;
  h+=`<div class="zthree"><div class="card"><div class="eyebrow">${ZPG.sun} Mặt Trời · con người bạn</div><h3>${zSign(i)}</h3><p>${S.kw}.</p></div>
@@ -2142,8 +2143,136 @@ function zTongQuan(ch){const i=ch.sun,S=ZS[i];let h=zHero(ch,ch.p.name)+`<div cl
   const ELT=['nhiệt huyết, hành động','thực tế, bền bỉ','trí tuệ, giao tiếp','cảm xúc, trực giác'];
   h+=`<div class="card"><div class="eyebrow">Cân bằng nguyên tố</div><h3>Thiên về ${ZEL_N[mx]}</h3><div class="zbars">${els.map((v,k)=>`<div><span>${ZEL_N[k]}</span><i class="zel-bg${k}" style="width:${Math.round(v/tot*100)}%"></i><b>${Math.round(v/tot*100)}%</b></div>`).join('')}</div>
   <p>Năng lượng ${ZEL_N[mx]} (${ELT[mx]}) chiếm ưu thế trong bản đồ của bạn. Nguyên tố ${ZEL_N[mn]} yếu nhất: hãy chủ động rèn sự ${ELT[mn]} để cân bằng.</p></div>`;}
+ h+=zAdvCard(i)+zGuideCard();
  return h;}
 
+// ===== 12 cung hoàng đạo: diễn giải chi tiết =====
+// sym: biểu tượng; deep: tính cách sâu; need: điều cần để hạnh phúc; life: bài học; love: tình yêu chi tiết; match: hợp/thử thách; work; money; health; adv: lời khuyên cụ thể
+const ZS_DEEP=[
+{sym:'Biểu tượng là con cừu đực với cặp sừng xoắn, tượng trưng cho sức mạnh lao về phía trước. Bạch Dương thuộc nguyên tố Lửa, tính chất Tiên phong, được Sao Hỏa (hành tinh của hành động và chiến đấu) cai quản.',
+deep:['Bạn sống theo nhịp "nghĩ là làm". Khi một ý tưởng xuất hiện, bạn muốn bắt tay ngay mà không cần chờ mọi thứ hoàn hảo. Đó là lý do bạn thường là người mở đường trong nhóm, người dám thử điều mà người khác còn đang đắn đo.','Bên trong vẻ mạnh mẽ là một tâm hồn khá hồn nhiên: bạn giận nhanh nhưng cũng quên nhanh, không để bụng lâu. Bạn ghét sự giả tạo và vòng vo, nên lời nói thường thẳng, đôi khi làm người khác chạnh lòng dù bạn không có ý xấu.'],
+need:'Bạn cần cảm giác được tiến lên, được thử thách và được tự quyết. Một cuộc sống đều đều, bị kiểm soát sẽ khiến bạn bức bối.',life:'Bài học lớn của bạn là sự kiên nhẫn: học cách đi hết chặng đường chứ không chỉ khởi đầu, và lắng nghe trước khi phản ứng.',
+love:'Bạn yêu nhanh, nồng nhiệt và thích chủ động theo đuổi. Bạn thể hiện tình cảm bằng hành động: bảo vệ, dẫn người ấy đi trải nghiệm. Bạn cần một người độc lập, có cá tính, không bám víu nhưng cũng không lạnh nhạt. Điều dễ làm tổn thương mối quan hệ là tính nóng và sự mất kiên nhẫn khi tình cảm bước vào giai đoạn bình lặng.',
+match:'Thường hợp với Sư Tử, Nhân Mã (cùng Lửa) và Song Tử, Bảo Bình (Khí nuôi Lửa). Dễ va chạm với Cự Giải, Ma Kết vì khác nhịp sống.',
+work:'Bạn tỏa sáng ở vị trí cần quyết định nhanh, mở thị trường mới, xử lý khủng hoảng. Bạn làm việc theo đợt bùng nổ năng lượng; hãy giao phần việc tỉ mỉ, kéo dài cho người cẩn thận hơn hoặc chia nhỏ mục tiêu.',
+money:'Bạn kiếm tiền giỏi nhờ dám làm, nhưng cũng tiêu nhanh theo cảm hứng. Nên tự động chuyển một phần thu nhập vào tài khoản tiết kiệm ngay khi nhận lương.',
+health:'Bạch Dương cai quản vùng đầu, mặt. Dễ đau đầu khi căng thẳng, dễ va chạm, trầy xước vì vội vàng. Vận động mạnh (chạy, võ thuật) giúp bạn giải tỏa năng lượng dư.',
+adv:['Trước khi bắt đầu việc mới, viết ra 3 bước cuối cùng để chắc rằng bạn sẽ đi đến đích.','Khi tức giận, đếm đến 10 hoặc rời khỏi chỗ đó 5 phút rồi mới trả lời.','Mỗi tuần dành ít nhất 3 buổi vận động mạnh để giải phóng năng lượng.','Trong tình cảm, hỏi người ấy "em/anh cần gì?" thay vì tự quyết thay.','Chọn công việc có mục tiêu rõ và thử thách mới mỗi quý để không chán.']},
+{sym:'Biểu tượng là con bò đực vững chãi, kiên nhẫn. Kim Ngưu thuộc nguyên tố Đất, tính chất Kiên định, được Sao Kim (hành tinh của cái đẹp, tình yêu, giá trị) cai quản.',
+deep:['Bạn là người "chậm mà chắc". Bạn không vội vàng quyết định, nhưng một khi đã chọn thì theo đuổi đến cùng. Sự ổn định, đáng tin cậy là món quà lớn nhất bạn mang đến cho người xung quanh.','Bạn có giác quan nhạy bén với cái đẹp và sự dễ chịu: món ăn ngon, âm nhạc, chất liệu tốt, không gian gọn gàng. Bạn coi trọng giá trị thực hơn lời nói, và khó chịu khi bị ép thay đổi đột ngột.'],
+need:'Bạn cần sự an toàn: tài chính vững, mối quan hệ chung thủy, môi trường ổn định và thời gian để tận hưởng thành quả.',life:'Bài học lớn của bạn là sự linh hoạt: học cách buông những thứ không còn phù hợp và đón nhận thay đổi như cơ hội.',
+love:'Bạn yêu chậm, chắc chắn và rất chung thủy. Bạn thể hiện tình cảm qua chăm sóc thực tế: nấu ăn, quà tặng ý nghĩa, sự hiện diện đều đặn. Bạn cần một người đáng tin, nhất quán. Điểm dễ gây mâu thuẫn là tính sở hữu và cứng đầu khi hai người bất đồng.',
+match:'Thường hợp với Xử Nữ, Ma Kết (cùng Đất) và Cự Giải, Song Ngư (Nước nuôi Đất). Dễ va chạm với Sư Tử, Bảo Bình vì khác quan điểm về tự do và sự chú ý.',
+work:'Bạn làm tốt công việc cần sự bền bỉ, chính xác và thẩm mỹ: tài chính, xây dựng, thiết kế, ẩm thực. Bạn cần thời gian thích nghi; hãy đề nghị lộ trình rõ ràng khi nhận việc mới.',
+money:'Bạn có năng khiếu giữ tiền và đầu tư dài hạn. Rủi ro duy nhất là chi tiêu cho hưởng thụ; đặt ngân sách riêng cho "niềm vui" để không áy náy mà vẫn kiểm soát được.',
+health:'Kim Ngưu cai quản vùng cổ, họng. Dễ đau họng, khàn tiếng, căng cơ cổ vai gáy. Ăn uống ngon miệng nên cần chú ý cân nặng.',
+adv:['Mỗi tháng thử một điều mới nhỏ (món ăn, con đường, sở thích) để luyện sự linh hoạt.','Khi bất đồng, nói "để mình suy nghĩ thêm" thay vì khẳng định ngay rằng mình đúng.','Lập ngân sách 50/30/20 (nhu cầu/mong muốn/tiết kiệm) và giữ đều đặn.','Giãn cơ cổ vai gáy mỗi ngày, uống đủ nước ấm để bảo vệ cổ họng.','Nếu một việc không còn mang lại giá trị, đặt hạn chót để buông thay vì cố giữ.']},
+{sym:'Biểu tượng là cặp song sinh, tượng trưng cho hai mặt của trí tuệ và sự trao đổi. Song Tử thuộc nguyên tố Khí, tính chất Linh hoạt, được Sao Thủy (hành tinh của tư duy, giao tiếp) cai quản.',
+deep:['Đầu óc bạn luôn hoạt động: bạn tò mò về mọi thứ, học nhanh, nói chuyện hay và có thể chuyển chủ đề rất linh hoạt. Bạn là "cầu nối" giúp mọi người hiểu nhau và lan truyền ý tưởng.','Vì có nhiều mặt, bạn đôi khi thay đổi tâm trạng hoặc ý kiến nhanh, khiến người khác thấy khó đoán. Sự nhàm chán là kẻ thù lớn nhất; bạn cần đa dạng để thấy sống động.'],
+need:'Bạn cần sự kích thích trí tuệ: trò chuyện thú vị, học điều mới, đi lại, và tự do thay đổi.',life:'Bài học lớn của bạn là chiều sâu và sự tập trung: chọn vài điều quan trọng để đi đến cùng thay vì biết một chút về mọi thứ.',
+love:'Bạn yêu bằng trí óc trước: cuộc trò chuyện hay khiến bạn rung động hơn vẻ ngoài. Bạn vui vẻ, hài hước và cần một người bạn đồng hành có thể nói chuyện cả ngày không chán. Điểm dễ gây tổn thương là sự thất thường và ngại cam kết khi cảm thấy bị ràng buộc.',
+match:'Thường hợp với Thiên Bình, Bảo Bình (cùng Khí) và Bạch Dương, Sư Tử (Lửa). Dễ va chạm với Xử Nữ, Song Ngư vì khác cách nhìn nhận vấn đề.',
+work:'Bạn hợp công việc cần giao tiếp, viết lách, truyền thông, bán hàng, giảng dạy, công nghệ. Môi trường nhiều thay đổi, nhiều người giúp bạn phát huy; việc lặp lại đơn điệu làm bạn mất động lực.',
+money:'Thu nhập có thể đến từ nhiều nguồn cùng lúc. Bạn dễ tiêu cho đồ công nghệ, sách, đi lại; nên theo dõi chi tiêu bằng ứng dụng để thấy rõ tiền đi đâu.',
+health:'Song Tử cai quản tay, vai, phổi và hệ thần kinh. Dễ căng thẳng thần kinh, mất ngủ vì suy nghĩ nhiều, các vấn đề hô hấp nhẹ.',
+adv:['Chọn tối đa 3 mục tiêu cho mỗi quý và viết ra để giữ tập trung.','Tắt điện thoại 1 giờ trước khi ngủ để đầu óc được nghỉ.','Khi hứa, ghi vào lịch ngay để không quên lời hứa.','Tập thở sâu hoặc đi bộ khi thấy đầu óc quá tải.','Trong tình cảm, nói rõ khi bạn cần không gian riêng thay vì im lặng biến mất.']},
+{sym:'Biểu tượng là con cua với lớp vỏ cứng bảo vệ phần mềm bên trong. Cự Giải thuộc nguyên tố Nước, tính chất Tiên phong, được Mặt Trăng (cảm xúc, gia đình, sự nuôi dưỡng) cai quản.',
+deep:['Bạn có trái tim nhạy cảm và giàu lòng thương. Gia đình, người thân là trung tâm cuộc sống của bạn; bạn nhớ những chi tiết nhỏ và luôn muốn che chở người mình yêu.','Lớp vỏ ngoài của bạn có thể trông dè dặt, nhưng một khi đã tin ai, bạn hết lòng. Cảm xúc của bạn lên xuống như thủy triều; bạn dễ tổn thương và đôi khi rút vào "vỏ" thay vì nói ra.'],
+need:'Bạn cần cảm giác an toàn về tình cảm: một mái ấm, những người thân thiết và sự thấu hiểu.',life:'Bài học lớn của bạn là buông bỏ quá khứ và nói ra nhu cầu của mình thay vì chờ người khác đoán.',
+love:'Bạn yêu sâu sắc, chăm sóc chu đáo và rất gắn bó. Bạn cần một người ấm áp, kiên nhẫn, coi trọng gia đình. Điểm dễ gây tổn thương là sự nhạy cảm quá mức, giữ chuyện cũ trong lòng và giận dỗi thay vì nói thẳng.',
+match:'Thường hợp với Bọ Cạp, Song Ngư (cùng Nước) và Kim Ngưu, Xử Nữ (Đất). Dễ va chạm với Bạch Dương, Thiên Bình vì khác cách thể hiện cảm xúc.',
+work:'Bạn hợp công việc chăm sóc, nuôi dưỡng: y tế, giáo dục, nhân sự, ẩm thực, bất động sản, dịch vụ gia đình. Bạn làm việc tốt nhất trong tập thể gắn bó như một gia đình.',
+money:'Bạn có xu hướng tiết kiệm, tích trữ để phòng xa, rất hợp đầu tư nhà đất. Cẩn thận chi tiêu theo cảm xúc khi buồn.',
+health:'Cự Giải cai quản ngực và dạ dày. Cảm xúc ảnh hưởng trực tiếp tiêu hóa: khi lo lắng dễ đau dạ dày, ăn uống thất thường.',
+adv:['Viết nhật ký cảm xúc mỗi tối để hiểu và giải tỏa tâm trạng.','Khi buồn, nói "mình đang thấy..." với người thân thay vì im lặng chờ họ hiểu.','Ăn đúng bữa, tránh ăn khi đang căng thẳng.','Đặt ranh giới: giúp người khác nhưng không ôm hết trách nhiệm của họ.','Dành thời gian cho hoạt động gần nước (bơi, đi biển, tắm nước ấm) để thư giãn.']},
+{sym:'Biểu tượng là con sư tử, chúa tể với lòng can đảm và sự hào phóng. Sư Tử thuộc nguyên tố Lửa, tính chất Kiên định, được Mặt Trời (bản ngã, sức sống) cai quản.',
+deep:['Bạn có sự hiện diện nổi bật, ấm áp và tự tin. Bạn thích được ghi nhận, nhưng cũng rất hào phóng, sẵn sàng nâng đỡ và truyền cảm hứng cho người khác.','Bạn coi trọng danh dự và lòng trung thành. Phía sau vẻ rực rỡ là mong muốn được yêu thương chân thành; khi bị phớt lờ hoặc chê bai trước đông người, bạn tổn thương sâu.'],
+need:'Bạn cần được thể hiện bản thân, được ghi nhận và được yêu thương một cách rõ ràng.',life:'Bài học lớn của bạn là khiêm tốn và lắng nghe: tỏa sáng mà vẫn chừa chỗ cho người khác.',
+love:'Bạn yêu nồng nhiệt, lãng mạn, hào phóng và rất trung thành. Bạn cần một người biết trân trọng, khen ngợi và tự hào về bạn. Điểm dễ gây tổn thương là cái tôi lớn, khó nhận sai và nhu cầu được chú ý liên tục.',
+match:'Thường hợp với Bạch Dương, Nhân Mã (cùng Lửa) và Song Tử, Thiên Bình (Khí). Dễ va chạm với Kim Ngưu, Bọ Cạp vì cùng cứng đầu.',
+work:'Bạn hợp vai trò lãnh đạo, biểu diễn, sáng tạo, truyền thông, quản lý thương hiệu. Bạn cần sân khấu để tỏa sáng và được giao trách nhiệm.',
+money:'Bạn kiếm tiền tốt nhưng chi tiêu hào phóng, thích đồ chất lượng và đãi bạn bè. Nên có quỹ dự phòng trước khi chi cho hình ảnh.',
+health:'Sư Tử cai quản tim, lưng và cột sống. Chú ý tim mạch, huyết áp và tư thế ngồi; tránh làm việc quá sức để chứng tỏ bản thân.',
+adv:['Mỗi ngày khen ngợi chân thành một người xung quanh.','Khi sai, nói "mình xin lỗi" sớm; điều đó làm bạn đáng kính hơn.','Kiểm tra tim mạch định kỳ, tập các bài giữ thẳng lưng.','Tiết kiệm trước, chi tiêu sau; đặt hạn mức cho quà tặng và tiệc tùng.','Tìm một hoạt động sáng tạo (nhạc, vẽ, sân khấu) để thể hiện bản thân lành mạnh.']},
+{sym:'Biểu tượng là trinh nữ cầm bó lúa, tượng trưng cho sự tinh khiết, cần mẫn và mùa gặt. Xử Nữ thuộc nguyên tố Đất, tính chất Linh hoạt, được Sao Thủy (tư duy, phân tích) cai quản.',
+deep:['Bạn có con mắt tinh tường với chi tiết và mong muốn làm mọi thứ đúng, tốt hơn. Bạn chăm chỉ, đáng tin, thích giúp đỡ người khác một cách thực tế.','Vì tiêu chuẩn cao, bạn hay tự phê bình và lo lắng. Bạn thể hiện tình cảm bằng việc làm hơn lời nói, đôi khi bị hiểu nhầm là khó tính trong khi bạn chỉ muốn mọi thứ tốt đẹp.'],
+need:'Bạn cần trật tự, sự hữu ích và cảm giác mình đang làm điều có ý nghĩa.',life:'Bài học lớn của bạn là chấp nhận sự không hoàn hảo, ở người khác và ở chính mình.',
+love:'Bạn yêu chân thành, chu đáo và thể hiện qua hành động chăm sóc nhỏ. Bạn cần một người đáng tin, ngăn nắp và trân trọng sự tận tụy của bạn. Điểm dễ gây tổn thương là sự soi xét, góp ý quá nhiều khiến người kia thấy bị chê.',
+match:'Thường hợp với Kim Ngưu, Ma Kết (cùng Đất) và Cự Giải, Bọ Cạp (Nước). Dễ va chạm với Song Tử, Nhân Mã vì khác nhịp sống.',
+work:'Bạn hợp công việc cần sự tỉ mỉ, phân tích: kế toán, kiểm toán, y dược, biên tập, dữ liệu, quản lý chất lượng. Bạn là người khiến hệ thống vận hành trơn tru.',
+money:'Bạn quản lý tiền cẩn thận, ít khi lãng phí. Đừng quá lo lắng về tiền đến mức không dám đầu tư cho bản thân.',
+health:'Xử Nữ cai quản hệ tiêu hóa, ruột. Lo lắng dễ gây rối loạn tiêu hóa; hợp chế độ ăn sạch, nghỉ ngơi đều đặn.',
+adv:['Áp dụng quy tắc "đủ tốt là được" cho việc không quá quan trọng.','Trước khi góp ý, hãy khen một điểm tốt trước.','Mỗi ngày ghi lại 3 việc đã làm được thay vì chỉ nhìn việc chưa xong.','Ăn uống điều độ, hạn chế đồ cay, uống đủ nước.','Dành một buổi mỗi tuần không lên kế hoạch gì, chỉ để thư giãn.']},
+{sym:'Biểu tượng là cái cân, tượng trưng cho công bằng, cân bằng và hài hòa. Thiên Bình thuộc nguyên tố Khí, tính chất Tiên phong, được Sao Kim (cái đẹp, tình yêu, quan hệ) cai quản.',
+deep:['Bạn có tài kết nối, khéo léo và tinh tế. Bạn luôn tìm sự hài hòa, ghét xung đột và thường là người hòa giải trong nhóm. Gu thẩm mỹ của bạn rất tốt.','Vì muốn công bằng và làm vừa lòng mọi người, bạn hay phân vân khi phải chọn. Bạn có thể nhường nhịn quá mức để giữ hòa khí, rồi âm thầm mệt mỏi.'],
+need:'Bạn cần sự hài hòa, cái đẹp, các mối quan hệ cân bằng và công bằng.',life:'Bài học lớn của bạn là dám quyết định và dám nói "không", kể cả khi điều đó làm người khác chưa vui.',
+love:'Bạn lãng mạn, chu đáo và coi trọng sự đồng hành. Bạn cần một người lịch thiệp, biết lắng nghe và cùng xây dựng mối quan hệ bình đẳng. Điểm dễ gây tổn thương là né tránh xung đột, không nói ra điều không hài lòng cho đến khi quá muộn.',
+match:'Thường hợp với Song Tử, Bảo Bình (cùng Khí) và Sư Tử, Nhân Mã (Lửa). Dễ va chạm với Cự Giải, Ma Kết vì khác cách xử lý vấn đề.',
+work:'Bạn hợp công việc cần sự khéo léo và thẩm mỹ: luật, ngoại giao, đàm phán, thiết kế, thời trang, quan hệ công chúng. Bạn làm việc nhóm rất tốt.',
+money:'Bạn thích chi tiêu cho cái đẹp và các mối quan hệ. Nên có kế hoạch tài chính chung rõ ràng khi hợp tác hoặc sống chung.',
+health:'Thiên Bình cai quản thận, thắt lưng và làn da. Uống đủ nước, chú ý lưng dưới; căng thẳng do giữ trong lòng dễ ảnh hưởng sức khỏe.',
+adv:['Khi phân vân, cho mình hạn chót và chọn theo giá trị quan trọng nhất.','Tập nói "không" lịch sự với một yêu cầu nhỏ mỗi tuần.','Nói ra sự không hài lòng sớm, khi nó còn nhỏ.','Uống đủ 2 lít nước mỗi ngày, giãn cơ lưng dưới.','Dành thời gian cho nghệ thuật hoặc thiên nhiên để cân bằng tinh thần.']},
+{sym:'Biểu tượng là con bọ cạp, tượng trưng cho sức mạnh tiềm ẩn, sự sâu sắc và khả năng tái sinh. Bọ Cạp thuộc nguyên tố Nước, tính chất Kiên định, được Sao Hỏa và Sao Diêm Vương (chuyển hóa) cai quản.',
+deep:['Bạn sâu sắc, bí ẩn và có sức mạnh nội tâm lớn. Bạn nhìn thấu bản chất vấn đề, khó bị lừa và không thích sự hời hợt.','Bạn yêu ghét rõ ràng, rất trung thành nhưng cũng khó tha thứ khi bị phản bội. Bạn thường giấu cảm xúc thật, chỉ mở lòng với rất ít người.'],
+need:'Bạn cần sự chân thành, chiều sâu, lòng tin tuyệt đối và cảm giác kiểm soát được cuộc sống.',life:'Bài học lớn của bạn là buông bỏ: tha thứ, tin tưởng và để cuộc sống chuyển hóa thay vì kiểm soát mọi thứ.',
+love:'Bạn yêu mãnh liệt, sâu sắc và trọn vẹn. Bạn cần một người trung thành, chân thành, dám mở lòng. Điểm dễ gây tổn thương là ghen tuông, nghi ngờ và giữ bí mật.',
+match:'Thường hợp với Cự Giải, Song Ngư (cùng Nước) và Xử Nữ, Ma Kết (Đất). Dễ va chạm với Sư Tử, Bảo Bình vì cùng mạnh mẽ nhưng khác giá trị.',
+work:'Bạn hợp công việc cần nghiên cứu sâu, điều tra, tâm lý, y khoa, tài chính đầu tư, quản trị rủi ro. Bạn làm việc tốt nhất khi được tin tưởng và tự chủ.',
+money:'Bạn có trực giác tốt về đầu tư và quản lý tài sản chung. Tránh đầu tư "tất tay" theo cảm xúc mạnh.',
+health:'Bọ Cạp cai quản cơ quan sinh sản và bài tiết. Cảm xúc bị dồn nén dễ gây căng thẳng; cần cách giải tỏa lành mạnh.',
+adv:['Chọn một người tin cậy để chia sẻ thật lòng ít nhất mỗi tuần.','Khi nghi ngờ, hỏi thẳng một cách bình tĩnh thay vì tự suy đoán.','Viết thư (không gửi) cho người từng làm bạn tổn thương để khép lại chuyện cũ.','Tập thể dục cường độ cao để giải phóng cảm xúc dồn nén.','Chia sẻ một phần kế hoạch với người cùng làm để xây dựng lòng tin hai chiều.']},
+{sym:'Biểu tượng là nhân mã (nửa người nửa ngựa) giương cung bắn lên trời, tượng trưng cho khát vọng, tự do và tri thức. Nhân Mã thuộc nguyên tố Lửa, tính chất Linh hoạt, được Sao Mộc (may mắn, mở rộng) cai quản.',
+deep:['Bạn lạc quan, yêu tự do và luôn hướng tới chân trời mới: đi xa, học hỏi, khám phá triết lý sống. Bạn thẳng thắn, hài hước và truyền năng lượng tích cực.','Bạn ghét bị bó buộc và có thể hứa nhiều hơn làm được vì quá hào hứng. Sự thẳng thắn đôi khi thành vô tâm với cảm xúc người khác.'],
+need:'Bạn cần tự do, sự phiêu lưu, học hỏi và một mục đích sống ý nghĩa.',life:'Bài học lớn của bạn là trách nhiệm và sự cam kết: đi xa nhưng vẫn giữ lời hứa và gốc rễ.',
+love:'Bạn yêu vui vẻ, cởi mở và cần một người bạn đồng hành cùng khám phá thế giới. Bạn cần không gian riêng và sự tin tưởng. Điểm dễ gây tổn thương là ngại cam kết và thẳng thắn quá mức.',
+match:'Thường hợp với Bạch Dương, Sư Tử (cùng Lửa) và Thiên Bình, Bảo Bình (Khí). Dễ va chạm với Xử Nữ, Song Ngư vì khác cách sống.',
+work:'Bạn hợp giảng dạy, du lịch, xuất nhập khẩu, luật, xuất bản, truyền thông, công việc quốc tế. Bạn cần môi trường tự do và tầm nhìn lớn.',
+money:'Bạn may mắn về tiền nhưng chi tiêu rộng tay, nhất là cho du lịch, học tập. Nên có kế hoạch dài hạn thay vì sống theo cảm hứng.',
+health:'Nhân Mã cai quản đùi, hông và gan. Chú ý ăn uống, rượu bia và các chấn thương khi vận động ngoài trời.',
+adv:['Trước khi hứa, tự hỏi "mình có thật sự làm được không?".','Đặt mục tiêu tiết kiệm cho mỗi chuyến đi trước khi đi.','Thêm một câu hỏi thăm cảm xúc trước khi nói thẳng ý kiến.','Hạn chế rượu bia, khởi động kỹ trước khi vận động.','Chọn một khóa học hoặc chuyến đi mỗi năm để nuôi tinh thần khám phá.']},
+{sym:'Biểu tượng là con dê núi (đuôi cá) leo lên đỉnh núi, tượng trưng cho tham vọng, kỷ luật và sự bền bỉ. Ma Kết thuộc nguyên tố Đất, tính chất Tiên phong, được Sao Thổ (thời gian, trách nhiệm) cai quản.',
+deep:['Bạn nghiêm túc, có trách nhiệm và kiên trì. Bạn đặt mục tiêu dài hạn và leo từng bước một, không ngại gian khổ. Thành công của bạn thường đến muộn nhưng bền vững.','Bạn ít bộc lộ cảm xúc và có thể quá khắt khe với bản thân. Bên trong vẻ điềm tĩnh là sự hài hước khô và trái tim rất trung thành.'],
+need:'Bạn cần cảm giác tiến bộ, thành tựu, được tôn trọng và một nền tảng vững chắc.',life:'Bài học lớn của bạn là cân bằng giữa công việc và cảm xúc: cho phép mình nghỉ ngơi và tận hưởng.',
+love:'Bạn yêu nghiêm túc, chung thủy và thể hiện qua trách nhiệm, sự lo lắng cho tương lai chung. Bạn cần một người đáng tin, chín chắn. Điểm dễ gây tổn thương là ít thể hiện cảm xúc và đặt công việc lên trên.',
+match:'Thường hợp với Kim Ngưu, Xử Nữ (cùng Đất) và Bọ Cạp, Song Ngư (Nước). Dễ va chạm với Bạch Dương, Thiên Bình vì khác nhịp và cách ưu tiên.',
+work:'Bạn hợp quản lý, hành chính, tài chính, xây dựng, luật, kỹ thuật. Bạn là người xây dựng hệ thống và nhận trách nhiệm lớn.',
+money:'Bạn giỏi tiết kiệm và đầu tư dài hạn. Đừng quá khắt khe với bản thân; dành một phần nhỏ để tận hưởng.',
+health:'Ma Kết cai quản xương, khớp, đầu gối, răng và da. Chú ý xương khớp, bổ sung canxi, tránh làm việc quá sức kéo dài.',
+adv:['Lên lịch nghỉ ngơi như một cuộc họp quan trọng và giữ đúng.','Mỗi tuần nói một lời yêu thương bằng lời với người thân.','Ăn uống đủ canxi, vitamin D, vận động nhẹ cho khớp.','Ăn mừng các cột mốc nhỏ thay vì chỉ chờ đích lớn.','Tập ủy quyền: tin người khác làm được một phần việc.']},
+{sym:'Biểu tượng là người mang bình nước đổ dòng nước tri thức cho nhân loại. Bảo Bình thuộc nguyên tố Khí, tính chất Kiên định, được Sao Thổ và Sao Thiên Vương (đổi mới, bất ngờ) cai quản.',
+deep:['Bạn độc lập, sáng tạo và có tư duy đi trước thời đại. Bạn quan tâm đến cộng đồng, công bằng xã hội và những ý tưởng mới.','Bạn trân trọng tự do cá nhân và có thể tỏ ra xa cách về cảm xúc. Bạn thân thiện với nhiều người nhưng chỉ thật sự gần gũi với ít người.'],
+need:'Bạn cần tự do, không gian sáng tạo và một mục đích lớn hơn bản thân.',life:'Bài học lớn của bạn là kết nối cảm xúc: cho phép người khác đến gần và thể hiện sự ấm áp.',
+love:'Bạn yêu như một người bạn thân: tôn trọng, cởi mở và cần sự tự do. Bạn cần một người độc lập, cùng chí hướng. Điểm dễ gây tổn thương là sự lạnh lùng, lý trí quá mức khi người kia cần cảm xúc.',
+match:'Thường hợp với Song Tử, Thiên Bình (cùng Khí) và Bạch Dương, Nhân Mã (Lửa). Dễ va chạm với Kim Ngưu, Bọ Cạp vì khác nhu cầu về sự gắn bó.',
+work:'Bạn hợp công nghệ, khoa học, đổi mới sáng tạo, hoạt động xã hội, nghiên cứu. Bạn làm tốt trong môi trường cởi mở, ít thủ tục.',
+money:'Bạn có ý tưởng kiếm tiền độc đáo nhưng thu nhập có thể thất thường. Nên có quỹ dự phòng và kế hoạch rõ ràng.',
+health:'Bảo Bình cai quản mắt cá chân, bắp chân và hệ tuần hoàn. Chú ý tuần hoàn máu, vận động đều, tránh ngồi lâu.',
+adv:['Mỗi tuần chủ động hỏi thăm sâu một người thân.','Khi người khác buồn, lắng nghe trước khi đưa giải pháp.','Đứng dậy vận động mỗi giờ khi làm việc máy tính.','Biến một ý tưởng thành kế hoạch có thời hạn cụ thể.','Tham gia một nhóm cộng đồng hợp giá trị của bạn.']},
+{sym:'Biểu tượng là hai con cá bơi ngược chiều, tượng trưng cho sự giằng co giữa thực tại và mộng tưởng. Song Ngư thuộc nguyên tố Nước, tính chất Linh hoạt, được Sao Mộc và Sao Hải Vương (mơ mộng, tâm linh) cai quản.',
+deep:['Bạn giàu lòng trắc ẩn, trực giác mạnh và trí tưởng tượng phong phú. Bạn cảm nhận được cảm xúc người khác như của chính mình và có tâm hồn nghệ sĩ.','Vì quá nhạy cảm, bạn dễ bị cuốn theo cảm xúc, khó nói "không" và có xu hướng trốn vào thế giới riêng khi thực tế quá khắc nghiệt.'],
+need:'Bạn cần sự bình yên, kết nối tâm hồn, không gian sáng tạo và một mục đích nhân văn.',life:'Bài học lớn của bạn là đặt ranh giới và sống thực tế: yêu thương mà không đánh mất bản thân.',
+love:'Bạn yêu lãng mạn, dịu dàng, hy sinh và rất thấu hiểu. Bạn cần một người vững vàng, chân thành và bảo vệ được bạn. Điểm dễ gây tổn thương là lý tưởng hóa người yêu và hy sinh quá mức.',
+match:'Thường hợp với Cự Giải, Bọ Cạp (cùng Nước) và Kim Ngưu, Ma Kết (Đất). Dễ va chạm với Song Tử, Nhân Mã vì khác nhu cầu cảm xúc.',
+work:'Bạn hợp nghệ thuật, âm nhạc, thiết kế, chăm sóc sức khỏe, tâm lý, từ thiện, tâm linh. Bạn làm tốt khi công việc có ý nghĩa với người khác.',
+money:'Bạn dễ mềm lòng cho vay hoặc chi theo cảm xúc. Nên có người tin cậy cùng quản lý tài chính hoặc dùng quy tắc tiết kiệm tự động.',
+health:'Song Ngư cai quản bàn chân và hệ miễn dịch. Dễ mệt khi thiếu ngủ, nhạy cảm với môi trường; cần nghỉ ngơi và chăm sóc bàn chân.',
+adv:['Tập nói "không" với những yêu cầu vượt sức mình.','Biến ước mơ thành kế hoạch với các bước nhỏ, có thời hạn.','Ngủ đủ giấc, ngâm chân nước ấm mỗi tối.','Không cho vay số tiền bạn không thể mất.','Dành thời gian cho nghệ thuật hoặc thiền để nạp năng lượng.']}
+];
+const ZS_GUIDE=[
+['Cung Mặt Trời là gì?','Cung hoàng đạo phổ biến (theo ngày sinh) là vị trí của Mặt Trời khi bạn ra đời. Nó cho biết bản chất cốt lõi, con người bạn muốn trở thành.'],
+['Cung Mặt Trăng và cung Mọc','Mặt Trăng cho biết đời sống cảm xúc, điều khiến bạn thấy an toàn. Cung Mọc (cần giờ và nơi sinh) là cách bạn xuất hiện trước người khác, ấn tượng đầu tiên. Ba yếu tố này kết hợp mới tạo nên bức tranh đầy đủ.'],
+['Bốn nguyên tố','Lửa (Bạch Dương, Sư Tử, Nhân Mã): nhiệt huyết, hành động. Đất (Kim Ngưu, Xử Nữ, Ma Kết): thực tế, bền bỉ. Khí (Song Tử, Thiên Bình, Bảo Bình): trí tuệ, giao tiếp. Nước (Cự Giải, Bọ Cạp, Song Ngư): cảm xúc, trực giác.'],
+['Ba tính chất','Tiên phong (Bạch Dương, Cự Giải, Thiên Bình, Ma Kết): khởi xướng. Kiên định (Kim Ngưu, Sư Tử, Bọ Cạp, Bảo Bình): duy trì. Linh hoạt (Song Tử, Xử Nữ, Nhân Mã, Song Ngư): thích nghi.'],
+['Đọc thế nào cho đúng?','Chiêm tinh mô tả khuynh hướng, không quyết định số phận. Hãy dùng nó để hiểu mình, phát huy điểm mạnh và rèn luyện điểm yếu.']];
+
+function zDeepCard(i){const Z=ZS_DEEP[i],S=ZS[i];
+ return `<div class="card tsh"><div class="eyebrow">Hiểu sâu về ${S.n}</div><h3>${S.n} là người như thế nào?</h3><p class="tsh-meta">${S.kw} · ${S.dt} · Hành tinh chủ quản: ${S.ru}</p>
+ <details class="tsh-more"><summary>Biểu tượng và nguồn gốc</summary><p>${Z.sym}</p></details>
+ ${Z.deep.map(x=>`<p>${x}</p>`).join('')}
+ <div class="tsh-asp"><div><b>Điều bạn cần để hạnh phúc</b><p>${Z.need}</p></div><div><b>Bài học cuộc đời</b><p>${Z.life}</p></div><div><b>Sức khỏe cần chú ý</b><p>${Z.health}</p></div></div></div>`;}
+function zAdvCard(i){const Z=ZS_DEEP[i],S=ZS[i];
+ return `<div class="card tsh"><div class="eyebrow">Lời khuyên</div><h3>Để ${S.n} sống tốt nhất</h3><div class="tsh-pair one"><div class="tsh-box tip"><h4>5 việc nên làm</h4><ol style="margin:0;padding-left:1.2em">${Z.adv.map(x=>`<li style="margin:.35em 0">${x}</li>`).join('')}</ol></div></div></div>`;}
+function zGuideCard(){return `<div class="card tsh"><div class="eyebrow">Kiến thức nền</div><h3>Hiểu về 12 cung hoàng đạo</h3>${ZS_GUIDE.map(([t,x])=>`<details class="tsh-more"><summary>${t}</summary><p>${x}</p></details>`).join('')}</div>`;}
 function zSuNghiep(ch){const i=ch.sun,S=ZS[i];const jobs=[...S.job];const extra=[];
  if(ch.mcSign!=null){ZS[ch.mcSign].job.slice(0,3).forEach(j=>jobs.includes(j)||jobs.push(j));}
  if(ch.pos){ZS[ch.pos.mars.sign].job.slice(0,1).forEach(j=>jobs.includes(j)||jobs.push(j));ZS[ch.pos.mercury.sign].job.slice(0,1).forEach(j=>jobs.includes(j)||jobs.push(j));}
@@ -2154,6 +2283,7 @@ function zSuNghiep(ch){const i=ch.sun,S=ZS[i];const jobs=[...S.job];const extra=
  if(ch.pos){const sa=ch.pos.saturn.sign,ju=ch.pos.jupiter.sign;h+=`<div class="grid2"><div class="card"><div class="eyebrow">${ZPG.jupiter} Sao Mộc gốc</div><h3>May mắn nghề nghiệp</h3><p>Sao Mộc ở ${ZS[ju].n}${ch.asc!=null?` (nhà ${zHouse(ch,ch.pos.jupiter.lon)}: ${ZHOUSE[zHouse(ch,ch.pos.jupiter.lon)-1]})`:''}: cơ hội thường đến khi bạn phát huy sự ${ZS[ju].kw.toLowerCase()}.</p></div>
  <div class="card"><div class="eyebrow">${ZPG.saturn} Sao Thổ gốc</div><h3>Bài học cần rèn</h3><p>Sao Thổ ở ${ZS[sa].n}${ch.asc!=null?` (nhà ${zHouse(ch,ch.pos.saturn.lon)}: ${ZHOUSE[zHouse(ch,ch.pos.saturn.lon)-1]})`:''}: thành công bền vững đến khi bạn kiên trì rèn luyện về ${ZS[sa].kw.split(' · ')[1].toLowerCase()} và vượt qua điểm yếu "${ZS[sa].wk[0].toLowerCase()}".</p></div></div>`;}
  else h+=`<p class="note">Nhập năm sinh để xem thêm tư duy, cách hành động, Sao Mộc và Sao Thổ trong công việc; nhập thêm giờ và nơi sinh để biết Thiên Đỉnh (MC).</p>`;
+ {const Z=ZS_DEEP[i];h+=`<div class="card tsh"><div class="eyebrow">Chi tiết công việc & tiền bạc</div><h3>${ZS[i].n} làm việc và quản lý tiền thế nào?</h3><div class="tsh-asp"><div><b>Phong cách làm việc</b><p>${Z.work}</p></div><div><b>Tiền bạc</b><p>${Z.money}</p></div></div><div class="tsh-pair one"><div class="tsh-box tip"><h4>Lời khuyên cụ thể</h4><ol style="margin:0;padding-left:1.2em">${[Z.adv[0],Z.adv[3],Z.adv[4]].map(x=>`<li style="margin:.35em 0">${x}</li>`).join('')}</ol></div></div></div>`;}
  return h;}
 
 // ----- vận hạn -----
@@ -2207,6 +2337,7 @@ function zCompat(A,B){const f=[];const add=(lbl,a,b,w,who)=>{const x=zAsp(a,b);f
 function zTinhYeu(ch){const i=ch.sun,S=ZS[i];
  let h=`<div class="card"><div class="eyebrow">Phong cách yêu</div><h3>${zSign(i)} khi yêu</h3><p>${S.love}</p>${ch.pos?`<p><b>${ZPG.venus} Sao Kim ở ${ZS[ch.pos.venus.sign].n}:</b> ${ZS[ch.pos.venus.sign].ven}. <b>${ZPG.mars} Sao Hỏa ở ${ZS[ch.pos.mars.sign].n}:</b> ${ZS[ch.pos.mars.sign].mar}.</p>`:''}
  <p class="muted">Các cung dễ hợp với ${S.n}: ${[4,8,2,10].map(k=>ZS[zm(i+k)].n).join(', ')}.</p></div>`;
+ {const Z=ZS_DEEP[i];h+=`<div class="card tsh"><div class="eyebrow">Tình yêu chi tiết</div><h3>Điều ${S.n} cần trong tình yêu</h3><p>${Z.love}</p><p><b>Hợp và thử thách:</b> ${Z.match}</p><div class="tsh-pair one"><div class="tsh-box tip"><h4>Lời khuyên cho ${S.n}</h4><p style="margin:0">${Z.adv.find(x=>/tình cảm|người ấy|yêu|tình/.test(x))||Z.adv[1]}</p></div></div></div>`;}
  const P=ZD.pv||{name:'',d:12,m:6,y:'',time:'',place:'',dst:false};
  h+=`<form class="panel form" id="zpForm" autocomplete="off"><div class="eyebrow" style="grid-column:1/-1">Thông tin người ấy</div>${zFields('zp',P,true)}<button class="btn" type="submit">Xem độ hợp</button><p class="zerr" id="zpErr" role="alert" hidden></p></form>`;
  if(ZD.partner){const B=ZD.partner,R=zCompat(ch,B),sc=R.sc;const lb=sc>=85?['Tri kỷ','good']:sc>=72?['Rất hợp','good']:sc>=60?['Khá hợp','good']:sc>=48?['Cần vun đắp','mid']:['Nhiều thử thách','bad'];
@@ -2603,6 +2734,104 @@ function lvDetail(){const {y,m,d}=LV.sel,D=lvDay(y,m,d),L=D.L;
  ${D.ky.length?`<ul class="clean">${D.ky.map(k=>`<li><b>${k[1]}</b>: ${k[2]}.</li>`).join('')}</ul>`:''}
  <div class="lv-gb"><div><span class="pill good">Nên làm</span> ${good.length?good.join(', '):'không có việc lớn nào thật sự thuận'}</div><div><span class="pill bad">Không nên</span> ${bad.length?bad.join(', '):'không có việc nào quá kỵ'}</div></div>
  <p class="note">Xem chi tiết cho một việc cụ thể và tìm ngày tốt ở tab "Xem ngày tốt xấu".</p></div>`;}
+// ===== Lịch Vạn Niên: diễn giải chi tiết =====
+// 12 thần trực nhật (Hoàng đạo / Hắc đạo): [giải thích, nên, kiêng]
+const LV_THAN_DEEP={
+'Thanh Long':['Thanh Long (rồng xanh) là thần tốt bậc nhất trong 6 Hoàng đạo, tượng trưng cho sinh khí, quý nhân và sự khởi đầu thuận lợi.','khởi công, khai trương, cưới hỏi, cầu tài, ký kết, xuất hành','gần như không kiêng việc gì'],
+'Minh Đường':['Minh Đường là "sảnh sáng", chủ về quý nhân phù trợ, được người trên giúp đỡ, mọi việc rõ ràng minh bạch.','gặp gỡ cấp trên, xin việc, nhậm chức, khai trương, cầu danh','ít kiêng; tránh việc mờ ám'],
+'Thiên Hình':['Thiên Hình là sao hình phạt, chủ về kiện tụng, pháp lý, va chạm. Đây là ngày Hắc đạo.','chỉ hợp xử lý việc pháp luật đúng đắn, kỷ luật, phẫu thuật theo chỉ định','khởi kiện, tranh chấp, cưới hỏi, khai trương'],
+'Chu Tước':['Chu Tước (chim lửa đỏ) chủ về khẩu thiệt, thị phi, lời nói gây hiểu lầm. Đây là ngày Hắc đạo.','việc nhỏ, việc nội bộ, nghỉ ngơi','ký hợp đồng, đàm phán, kiện tụng, khai trương, phát ngôn quan trọng'],
+'Kim Quỹ':['Kim Quỹ là "rương vàng", chủ về tài lộc, của cải được cất giữ, con cái, phúc đức gia đình.','cưới hỏi, cầu tài, mua sắm, nhập kho, cầu con','ít kiêng'],
+'Kim Đường':['Kim Đường (còn gọi Bảo Quang) là "điện vàng", chủ về sự hanh thông, sáng sủa, mọi việc dễ thành.','mọi việc lớn: khởi công, nhập trạch, khai trương, cưới hỏi, xuất hành','ít kiêng'],
+'Bạch Hổ':['Bạch Hổ (hổ trắng) chủ về tai nạn, đổ máu, tang thương. Đây là ngày Hắc đạo nặng.','việc nhỏ, thờ cúng, săn bắt (theo lệ xưa)','tang lễ, xuất hành xa, phẫu thuật không khẩn cấp, việc lớn'],
+'Ngọc Đường':['Ngọc Đường là "điện ngọc", chủ về văn thư, học hành, sự thanh nhã và quý nhân.','nhập học, thi cử, ký giấy tờ, khai trương, nhậm chức','ít kiêng; theo lệ xưa kỵ việc bếp núc lớn'],
+'Thiên Lao':['Thiên Lao là "nhà ngục trời", chủ về bị giam hãm, cản trở, việc khó tiến triển. Đây là ngày Hắc đạo.','việc nội bộ, sắp xếp, nghỉ ngơi','khởi sự, xuất hành, kiện tụng, khai trương'],
+'Huyền Vũ':['Huyền Vũ chủ về mờ ám, trộm cắp, lừa đảo, mất mát. Đây là ngày Hắc đạo.','việc kín đáo, thờ cúng','giao dịch tiền bạc lớn, cho vay, ký kết, xuất hành, khai trương'],
+'Tư Mệnh':['Tư Mệnh là thần cai quản vận mệnh, chủ về thờ cúng, sự được che chở. Tốt nhất vào ban ngày.','thờ cúng, cầu an, khai trương ban ngày, việc gia đình','việc làm vào ban đêm'],
+'Câu Trần':['Câu Trần chủ về dây dưa, kéo dài, ràng buộc, việc dễ bị trì hoãn. Đây là ngày Hắc đạo.','việc cần sự bền bỉ, sửa chữa nhỏ','cưới hỏi, khởi công, mua nhà, kiện tụng']};
+// 12 trực: [ý nghĩa, nên làm, không nên]
+const LV_TRUC_DEEP=[
+['Kiến là "dựng lên", ngày của sự khởi đầu, như mầm cây vừa nhú.','xuất hành, nhậm chức, khai trương, gặp quý nhân, mua xe','động thổ, đào đất, chôn cất'],
+['Trừ là "loại bỏ", ngày dọn dẹp những điều cũ, xấu.','chữa bệnh, dọn dẹp nhà cửa, cắt tóc, giải trừ, cúng giải hạn','cưới hỏi, khai trương, mua nhà, đi xa'],
+['Mãn là "đầy đủ", ngày sung túc, đầy đặn.','cầu tài, buôn bán, khai trương, mua sắm, nhập kho, cúng tế','động thổ, khởi công, nhậm chức, kiện tụng'],
+['Bình là "bằng phẳng", ngày bình thường, cân bằng.','sửa sang nhà cửa, dọn dẹp, cưới hỏi, đổ trần, việc thường ngày','đào ao, khơi mương, việc quá mạo hiểm'],
+['Định là "ổn định", ngày mọi thứ được xác lập.','cưới hỏi, nhập trạch, ký kết, mua nhà, khai trương, nhập học','xuất hành xa, kiện tụng, chữa bệnh'],
+['Chấp là "nắm giữ", ngày giữ gìn, củng cố.','khởi công, xây dựng, trồng trọt, tuyển người, lập khế ước','dọn nhà, xuất hành, khai trương, xuất tiền'],
+['Phá là "phá vỡ", ngày xung với tháng, năng lượng phá hủy.','phá dỡ nhà cũ, chữa bệnh, dọn dẹp triệt để','hầu hết việc lớn: cưới hỏi, khai trương, ký kết, nhập trạch'],
+['Nguy là "nguy hiểm", ngày cần thận trọng.','cúng bái, cầu an, việc nhỏ','đi xa, leo cao, đi thuyền, việc lớn, mạo hiểm'],
+['Thành là "thành tựu", một trong những trực tốt nhất.','mọi việc lớn: cưới hỏi, khai trương, nhập trạch, khởi công, nhập học','kiện tụng (dễ thành to chuyện)'],
+['Thu là "thu về", ngày thu hoạch.','thu nợ, mua sắm, nhập kho, thu hoạch, cưới hỏi (theo một số sách)','khai trương, xuất hành, an táng'],
+['Khai là "mở ra", ngày khai thông, rất tốt cho khởi sự.','khai trương, động thổ, nhập trạch, cưới hỏi, nhập học, xuất hành','an táng, chôn cất'],
+['Bế là "đóng lại", ngày bế tắc, khép kín.','lấp hố, đắp đê, đổ bê tông, làm việc cần sự kín đáo','khai trương, xuất hành, nhậm chức, chữa mắt']];
+// 28 tú: [tên đầy đủ, tốt/xấu ngắn, nên, kiêng]
+const LV_TU_DEEP={
+'Giác':['Giác Mộc Giao (thuồng luồng)','tốt','cưới hỏi, xây dựng, thi cử, nhập học','chôn cất, sửa mộ'],
+'Cang':['Cang Kim Long (rồng)','xấu','cắt may, việc nhỏ','cưới hỏi, xây dựng, chôn cất, mua bán lớn'],
+'Đê':['Đê Thổ Lạc (lạc đà)','xấu','việc nhỏ','khởi công, cưới hỏi, đi thuyền, chôn cất'],
+'Phòng':['Phòng Nhật Thố (thỏ)','tốt','cưới hỏi, xây dựng, khai trương, xuất hành','ít kiêng'],
+'Tâm':['Tâm Nguyệt Hồ (cáo)','xấu','việc nhỏ trong nhà','cưới hỏi, khởi công, kiện tụng, khai trương'],
+'Vĩ':['Vĩ Hỏa Hổ (hổ)','tốt','cưới hỏi, xây dựng, khai trương, chôn cất','may mặc theo lệ xưa'],
+'Cơ':['Cơ Thủy Báo (báo)','tốt','xây dựng, khai trương, trổ cửa, nhập trạch','ít kiêng'],
+'Đẩu':['Đẩu Mộc Giải (cua)','tốt','xây dựng, may mặc, khai trương, nhập học','ít kiêng'],
+'Ngưu':['Ngưu Kim Ngưu (trâu)','xấu','việc nhỏ','cưới hỏi, xây dựng, khởi công, mở cửa hàng'],
+'Nữ':['Nữ Thổ Bức (dơi)','xấu','học nghề, việc tay chân','cưới hỏi, chôn cất, kiện tụng'],
+'Hư':['Hư Nhật Thử (chuột)','xấu','việc nhỏ','xây dựng, cưới hỏi, khai trương, mở kho'],
+'Nguy':['Nguy Nguyệt Yến (chim én)','xấu','việc nhỏ','xây dựng, đi thuyền, khai trương, leo cao'],
+'Thất':['Thất Hỏa Trư (lợn)','tốt','mọi việc: xây dựng, cưới hỏi, khai trương, chôn cất','ít kiêng'],
+'Bích':['Bích Thủy Du (rái cá)','tốt','cưới hỏi, xây dựng, khai trương, nhập trạch','ít kiêng'],
+'Khuê':['Khuê Mộc Lang (sói)','xấu','cắt may, nhập học','chôn cất, khai trương, xây cửa'],
+'Lâu':['Lâu Kim Cẩu (chó)','tốt','xây dựng, cưới hỏi, khai trương, mua bán','ít kiêng'],
+'Vị':['Vị Thổ Trĩ (chim trĩ)','tốt','xây dựng, cưới hỏi, khai trương','ít kiêng'],
+'Mão':['Mão Nhật Kê (gà)','xấu','việc nhỏ','xây dựng, cưới hỏi, khai trương, mở cửa'],
+'Tất':['Tất Nguyệt Ô (quạ)','tốt','xây dựng, cưới hỏi, khai trương, chôn cất','ít kiêng'],
+'Chủy':['Chủy Hỏa Hầu (khỉ)','xấu','việc nhỏ','xây dựng, chôn cất, kiện tụng'],
+'Sâm':['Sâm Thủy Viên (vượn)','tốt','xây dựng, khai trương, nhập học, mua bán','cưới hỏi'],
+'Tỉnh':['Tỉnh Mộc Hãn (chó rừng)','tốt','xây dựng, nhập học, khai trương, đào giếng','ít kiêng'],
+'Quỷ':['Quỷ Kim Dương (dê)','xấu','chôn cất, cúng tế','xây dựng, cưới hỏi, khai trương'],
+'Liễu':['Liễu Thổ Chương (hoẵng)','xấu','việc nhỏ','xây dựng, chôn cất, khai trương'],
+'Tinh':['Tinh Nhật Mã (ngựa)','xấu','xây phòng mới (theo lệ xưa)','cưới hỏi, chôn cất'],
+'Trương':['Trương Nguyệt Lộc (hươu)','tốt','xây dựng, cưới hỏi, khai trương, chôn cất','ít kiêng'],
+'Dực':['Dực Hỏa Xà (rắn)','xấu','việc nhỏ','xây dựng, cưới hỏi, chôn cất'],
+'Chẩn':['Chẩn Thủy Dẫn (giun)','tốt','xây dựng, cưới hỏi, khai trương, xuất hành','ít kiêng']};
+// 24 tiết khí: ý nghĩa và lời khuyên sức khỏe, đời sống
+const LV_TIET_DEEP=['Ngày và đêm dài bằng nhau, giữa mùa xuân. Khí hậu ấm dần; nên ăn uống thanh đạm, tập thể dục buổi sáng.','Trời trong sáng, mùa tảo mộ, thăm viếng mộ phần tổ tiên. Độ ẩm cao, chú ý bệnh hô hấp, dị ứng.','Mưa rào giúp lúa mạ phát triển. Thời tiết ẩm, nên giữ nhà khô ráo, phòng bệnh khớp.','Bắt đầu mùa hè. Trời nóng dần; uống đủ nước, ngủ trưa ngắn để giữ sức.','Lúa bắt đầu ngậm sữa, hạt còn nhỏ. Nóng ẩm, chú ý vệ sinh ăn uống, phòng bệnh tiêu hóa.','Mùa gieo trồng lúa có râu, làm việc nhà nông bận rộn. Nắng nóng, tránh làm việc ngoài trời giữa trưa.','Ngày dài nhất năm, giữa mùa hè. Dương khí cực thịnh; giữ bình tĩnh, tránh nóng giận, bổ sung nước và rau quả.','Bắt đầu nóng gắt. Hạn chế ra nắng, ăn thức ăn mát, phòng say nắng.','Thời điểm nóng nhất năm. Nghỉ ngơi hợp lý, chú ý tim mạch và huyết áp.','Bắt đầu mùa thu. Khí trời dịu dần; hợp tổng kết, chuẩn bị cho nửa cuối năm.','Hết nóng, trời mát hơn. Thời tiết giao mùa, giữ ấm cổ họng buổi sáng sớm.','Sương trắng xuất hiện buổi sáng. Không khí khô; uống nhiều nước, giữ ẩm da.','Ngày và đêm dài bằng nhau, giữa mùa thu. Hợp cân bằng công việc và nghỉ ngơi.','Sương lạnh bắt đầu xuất hiện. Giữ ấm chân, cổ; ăn thức ăn ấm nóng.','Sương mù dày, cuối thu. Phòng cảm cúm, bệnh hô hấp, giữ ấm khi ra ngoài sớm.','Bắt đầu mùa đông. Hợp bồi bổ sức khỏe, tích trữ năng lượng, nghỉ ngơi sớm.','Bắt đầu có tuyết ở phương bắc, trời lạnh. Giữ ấm, vận động nhẹ trong nhà.','Lạnh nhiều. Chú ý xương khớp, tim mạch; ăn uống đủ chất.','Ngày ngắn nhất năm, giữa mùa đông. Âm khí cực thịnh, dương khí bắt đầu sinh; hợp tĩnh dưỡng, sum họp gia đình.','Rét nhẹ, gần cuối năm. Giữ ấm, chuẩn bị tổng kết năm.','Rét đậm nhất năm. Hạn chế ra ngoài sáng sớm, giữ ấm toàn thân; chuẩn bị Tết.','Bắt đầu mùa xuân. Vạn vật sinh sôi; hợp lập kế hoạch cho cả năm, khởi đầu việc mới.','Mưa ẩm, cây cối đâm chồi. Giữ nhà thông thoáng, phòng nấm mốc.','Sâu bọ thức dậy sau mùa đông, sấm xuân. Hợp khởi động lại công việc, vận động nhiều hơn.'];
+// Ngũ hành nạp âm của ngày
+const LV_EL_DEEP={'Kim':'Ngày hành Kim: năng lượng cứng rắn, quyết đoán. Hợp người mệnh Thủy (Kim sinh Thủy) và mệnh Kim; người mệnh Mộc nên cẩn trọng hơn (Kim khắc Mộc).','Mộc':'Ngày hành Mộc: năng lượng sinh trưởng, mở rộng. Hợp người mệnh Hỏa (Mộc sinh Hỏa) và mệnh Mộc; người mệnh Thổ nên cẩn trọng hơn (Mộc khắc Thổ).','Thủy':'Ngày hành Thủy: năng lượng linh hoạt, lưu thông. Hợp người mệnh Mộc (Thủy sinh Mộc) và mệnh Thủy; người mệnh Hỏa nên cẩn trọng hơn (Thủy khắc Hỏa).','Hỏa':'Ngày hành Hỏa: năng lượng nhiệt huyết, lan tỏa. Hợp người mệnh Thổ (Hỏa sinh Thổ) và mệnh Hỏa; người mệnh Kim nên cẩn trọng hơn (Hỏa khắc Kim).','Thổ':'Ngày hành Thổ: năng lượng ổn định, vững chắc. Hợp người mệnh Kim (Thổ sinh Kim) và mệnh Thổ; người mệnh Thủy nên cẩn trọng hơn (Thổ khắc Thủy).'};
+// Hướng dẫn chọn ngày theo từng việc
+const LV_ACT_DEEP={
+dongtho:['Động thổ là lần đầu tác động vào đất để xây dựng. Theo phong tục, cần chọn ngày Hoàng đạo, trực tốt (Kiến kỵ; Khai, Thành, Chấp tốt), tránh ngày xung tuổi gia chủ, và xét tuổi làm nhà (Kim Lâu, Hoang Ốc, Tam Tai).',['Xem tuổi gia chủ: nếu phạm Kim Lâu, Hoang Ốc hoặc Tam Tai thì mượn tuổi người hợp để đứng ra động thổ.','Chuẩn bị lễ cúng động thổ, văn khấn (xem tab Văn khấn).','Chọn giờ Hoàng đạo trong ngày để bắt đầu nhát cuốc đầu tiên.','Kiểm tra giấy phép xây dựng, ranh giới đất trước ngày động thổ.']],
+khoicong:['Khởi công là bắt đầu thi công chính thức. Ngày tốt nên là ngày Hoàng đạo, trực Thành, Khai hoặc Chấp, sao tốt, không phạm Tam Nương, Nguyệt Kỵ.',['Ký hợp đồng thi công rõ ràng trước ngày khởi công.','Họp đội thợ, phổ biến an toàn lao động vào ngày đầu.','Nếu gia chủ không hợp tuổi, nhờ người hợp tuổi khởi công thay.']],
+dotran:['Đổ trần, đổ mái là bước quan trọng, liên quan sự vững chắc của công trình. Ngày tốt nên là ngày Hoàng đạo, trực Bình, Chấp, Bế (trực Bế hợp đổ bê tông).',['Xem dự báo thời tiết: tránh ngày mưa to.','Kiểm tra cốt thép, cốp pha trước khi đổ.','Chuẩn bị lễ cúng đổ mái đơn giản nếu theo phong tục gia đình.']],
+nhaptrach:['Nhập trạch là dọn về nhà mới. Ngày tốt nên là Hoàng đạo, trực Định, Thành, Khai; tránh ngày xung tuổi gia chủ.',['Gia chủ mang bát hương, gạo, muối, nước vào nhà trước.','Bật đèn sáng, nấu nước hoặc thổi bếp ngày đầu để "nhà ấm".','Mời người thân đến chung vui sau khi ổn định.']],
+cuoihoi:['Cưới hỏi là việc trọng đại. Ngày tốt nên là Hoàng đạo (đặc biệt Kim Quỹ, Thanh Long), trực Định, Thành, Khai; tránh Tam Nương, Nguyệt Kỵ và ngày xung tuổi cô dâu, chú rể.',['Xem tuổi cô dâu có phạm Kim Lâu năm cưới không.','Thống nhất ngày với hai bên gia đình sớm để chuẩn bị.','Chọn giờ Hoàng đạo cho lễ rước dâu.']],
+khaitruong:['Khai trương là mở đầu việc kinh doanh. Ngày tốt nên là Hoàng đạo, trực Mãn, Thành, Khai; tránh Nguyệt Kỵ, Tam Nương, trực Bế, Phá.',['Chuẩn bị hàng hóa, nhân sự, giấy phép đầy đủ trước ngày khai trương.','Chọn giờ Hoàng đạo để mở cửa và bán đơn hàng đầu tiên.','Có thể nhờ người hợp tuổi "mở hàng" đầu tiên.']],
+muanha:['Mua nhà, đất là giao dịch lớn. Ngày tốt nên là Hoàng đạo, trực Định, Thành, Mãn; tránh Huyền Vũ (mất mát, lừa đảo) và ngày xung tuổi.',['Kiểm tra pháp lý: sổ đỏ, quy hoạch, tranh chấp, thế chấp.','Đặt cọc và thanh toán bằng chuyển khoản, có hợp đồng công chứng.','Không vay quá khả năng trả nợ hằng tháng.']],
+muaxe:['Mua xe nên chọn ngày Hoàng đạo, trực Kiến, Mãn, Thành, Khai; tránh Bạch Hổ (dễ tai nạn).',['Kiểm tra giấy tờ xe, lịch sử bảo dưỡng nếu mua xe cũ.','Mua bảo hiểm đầy đủ.','Lái thử và đi chậm trong những ngày đầu để quen xe.']],
+xuathanh:['Xuất hành là bắt đầu chuyến đi. Ngày tốt nên là Hoàng đạo, trực Kiến, Mãn, Khai; tránh Nguyệt Kỵ, trực Nguy, Bế, Phá. Nên đi theo hướng Hỷ thần hoặc Tài thần của ngày.',['Ra khỏi nhà vào giờ Hoàng đạo, đi về hướng Hỷ thần (cầu may) hoặc Tài thần (cầu tài).','Kiểm tra phương tiện, giấy tờ, thời tiết trước khi đi.','Báo lịch trình cho người thân.']]};
+function lvDeep(D){const T=LV_THAN_DEEP[D.than[0]]||['','',''],R=LV_TRUC_DEEP[D.truc],U=LV_TU_DEEP[D.tu]||[D.tu,'','',''],el=D.napDay.el;
+ const big=[8,10,4].includes(D.truc)?1.5:[6,7,11].includes(D.truc)?-1.5:0;
+ const s=(D.than[1]?2:-2)+(LV_TU_GOOD.has(D.tu)?1:-1)+big-2.5*D.ky.length;
+ const [lb,cl,ex]=s>=2.5?['Ngày tốt','good','Phần lớn các yếu tố đều thuận. Đây là ngày phù hợp để tiến hành những việc quan trọng.']:s>=0?['Ngày bình thường','mid','Ngày có cả yếu tố tốt và chưa tốt. Việc thường ngày diễn ra bình thường; việc lớn nên xem kỹ theo từng việc cụ thể.']:['Ngày nên thận trọng','bad','Nhiều yếu tố chưa thuận. Nên ưu tiên việc nhỏ, việc nội bộ; việc lớn nên chọn ngày khác nếu có thể.'];
+ const tips=[];
+ tips.push(D.than[1]?`Có thể tiến hành việc quan trọng, nên bắt đầu vào giờ Hoàng đạo: ${D.gioHD.slice(0,3).map(h=>`${CHI[h]} (${LV_GIO[h]})`).join(', ')}.`:`Ngày Hắc đạo: nếu buộc phải làm việc lớn, hãy bắt đầu vào giờ Hoàng đạo (${D.gioHD.slice(0,3).map(h=>`${CHI[h]} ${LV_GIO[h]}`).join(', ')}) và chuẩn bị thật kỹ.`);
+ tips.push(`Theo trực ${LV_TRUC[D.truc]}, hôm nay hợp: ${R[1]}.`);
+ tips.push(`Người tuổi ${D.xung.map(([c,z])=>`${CAN[c]} ${CHI[z]}`).join(', ')} xung với ngày: nên tránh khởi sự việc lớn hôm nay, chỉ làm việc thường ngày.`);
+ tips.push(`Ra ngoài cầu may đi hướng ${LV_HY[D.dc]} (Hỷ thần), cầu tài đi hướng ${LV_TAI[D.dc]} (Tài thần).`);
+ tips.push(`Sức khỏe theo tiết ${LV_TIET[D.tiet]}: ${LV_TIET_DEEP[D.tiet].split('. ').slice(1).join('. ')||LV_TIET_DEEP[D.tiet]}`);
+ if(D.ky.length)tips.push(`Hôm nay là ngày ${D.ky.map(k=>k[1]).join(', ')}: theo phong tục nên tránh khởi sự việc lớn, đặc biệt ${D.ky.some(k=>k[0]==='nguyetky')?'xuất hành, buôn bán':'cưới hỏi, khởi công, khai trương'}.`);
+ const sec=(t,b)=>`<details class="tsh-more" open><summary>${t}</summary>${b}</details>`;
+ return `<div class="card tsh lv-deep" id="lvDeep"><div class="eyebrow">Diễn giải chi tiết · ${D.d}/${D.m}/${D.y}</div><h3>Ngày ${CAN[D.dc]} ${CHI[D.dz]} <span class="pill ${cl}">${lb}</span></h3><p>${ex}</p>
+ ${sec(`${D.than[1]?'Hoàng đạo':'Hắc đạo'}: thần ${D.than[0]}`,`<p>${T[0]}</p><div class="tsh-pair"><div class="tsh-box good"><h4>Nên</h4><p style="margin:0">${T[1]}</p></div><div class="tsh-box bad"><h4>Kiêng</h4><p style="margin:0">${T[2]}</p></div></div><p class="muted">Mỗi ngày do một trong 12 vị thần trực nhật cai quản: 6 thần tốt (Hoàng đạo) và 6 thần xấu (Hắc đạo), xoay vòng theo tháng âm lịch.</p>`)}
+ ${sec(`Trực ${LV_TRUC[D.truc]}`,`<p>${R[0]}</p><div class="tsh-pair"><div class="tsh-box good"><h4>Nên làm</h4><p style="margin:0">${R[1]}</p></div><div class="tsh-box bad"><h4>Không nên</h4><p style="margin:0">${R[2]}</p></div></div><p class="muted">12 trực (Kiến, Trừ, Mãn, Bình, Định, Chấp, Phá, Nguy, Thành, Thu, Khai, Bế) được tính theo tiết khí, cho biết tính chất của ngày đối với từng loại việc.</p>`)}
+ ${sec(`Sao ${U[0]}`,`<p>Theo Nhị thập bát tú, hôm nay sao <b>${U[0]}</b> trực, là sao <b>${U[1]}</b>.</p><div class="tsh-pair"><div class="tsh-box good"><h4>Nên</h4><p style="margin:0">${U[2]}</p></div><div class="tsh-box bad"><h4>Kiêng</h4><p style="margin:0">${U[3]}</p></div></div><p class="muted">28 chòm sao (Nhị thập bát tú) luân phiên mỗi ngày một sao, theo chu kỳ 28 ngày.</p>`)}
+ ${sec(`Ngũ hành ngày: ${D.napDay.name} (${el})`,`<p>${LV_EL_DEEP[el]||''}</p><p class="muted">Ngày ${CAN[D.dc]} ${CHI[D.dz]} có nạp âm ${D.napDay.name}${D.napDay.img?` – ${D.napDay.img}`:''}. Xem thêm tuổi của bạn ở tab "Xem ngày tốt xấu".</p>`)}
+ ${sec(`Tiết khí: ${LV_TIET[D.tiet]}`,`<p>${LV_TIET_DEEP[D.tiet]}</p>`)}
+ ${sec('Giờ Hoàng đạo và hướng xuất hành',`<p>Giờ Hoàng đạo là những giờ được thần tốt cai quản trong ngày, hợp để bắt đầu việc quan trọng:</p><ul class="tsh-ul">${D.gioHD.map(h=>`<li><b>${CHI[h]}</b> (${LV_GIO[h]}): ${LV_THAN[zm(h-[8,10,0,2,4,6][D.dz%6])][0]}</li>`).join('')}</ul><p>Hỷ thần (thần vui vẻ, may mắn) ở hướng <b>${LV_HY[D.dc]}</b>; Tài thần (thần tiền bạc) ở hướng <b>${LV_TAI[D.dc]}</b>. Khi xuất hành, đi về các hướng này được xem là thuận lợi.</p>`)}
+ ${sec('Tuổi xung với ngày',`<p>Ngày ${CAN[D.dc]} ${CHI[D.dz]} xung với các tuổi: <b>${D.xung.map(([c,z])=>`${CAN[c]} ${CHI[z]}`).join(', ')}</b>. Theo phong tục, người thuộc các tuổi này nên tránh làm việc lớn (cưới hỏi, khởi công, ký kết) trong ngày; việc thường ngày vẫn bình thường.</p>`)}
+ <div class="tsh-pair one"><div class="tsh-box tip"><h4>Lời khuyên cho ngày ${D.d}/${D.m}</h4><ol style="margin:0;padding-left:1.2em">${tips.map(x=>`<li style="margin:.35em 0">${x}</li>`).join('')}</ol></div></div>
+ <p class="muted">Xem ngày theo phong tục mang tính tham khảo; sự chuẩn bị chu đáo và hợp với điều kiện thực tế vẫn là quan trọng nhất.</p></div>`;}
+function lvActDeep(act){const A=LV_ACT_DEEP[act];if(!A)return '';const n=LV_ACT.find(a=>a[0]===act)[1];
+ return `<div class="card tsh"><div class="eyebrow">Hướng dẫn chọn ngày</div><h3>${n}: cần lưu ý gì?</h3><p>${A[0]}</p><div class="tsh-pair one"><div class="tsh-box tip"><h4>Việc nên chuẩn bị</h4><ol style="margin:0;padding-left:1.2em">${A[1].map(x=>`<li style="margin:.35em 0">${x}</li>`).join('')}</ol></div></div></div>`;}
 function lvXem(){const {y,m,d}=LV.sel,D=lvDay(y,m,d),owner=+LV.owner||'',S=lvScore(D,LV.act,owner),actN=LV_ACT.find(a=>a[0]===LV.act)[1];
  let h=`<div class="panel form lv-xf"><label>Việc cần xem<select id="lvAct">${LV_ACT.map(([k,n])=>`<option value="${k}" ${k===LV.act?'selected':''}>${n}</option>`).join('')}</select></label>
  <label>Ngày xem (dương lịch)<input type="date" id="lvDate" value="${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}"></label>
@@ -2613,6 +2842,7 @@ function lvXem(){const {y,m,d}=LV.sel,D=lvDay(y,m,d),owner=+LV.owner||'',S=lvSco
  <ul class="lh-notes">${S.R.map(([t,x])=>`<li class="${t>0?'g':t<0?'b':''}">${x}</li>`).join('')}</ul>
  ${S.warn.length?`<div class="cd-warn"><b>Lưu ý theo tuổi gia chủ</b><ul class="clean">${S.warn.map(x=>`<li>${x}</li>`).join('')}</ul></div>`:''}
  <p><b>Giờ tốt trong ngày:</b> ${D.gioHD.map(x=>`${CHI[x]} (${LV_GIO[x]})`).join(', ')}.${LV.act==='xuathanh'?` Nên xuất hành hướng <b>${LV_HY[D.dc]}</b> (Hỷ thần) hoặc <b>${LV_TAI[D.dc]}</b> (Tài thần).`:''}</p></div>`;
+ h+=lvActDeep(LV.act);
  const vy=LV.sel.y,vm=LV.sel.m,nd=new Date(vy,vm,0).getDate(),list=[];for(let k=1;k<=nd;k++){const Dk=lvDay(vy,vm,k),Sk=lvScore(Dk,LV.act,owner);if(Sk.lv[1]==='good')list.push([k,Dk,Sk]);}
  h+=`<div class="card"><div class="eyebrow">Ngày tốt trong tháng ${vm}/${vy}</div><h3>Ngày tốt cho việc ${actN.toLowerCase()}</h3>${list.length?`<div class="lv-good">${list.map(([k,Dk,Sk])=>`<button type="button" class="lv-gd ${Sk.lv[0]==='Rất tốt'?'top':''}" data-lvpick="${vy}-${vm}-${k}"><b>${k}/${vm}</b><span>${LV_WD[Dk.wd]}</span><span>Âm ${Dk.L.d}/${Dk.L.m} · ${CAN[Dk.dc]} ${CHI[Dk.dz]}</span><small>${Sk.lv[0]} · ${Dk.than[0]} · Trực ${LV_TRUC[Dk.truc]}</small></button>`).join('')}</div>`:'<p class="muted">Tháng này không có ngày thật sự thuận cho việc này. Hãy xem tháng khác.</p>'}
  <p class="note">Chạm vào một ngày để xem chi tiết. Đổi tháng bằng cách chọn ngày xem ở tháng khác.</p></div>`;return h;}
@@ -2631,7 +2861,7 @@ function lvVK(){const V=LV_VK[LV.vk],needCT=['dongtho','khaitruong','cuoi'].incl
  <p class="note">Ngày âm lịch được điền tự động theo ngày cúng. Thông tin bạn nhập chỉ lưu trên máy này. Bài khấn mang tính tham khảo theo phong tục phổ biến, mỗi vùng miền có thể khác nhau.</p></div>`;}
 function renderLV(){const tabs=[['thang','Lịch tháng'],['xemngay','Xem ngày tốt xấu'],['vankhan','Văn khấn']];
  let h=lvBanner()+`<div class="subtabs" role="tablist">${tabs.map(([k,v])=>`<button type="button" role="tab" data-lvt="${k}" aria-selected="${LV.tab===k}">${v}</button>`).join('')}</div><div class="stack">`;
- h+=LV.tab==='thang'?`<div class="lv-main">${lvGrid()}${lvDetail()}</div>`:LV.tab==='xemngay'?lvXem():lvVK();
+ h+=LV.tab==='thang'?`<div class="lv-main">${lvGrid()}${lvDetail()}</div>${lvDeep(lvDay(LV.sel.y,LV.sel.m,LV.sel.d))}`:LV.tab==='xemngay'?lvXem():lvVK();
  $('#lvOut').innerHTML=h+'</div>';}
 function lvSetSel(k,jump){const [y,m,d]=k.split('-').map(Number);LV.sel={y,m,d};LV.view={y,m};renderLV();if(jump)goTo(document.getElementById(LV.tab==='thang'?'lvDay':'lvOut'));}
 function initLV(){const sv=store.get('lv');if(sv){LV.f={...LV.f,...(sv.f||{})};LV.owner=sv.owner||'';LV.act=sv.act||LV.act;}
