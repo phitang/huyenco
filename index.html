@@ -626,6 +626,12 @@ html.dk-on,html.dk-on body{overflow:hidden}
 .dk-c.picked .f{box-shadow:0 0 10px var(--gold)}
 .dk.done .dk-c:not(.picked){opacity:.25}
 @media (prefers-reduced-motion:reduce){.dk,.dk-c,.dk-c .in{transition:none}}
+
+/* ảnh lá bài thật */
+.tc-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;background:#f4ecd8}
+.tcard.rev .f .tc-img,.dk-c.rev .f .tc-img{transform:rotate(180deg)}
+.tcard .f:has(.tc-img),.dk-c .f:has(.tc-img){border-color:rgba(226,196,126,.6)}
+.tr-credit{font-size:.75rem;color:var(--muted);text-align:center;margin:18px 0 0}
 </style>
 <div class="gate" id="gate" role="dialog" aria-modal="true" aria-label="Mở đầu">
  <div id="gIntro"><div class="brandmark" aria-label="PHITANG"><span style="animation-delay:0.00s">P</span><span style="animation-delay:0.12s">H</span><span style="animation-delay:0.24s">I</span><span style="animation-delay:0.36s">T</span><span style="animation-delay:0.48s">A</span><span style="animation-delay:0.60s">N</span><span style="animation-delay:0.72s">G</span></div><div class="brandline"></div><div class="brandsub">Huyền Cơ · Tử Vi · Chiêm Tinh</div></div>
@@ -768,6 +774,7 @@ html.dk-on,html.dk-on body{overflow:hidden}
  <p class="note" id="trHint">Tập trung vào câu hỏi, rồi chạm vào các lá bài úp bên dưới để rút.</p>
  <div class="spread" id="trSpreadOut"></div>
  <div id="trReading"></div>
+ <p class="tr-credit">Hình lá bài: bộ Rider–Waite–Smith bản in năm 1909, họa sĩ Pamela Colman Smith (thuộc phạm vi công cộng), bản scan phục chế của Steve P.</p>
 </section>
 
 <!-- CHÍNH SÁCH QUYỀN RIÊNG TƯ -->
@@ -1672,6 +1679,8 @@ function emblem(type){const g=(s)=>`<g transform="translate(60,96)">${s}</g>`;
  case'spiral':return g(`<path class="tc-ink" d="M0,0a4,4 0 0,1 8,0a8,8 0 0,1 -16,0a12,12 0 0,1 24,0a16,16 0 0,1 -32,0a20,20 0 0,1 40,0"/>`);
  default:return g(`<circle r="26" class="tc-ink"/><polygon class="tc-ink" points="0,-26 22.5,13 -22.5,13"/><circle r="4" class="tc-fill"/>`);}}
 const ROMAN=['0','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX','XXI'];
+// Mặt lá bài: ảnh Rider–Waite–Smith 1909 (phạm vi công cộng); không tải được thì dùng hình vẽ
+function cardFace(c){return cardSVG(c)+`<img class="tc-img" src="tarot/${c.id}.webp" alt="" decoding="async" onerror="this.remove()">`;}
 function cardSVG(c){let body='';
  if(c.major)body=emblem(c.emb)+`<text x="60" y="30" text-anchor="middle" class="tc-txt" font-size="16">${ROMAN[c.n]}</text>`;
  else if(c.rank===0)body=suitIcon(c.suit,60,96,2.6)+`<text x="60" y="30" text-anchor="middle" class="tc-txt" font-size="15">ÁT</text>`;
@@ -1865,9 +1874,9 @@ function openDeck(){TR.order=shuffle();TR.picked=[];const pos=SPREADS[TR.need];
  setTimeout(()=>{const f=d.querySelector('.dk-c');f&&f.focus({preventScroll:true});},300);}
 function deckPick(i){if(TR.picked.length>=TR.need)return;const el=TRD.el.querySelector(`.dk-c[data-i="${i}"]`);if(!el||el.classList.contains('picked'))return;
  const card=DECK[TR.order[i]],rev=Math.random()<0.3,k=TR.picked.length;TR.picked.push({card,rev});
- el.classList.add('picked');if(rev)el.classList.add('rev');el.querySelector('.f').innerHTML=cardSVG(card);el.setAttribute('aria-label',`${card.name}${rev?' (ngược)':''}`);
+ el.classList.add('picked');if(rev)el.classList.add('rev');el.querySelector('.f').innerHTML=cardFace(card);el.setAttribute('aria-label',`${card.name}${rev?' (ngược)':''}`);
  requestAnimationFrame(()=>el.classList.add('flip'));
- const sl=TRD.el.querySelector(`.dk-slot[data-k="${k}"]`);sl.classList.add('on');sl.querySelector('.dk-sc').innerHTML=`<span class="tcard${rev?' rev':''}"><span class="in"><span class="b back"></span><span class="f">${cardSVG(card)}</span></span></span>`;
+ const sl=TRD.el.querySelector(`.dk-slot[data-k="${k}"]`);sl.classList.add('on');sl.querySelector('.dk-sc').innerHTML=`<span class="tcard${rev?' rev':''}"><span class="in"><span class="b back"></span><span class="f">${cardFace(card)}</span></span></span>`;
  sl.querySelector(':scope > span').innerHTML=`<b>${card.name}</b>${rev?' (ngược)':''}<br>${SPREADS[TR.need][k]}`;setTimeout(()=>sl.querySelector('.tcard').classList.add('flip'),60);
  const left=TR.need-TR.picked.length;TRD.el.querySelector('.dk-count').textContent=left?`Đã rút ${k+1}/${TR.need} · còn ${left} lá`:'Đã rút đủ. Đang mở phần giải bài…';
  if(!left){TRD.el.classList.add('done');TRD.timer=setTimeout(()=>closeDeck(true),1600);}}
@@ -1877,7 +1886,7 @@ function closeDeck(done){if(!TRD.open)return;TRD.open=false;clearTimeout(TRD.tim
  if(done)showSpread();else{TR.picked=[];$('#trHint').textContent='Bạn đã đóng bộ bài. Bấm "Xáo bài" để rút lại.';}}
 addEventListener('popstate',()=>{if(TRD.skipPop){TRD.skipPop=false;return;}if(TRD.open){TRD.pushed=false;closeDeck(TR.picked.length>=TR.need&&TR.need>0);}});
 function showSpread(){const pos=SPREADS[TR.need];
- $('#trSpreadOut').innerHTML=TR.picked.map(({card,rev},k)=>`<div class="slot"><div class="pos">${pos[k]}</div><button type="button" class="tcard${rev?' rev':''}" aria-label="${card.name}"><div class="in"><div class="b back" style="margin:0;width:100%;height:100%;position:absolute"></div><div class="f">${cardSVG(card)}</div></div></button><div class="nm">${card.name}<small>${rev?'Ngược':'Xuôi'}${card.en?' · '+card.en:''}</small></div></div>`).join('');
+ $('#trSpreadOut').innerHTML=TR.picked.map(({card,rev},k)=>`<div class="slot"><div class="pos">${pos[k]}</div><button type="button" class="tcard${rev?' rev':''}" aria-label="${card.name}"><div class="in"><div class="b back" style="margin:0;width:100%;height:100%;position:absolute"></div><div class="f">${cardFace(card)}</div></div></button><div class="nm">${card.name}<small>${rev?'Ngược':'Xuôi'}${card.en?' · '+card.en:''}</small></div></div>`).join('');
  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
  [...document.querySelectorAll('#trSpreadOut .tcard')].forEach((c,k)=>setTimeout(()=>c.classList.add('flip'),reduce?0:120+k*160));
  $('#trHint').textContent='Đã rút đủ. Bấm "Xáo bài" để rút lại với câu hỏi khác.';reading();
