@@ -590,8 +590,42 @@ nav.tabs a[aria-current="page"],body[data-page] nav.tabs a[aria-current="page"]{
 
 /* Tarot chi tiết */
 #trTopic.invalid,#trSpread.invalid{border-color:var(--bad);box-shadow:0 0 0 3px color-mix(in srgb,var(--bad) 25%,transparent)}
-.fan.locked .back{filter:grayscale(.6) brightness(.8);cursor:not-allowed}
 .tr-card h3{margin-bottom:4px}
+
+/* màn hình rút bài */
+html.dk-on,html.dk-on body{overflow:hidden}
+.dk{position:fixed;inset:0;z-index:8000;display:flex;flex-direction:column;align-items:center;padding:calc(10px + env(safe-area-inset-top)) 10px calc(10px + env(safe-area-inset-bottom));
+ background:radial-gradient(900px 500px at 80% -10%,#1c2a5c 0%,transparent 60%),linear-gradient(180deg,#0a1028,#060a1a 60%,#0b0820);color:var(--ink);opacity:0;transition:opacity .25s;overflow:hidden}
+.dk.show{opacity:1}
+.dk[hidden]{display:none}
+.dk-head{width:100%;max-width:1100px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.dk-head .eyebrow{margin:0 0 2px}
+.dk-count{font-family:var(--f-display);font-size:1.25rem;color:var(--gold)}
+.dk-q{font-size:.85rem;color:var(--muted);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:70vw}
+.dk-x{flex:0 0 40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--ink);font-size:1.1rem;cursor:pointer}
+.dk-tray{display:flex;gap:8px;justify-content:center;margin:10px 0 6px;width:100%}
+.dk-slot{width:min(62px,17vw);display:flex;flex-direction:column;align-items:center;gap:4px;font-size:.66rem;line-height:1.2;text-align:center;color:var(--muted)}
+.dk-slot b{color:var(--ink);font-weight:600}
+.dk-sc{width:100%;aspect-ratio:.6;border:1px dashed var(--line);border-radius:6px}
+.dk-slot.on .dk-sc{border:none}
+.dk-sc .tcard{display:block;width:100%;height:100%}
+.dk-sc .back{margin:0;width:100%;height:100%;position:absolute}
+.dk-sc .in{display:block}.dk-sc .f,.dk-sc .b{display:block}
+.dk-grid{display:grid;justify-content:center;align-content:center;flex:1;margin-top:6px}
+.dk-c{width:var(--cw);height:var(--ch);padding:0;border:0;background:none;cursor:pointer;perspective:600px;opacity:0;transform:translateY(-12px) scale(.9);transition:opacity .3s var(--d),transform .3s var(--d)}
+.dk.show .dk-c{opacity:1;transform:none}
+.dk-c .in{position:relative;display:block;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+.dk-c.flip .in{transform:rotateY(180deg)}
+.dk-c .b,.dk-c .f{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:3px}
+.dk-c .b{border:1px solid var(--back2);background:radial-gradient(circle at 50% 50%,var(--back2) 0 2px,transparent 3px),repeating-linear-gradient(45deg,transparent 0 4px,color-mix(in srgb,var(--back2) 40%,transparent) 4px 5px),repeating-linear-gradient(-45deg,transparent 0 4px,color-mix(in srgb,var(--back2) 40%,transparent) 4px 5px),var(--back1);box-shadow:0 1px 3px rgba(0,0,0,.5)}
+.dk-c .f{transform:rotateY(180deg);background:var(--surface);border:1px solid var(--gold);overflow:hidden}
+.dk-c .f svg{width:100%;height:100%;display:block}
+.dk-c.rev .f svg{transform:rotate(180deg)}
+.dk-c:not(.picked):hover .b,.dk-c:focus-visible .b{box-shadow:0 0 0 2px var(--gold)}
+.dk-c.picked{cursor:default;z-index:1}
+.dk-c.picked .f{box-shadow:0 0 10px var(--gold)}
+.dk.done .dk-c:not(.picked){opacity:.25}
+@media (prefers-reduced-motion:reduce){.dk,.dk-c,.dk-c .in{transition:none}}
 </style>
 <div class="gate" id="gate" role="dialog" aria-modal="true" aria-label="Mở đầu">
  <div id="gIntro"><div class="brandmark" aria-label="PHITANG"><span style="animation-delay:0.00s">P</span><span style="animation-delay:0.12s">H</span><span style="animation-delay:0.24s">I</span><span style="animation-delay:0.36s">T</span><span style="animation-delay:0.48s">A</span><span style="animation-delay:0.60s">N</span><span style="animation-delay:0.72s">G</span></div><div class="brandline"></div><div class="brandsub">Huyền Cơ · Tử Vi · Chiêm Tinh</div></div>
@@ -732,7 +766,6 @@ nav.tabs a[aria-current="page"],body[data-page] nav.tabs a[aria-current="page"]{
   <button class="btn" type="submit">Xáo bài</button>
  </form>
  <p class="note" id="trHint">Tập trung vào câu hỏi, rồi chạm vào các lá bài úp bên dưới để rút.</p>
- <div class="fan" id="trFan" aria-label="Bộ bài úp"></div>
  <div class="spread" id="trSpreadOut"></div>
  <div id="trReading"></div>
 </section>
@@ -1646,16 +1679,6 @@ function cardSVG(c){let body='';
  else{body=suitIcon(c.suit,60,92,2.3)+`<text x="60" y="30" text-anchor="middle" class="tc-txt" font-size="13">${['TIỂU ĐỒNG','HIỆP SĨ','HOÀNG HẬU','VUA'][c.rank-10]}</text>`+(c.rank===13||c.rank===12?`<path class="tc-gold" d="M46,58l3,-9l5,6l6,-9l6,9l5,-6l3,9z"/>`:'');}
  return `<svg viewBox="0 0 120 200" role="img" aria-label="${esc(c.name)}"><rect x="5" y="5" width="110" height="190" rx="6" class="tc-frame"/><rect x="10" y="10" width="100" height="180" rx="3" class="tc-frame" style="stroke-width:.6"/>${body}<text x="60" y="172" text-anchor="middle" class="tc-txt" font-size="${c.name.length>14?10:12}">${esc(c.name.toUpperCase())}</text>${c.en?`<text x="60" y="184" text-anchor="middle" class="tc-sub">${esc(c.en.toUpperCase())}</text>`:`<text x="60" y="184" text-anchor="middle" class="tc-sub">${esc(c.el.toUpperCase())}</text>`}</svg>`;}
 function shuffle(){const a=DECK.map((_,i)=>i);for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function resetTarot(){TR.need=+$('#trSpread').value||0;TR.topic=$('#trTopic').value;TR.q=$('#trQ').value.trim();TR.order=shuffle();TR.picked=[];TR.ready=!!(TR.need&&TR.topic);$('#trFan').classList.toggle('locked',!TR.ready);
- $('#trFan').innerHTML=TR.order.map((d,i)=>`<button type="button" class="back" data-i="${i}" aria-label="Lá bài úp ${i+1}"></button>`).join('');
- $('#trHint').textContent=TR.ready?`Tập trung vào câu hỏi, rồi chạm để rút ${TR.need} lá.`:'Hãy chọn chủ đề và cách trải bài phù hợp với câu hỏi, rồi chạm vào bộ bài để rút.';
- const pos=SPREADS[TR.need]||[];$('#trSpreadOut').innerHTML=pos.map((p,i)=>`<div class="slot" data-slot="${i}"><div class="pos">${p}</div><div class="tcard" style="visibility:hidden"></div></div>`).join('');$('#trReading').innerHTML='';}
-function pick(i){if(!TR.ready){trWarn();return;}if(TR.picked.length>=TR.need)return;const el=$(`.back[data-i="${i}"]`);if(!el||el.classList.contains('picked'))return;el.classList.add('picked');
- const card=DECK[TR.order[i]],rev=Math.random()<0.3,k=TR.picked.length;TR.picked.push({card,rev});
- const slot=$(`.slot[data-slot="${k}"]`);slot.innerHTML=`<div class="pos">${SPREADS[TR.need][k]}</div><button type="button" class="tcard${rev?' rev':''}"><div class="in"><div class="b back" style="margin:0;width:100%;height:100%;position:absolute"></div><div class="f">${cardSVG(card)}</div></div></button><div class="nm">${card.name}<small>${rev?'Ngược':'Xuôi'}${card.en?' · '+card.en:''}</small></div>`;
- setTimeout(()=>slot.querySelector('.tcard').classList.add('flip'),40);
- const left=TR.need-TR.picked.length;$('#trHint').textContent=left?`Còn ${left} lá nữa.`:'Đã rút đủ. Bấm "Xáo bài" để trải lại.';
- if(!left)setTimeout(reading,750);}
 // ===== Diễn giải chi tiết Tarot (phần 1: 22 lá Ẩn chính) =====
 // kw: từ khóa; say: lá bài nói gì (xuôi); rev: khi ngược; love/work/money: theo chủ đề; adv/advR: lời khuyên cụ thể (xuôi/ngược); t: khuynh hướng (1 thuận, 0 trung tính, -1 thử thách)
 const TAROT_MAJ=[
@@ -1821,9 +1844,46 @@ function trWarn(){const m=trMissing();const msg=$('#trMsg');
  ['#trTopic','#trSpread'].forEach(s=>{const bad=m.includes(s);$(s).classList.toggle('invalid',bad);bad?$(s).setAttribute('aria-invalid','true'):$(s).removeAttribute('aria-invalid');});
  msg.textContent=m.length===2?'Bạn muốn hỏi về chủ đề gì? Xin chọn chủ đề và cách trải bài phù hợp với câu hỏi của bạn trước khi rút bài.':m[0]==='#trTopic'?'Bạn muốn hỏi về chủ đề gì? Xin chọn chủ đề phù hợp với câu hỏi của bạn.':'Bạn muốn rút mấy lá? Xin chọn cách trải bài trước khi rút bài.';
  msg.hidden=false;$(m[0]).focus();$(m[0]).scrollIntoView({block:'center'});}
-function initTarot(){resetTarot();$('#trForm').addEventListener('submit',e=>{e.preventDefault();if(trMissing().length){trWarn();return;}resetTarot();});
- ['#trSpread','#trTopic'].forEach(s=>$(s).addEventListener('change',()=>{const m=trMissing();$(s).classList.remove('invalid');$(s).removeAttribute('aria-invalid');if(!m.length)$('#trMsg').hidden=true;else if(!$('#trMsg').hidden)$('#trMsg').textContent=m[0]==='#trTopic'?'Bạn muốn hỏi về chủ đề gì? Xin chọn chủ đề phù hợp với câu hỏi của bạn.':'Bạn muốn rút mấy lá? Xin chọn cách trải bài trước khi rút bài.';resetTarot();}));
- $('#trFan').addEventListener('click',e=>{const b=e.target.closest('.back');if(b)pick(+b.dataset.i);});}
+// ===== Màn hình rút bài toàn màn hình =====
+const TRD={el:null,open:false,pushed:false,timer:null};
+function resetTarot(){TR.need=+$('#trSpread').value||0;TR.topic=$('#trTopic').value;TR.q=$('#trQ').value.trim();TR.picked=[];
+ $('#trHint').textContent=TR.need&&TR.topic?`Tập trung vào câu hỏi rồi bấm "Xáo bài". Bộ bài 78 lá sẽ mở ra để bạn rút ${TR.need} lá.`:'Chọn chủ đề và cách trải bài phù hợp với câu hỏi, rồi bấm "Xáo bài" để mở bộ bài.';
+ $('#trSpreadOut').innerHTML='';$('#trReading').innerHTML='';}
+function deckLayout(){const d=TRD.el;if(!d)return;const grid=d.querySelector('.dk-grid'),head=d.querySelector('.dk-head'),tray=d.querySelector('.dk-tray');
+ const cs=getComputedStyle(d),padX=parseFloat(cs.paddingLeft)+parseFloat(cs.paddingRight),padY=parseFloat(cs.paddingTop)+parseFloat(cs.paddingBottom);
+ const W=d.clientWidth-padX,H=d.clientHeight-padY-head.offsetHeight-tray.offsetHeight-16,gap=W<500?4:6,R=0.6;let best=[0,13];
+ for(let c=6;c<=26;c++){const r=Math.ceil(78/c),cw=Math.min((W-gap*(c-1))/c,((H-gap*(r-1))/r)*R);if(cw>best[0])best=[cw,c];}
+ const cw=Math.floor(best[0]);grid.style.gridTemplateColumns=`repeat(${best[1]},${cw}px)`;grid.style.gap=gap+'px';grid.style.setProperty('--cw',cw+'px');grid.style.setProperty('--ch',Math.floor(cw/R)+'px');}
+function openDeck(){TR.order=shuffle();TR.picked=[];const pos=SPREADS[TR.need];
+ let d=TRD.el;if(!d){d=document.createElement('div');d.className='dk';d.id='trDeck';d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');d.setAttribute('aria-label','Rút bài Tarot');document.body.appendChild(d);TRD.el=d;
+  d.addEventListener('click',e=>{const b=e.target.closest('.dk-c');if(b){deckPick(+b.dataset.i);return;}if(e.target.closest('.dk-x'))closeDeck(false);});addEventListener('resize',deckLayout);}
+ d.innerHTML=`<div class="dk-head"><div><div class="eyebrow">${TR_TOPIC_NAME[TR.topic]} · Trải ${TR.need} lá</div><b class="dk-count">Chạm để rút ${TR.need} lá</b>${TR.q?`<div class="dk-q">${esc(TR.q)}</div>`:''}</div><button type="button" class="dk-x" aria-label="Đóng và hủy lượt rút">✕</button></div>
+ <div class="dk-tray">${pos.map((p,k)=>`<div class="dk-slot" data-k="${k}"><div class="dk-sc"></div><span>${p}</span></div>`).join('')}</div>
+ <div class="dk-grid">${TR.order.map((_,i)=>`<button type="button" class="dk-c" data-i="${i}" aria-label="Lá bài úp số ${i+1}" style="--d:${(i%13)*18+Math.floor(i/13)*30}ms"><span class="in"><span class="b"></span><span class="f"></span></span></button>`).join('')}</div>`;
+ d.hidden=false;TRD.open=true;document.documentElement.classList.add('dk-on');deckLayout();requestAnimationFrame(()=>d.classList.add('show'));
+ try{history.pushState({trDeck:1},'',location.href);TRD.pushed=true;}catch(e){TRD.pushed=false;}
+ setTimeout(()=>{const f=d.querySelector('.dk-c');f&&f.focus({preventScroll:true});},300);}
+function deckPick(i){if(TR.picked.length>=TR.need)return;const el=TRD.el.querySelector(`.dk-c[data-i="${i}"]`);if(!el||el.classList.contains('picked'))return;
+ const card=DECK[TR.order[i]],rev=Math.random()<0.3,k=TR.picked.length;TR.picked.push({card,rev});
+ el.classList.add('picked');if(rev)el.classList.add('rev');el.querySelector('.f').innerHTML=cardSVG(card);el.setAttribute('aria-label',`${card.name}${rev?' (ngược)':''}`);
+ requestAnimationFrame(()=>el.classList.add('flip'));
+ const sl=TRD.el.querySelector(`.dk-slot[data-k="${k}"]`);sl.classList.add('on');sl.querySelector('.dk-sc').innerHTML=`<span class="tcard${rev?' rev':''}"><span class="in"><span class="b back"></span><span class="f">${cardSVG(card)}</span></span></span>`;
+ sl.querySelector(':scope > span').innerHTML=`<b>${card.name}</b>${rev?' (ngược)':''}<br>${SPREADS[TR.need][k]}`;setTimeout(()=>sl.querySelector('.tcard').classList.add('flip'),60);
+ const left=TR.need-TR.picked.length;TRD.el.querySelector('.dk-count').textContent=left?`Đã rút ${k+1}/${TR.need} · còn ${left} lá`:'Đã rút đủ. Đang mở phần giải bài…';
+ if(!left){TRD.el.classList.add('done');TRD.timer=setTimeout(()=>closeDeck(true),1600);}}
+function closeDeck(done){if(!TRD.open)return;TRD.open=false;clearTimeout(TRD.timer);const d=TRD.el;d.classList.remove('show','done');document.documentElement.classList.remove('dk-on');
+ setTimeout(()=>{d.hidden=true;d.innerHTML='';},250);
+ if(TRD.pushed){TRD.pushed=false;TRD.skipPop=true;history.back();}
+ if(done)showSpread();else{TR.picked=[];$('#trHint').textContent='Bạn đã đóng bộ bài. Bấm "Xáo bài" để rút lại.';}}
+addEventListener('popstate',()=>{if(TRD.skipPop){TRD.skipPop=false;return;}if(TRD.open){TRD.pushed=false;closeDeck(TR.picked.length>=TR.need&&TR.need>0);}});
+function showSpread(){const pos=SPREADS[TR.need];
+ $('#trSpreadOut').innerHTML=TR.picked.map(({card,rev},k)=>`<div class="slot"><div class="pos">${pos[k]}</div><button type="button" class="tcard${rev?' rev':''}" aria-label="${card.name}"><div class="in"><div class="b back" style="margin:0;width:100%;height:100%;position:absolute"></div><div class="f">${cardSVG(card)}</div></div></button><div class="nm">${card.name}<small>${rev?'Ngược':'Xuôi'}${card.en?' · '+card.en:''}</small></div></div>`).join('');
+ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ [...document.querySelectorAll('#trSpreadOut .tcard')].forEach((c,k)=>setTimeout(()=>c.classList.add('flip'),reduce?0:120+k*160));
+ $('#trHint').textContent='Đã rút đủ. Bấm "Xáo bài" để rút lại với câu hỏi khác.';reading();
+ setTimeout(()=>$('#trSpreadOut').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'}),60);}
+function initTarot(){resetTarot();$('#trForm').addEventListener('submit',e=>{e.preventDefault();if(trMissing().length){trWarn();return;}resetTarot();openDeck();});
+ ['#trSpread','#trTopic'].forEach(s=>$(s).addEventListener('change',()=>{const m=trMissing();$(s).classList.remove('invalid');$(s).removeAttribute('aria-invalid');if(!m.length)$('#trMsg').hidden=true;else if(!$('#trMsg').hidden)$('#trMsg').textContent=m[0]==='#trTopic'?'Bạn muốn hỏi về chủ đề gì? Xin chọn chủ đề phù hợp với câu hỏi của bạn.':'Bạn muốn rút mấy lá? Xin chọn cách trải bài trước khi rút bài.';resetTarot();}));}
 
 
 // ===== Trời sao cho Tarot =====
