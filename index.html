@@ -582,6 +582,11 @@ nav.tabs a[aria-current="page"],body[data-page] nav.tabs a[aria-current="page"]{
 .cd-hoa ul{margin:6px 0 0}.cd-hoa li{margin:.35em 0}
 .cd-note{margin:6px 0 0;font-size:.92rem}
 .tsh-box.dim{opacity:.6}
+
+/* Lục Hào: nhắc chọn chủ đề */
+.lh-catmsg[hidden]{display:none}
+.lh-catmsg{display:block;margin-top:6px;padding:8px 10px;border-radius:8px;border:1px solid var(--bad);background:var(--bg);color:var(--bad);font-size:.9rem;font-weight:600;text-transform:none;letter-spacing:0}
+#lhCat.invalid{border-color:var(--bad);box-shadow:0 0 0 3px color-mix(in srgb,var(--bad) 25%,transparent)}
 </style>
 <div class="gate" id="gate" role="dialog" aria-modal="true" aria-label="Mở đầu">
  <div id="gIntro"><div class="brandmark" aria-label="PHITANG"><span style="animation-delay:0.00s">P</span><span style="animation-delay:0.12s">H</span><span style="animation-delay:0.24s">I</span><span style="animation-delay:0.36s">T</span><span style="animation-delay:0.48s">A</span><span style="animation-delay:0.60s">N</span><span style="animation-delay:0.72s">G</span></div><div class="brandline"></div><div class="brandsub">Huyền Cơ · Tử Vi · Chiêm Tinh</div></div>
@@ -662,7 +667,7 @@ nav.tabs a[aria-current="page"],body[data-page] nav.tabs a[aria-current="page"]{
  <nav class="ct-sub" aria-label="Tử Vi"><a href="#tu-vi" class="ct-back">Tử Vi</a><span aria-hidden="true">›</span><a href="#tu-vi-dau-so">Tử Vi Đẩu Số</a><a href="#luc-hao" aria-current="page">Lục Hào</a><a href="#lich-van-nien">Lịch Vạn Niên</a></nav>
  <div class="pt-head"><div class="eyebrow">Bốc dịch · Gieo quẻ</div><h2>Lục Hào</h2><p class="muted">Tĩnh tâm, nghĩ rõ về một việc cụ thể rồi bấm Gieo quẻ. Quẻ được lập từ năm, tháng, ngày, giờ âm lịch lúc bạn gieo theo phép Mai Hoa Dịch Số, rồi luận cát hung theo Lục Hào nạp giáp.</p></div>
  <form class="panel form" id="lhForm" autocomplete="off">
-  <label class="wide">Bạn muốn hỏi về<select id="lhCat"></select></label>
+  <label class="wide">Bạn muốn hỏi về<select id="lhCat" aria-describedby="lhCatMsg"></select><span class="lh-catmsg" id="lhCatMsg" role="alert" hidden>Bạn muốn hỏi về vấn đề gì? Xin chọn chủ đề phù hợp với câu hỏi của bạn.</span></label>
   <label class="wide"><span>Câu hỏi cụ thể <span class="opt">(không bắt buộc)</span></span><input id="lhQ" placeholder="VD: Chiếc ví để quên hôm qua có tìm lại được không?"></label>
   <div><label style="margin-bottom:5px">Người hỏi</label><div class="seg"><input type="radio" name="lhG" id="lhG1" value="nam" checked><label for="lhG1">Nam</label><input type="radio" name="lhG" id="lhG2" value="nu"><label for="lhG2">Nữ</label></div></div>
   <div><label style="margin-bottom:5px">Thời điểm gieo</label><div class="seg"><input type="radio" name="lhT" id="lhT1" value="now" checked><label for="lhT1">Bây giờ</label><input type="radio" name="lhT" id="lhT2" value="pick"><label for="lhT2">Chọn giờ</label></div></div>
@@ -2166,7 +2171,7 @@ function lhHexSVG(H,mv,isB){let s=`<svg viewBox="0 0 120 132" class="lh-hex" rol
  return s+'</svg>';}
 function lhRender(){const R=LH.res,T=LH.T,H=R.H,B=R.B;const cat=LH_CAT.find(c=>c[0]===LH.cat)[1];
  const tri=(i)=>`${LH_TRI_IMG[i]} ${LH_TRI[i]}`;
- let h=(LH.sample?`<p class="note"><span class="sample">Quẻ của giờ hiện tại</span> Chọn vấn đề bạn muốn hỏi rồi bấm "Gieo quẻ".</p>`:'');
+ let h=(LH.sample?`<p class="note"><span class="sample">Quẻ của giờ hiện tại</span> Chọn chủ đề phù hợp với câu hỏi rồi bấm "Gieo quẻ".</p>`:'');
  h+=`<div class="card lh-top"><div class="lh-time"><span><b>Thời điểm</b> ${String(T.dt.getHours()).padStart(2,'0')}:${String(T.dt.getMinutes()).padStart(2,'0')} · ${T.dt.getDate()}/${T.dt.getMonth()+1}/${T.dt.getFullYear()}</span><span><b>Âm lịch</b> giờ ${CHI[T.hourChi]}, ngày ${T.L.d}/${T.L.m} năm ${CAN[T.yc.can]} ${CHI[T.yc.chi]}</span>
  <span><b>Nhật thần</b> ${CAN[T.dayCan]} ${CHI[T.dayChi]}</span><span><b>Nguyệt kiến</b> ${CHI[T.monthChi]}</span><span><b>Tuần không</b> ${T.empty.map(z=>CHI[z]).join(', ')}</span></div>
  <div class="lh-hexes"><figure><figcaption class="eyebrow">Quẻ chủ</figcaption>${lhHexSVG(H,R.mv,false)}<h3>${H.name}</h3><p class="muted">Cung ${LH_TRI[H.palace]} (${H.pEl}) · ${tri(H.up)} trên ${tri(H.lo)}</p></figure>
@@ -2202,17 +2207,18 @@ function lhRender(){const R=LH.res,T=LH.T,H=R.H,B=R.B;const cat=LH_CAT.find(c=>c
  <p class="muted" style="margin-top:6px">${good?'Quẻ tốt vẫn cần hành động đúng lúc và chăm chỉ thì kết quả mới đến.':'Quẻ chưa tốt là lời nhắc nên thận trọng và chuẩn bị kỹ, không phải định mệnh không thể thay đổi. Hành động đúng thời, đúng cách thì việc vẫn có thể chuyển biến.'} Theo lệ "nhất sự nhất chiêm", mỗi việc chỉ nên gieo một lần.</p></div>`;
  document.getElementById('lhOut').innerHTML=h;}
 function lhRun(animate){const useNow=document.getElementById('lhT1').checked;let dt=new Date();if(!useNow){const v=document.getElementById('lhDT').value;if(v)dt=new Date(v);}
- LH.cat=document.getElementById('lhCat').value;LH.q=document.getElementById('lhQ').value.trim();const male=document.getElementById('lhG1').checked;
+ LH.cat=document.getElementById('lhCat').value||LH_CAT[0][0];LH.q=document.getElementById('lhQ').value.trim();const male=document.getElementById('lhG1').checked;
  const T=lhNow(dt),cast=lhCast(T);LH.T=T;LH.cast=cast;LH.res=lhAnalyze(T,cast,LH.cat,male);
  if(!animate||matchMedia('(prefers-reduced-motion: reduce)').matches){lhRender();return;}
  const out=document.getElementById('lhOut');const H=LH.res.H;let k=0;out.innerHTML=`<div class="card lh-cast"><div class="eyebrow">Đang lập quẻ…</div><div class="lh-build">${lhHexSVG(H,cast.mv,false)}</div></div>`;
  const bars=[...out.querySelectorAll('.lh-build rect,.lh-build circle,.lh-build path')];bars.forEach(b=>b.style.opacity=0);
  const rows=[0,1,2,3,4,5].map(i=>bars.filter(b=>b.dataset.r==String(i)));
  const step=()=>{if(k<6){rows[k].forEach(b=>{b.style.transition='opacity .3s';b.style.opacity=1;});k++;setTimeout(step,260);}else setTimeout(()=>{lhRender();out.scrollIntoView({behavior:'smooth',block:'start'});},450);};step();}
-function initLH(){const sel=document.getElementById('lhCat');sel.innerHTML=LH_CAT.map(([k,n])=>`<option value="${k}">${n}</option>`).join('');
+function initLH(){const sel=document.getElementById('lhCat');sel.innerHTML=`<option value="" selected>— Chọn chủ đề cho câu hỏi —</option>`+LH_CAT.map(([k,n])=>`<option value="${k}">${n}</option>`).join('');
+ const msg=document.getElementById('lhCatMsg');sel.addEventListener('change',()=>{if(sel.value){msg.hidden=true;sel.classList.remove('invalid');sel.removeAttribute('aria-invalid');}});
  const now=new Date();const pad=n=>String(n).padStart(2,'0');document.getElementById('lhDT').value=`${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
  document.querySelectorAll('input[name=lhT]').forEach(r=>r.addEventListener('change',()=>{document.getElementById('lhDTw').hidden=document.getElementById('lhT1').checked;}));
- document.getElementById('lhForm').addEventListener('submit',e=>{e.preventDefault();LH.sample=false;lhRun(true);});
+ document.getElementById('lhForm').addEventListener('submit',e=>{e.preventDefault();if(!sel.value){msg.hidden=false;sel.classList.add('invalid');sel.setAttribute('aria-invalid','true');sel.focus();sel.scrollIntoView({block:'center'});return;}LH.sample=false;lhRun(true);});
  lhRun(false);}
 
 // ===== LỊCH VẠN NIÊN =====
